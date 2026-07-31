@@ -854,7 +854,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .tl-item h3{font-size:clamp(20px,2vw,26px);margin:6px 0 8px}
 .tl-item p{color:var(--ink-soft);max-width:60ch}
 
-.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,320px));gap:20px;justify-content:center}
 .team-card{
   background:var(--paper);border:1px solid var(--line);padding:34px 26px;text-align:center;
   transition:transform .45s var(--ease-out),box-shadow .45s var(--ease-out);

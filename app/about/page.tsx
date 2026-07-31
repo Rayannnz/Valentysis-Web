@@ -88,14 +88,8 @@ const milestones = [
 ];
 
 const team = [
-  { name: "Rayan Malik", role: "Founder & CEO" },
-  { name: "Sara Ahmed", role: "Chief Technology Officer" },
-  { name: "Daniel Chen", role: "VP of Engineering" },
-  { name: "Zara Iqbal", role: "Head of Design" },
-  { name: "Omar Farooq", role: "Head of Delivery" },
-  { name: "Emma Novak", role: "People & Culture" },
-  { name: "Bilal Hussain", role: "Principal Engineer" },
-  { name: "Lena Fischer", role: "Head of Quality" },
+  { name: "Fareed Tanveer", role: "Chief Executive Officer" },
+  { name: "Hasnat Khan", role: "Chief Operating Officer" },
 ];
 
 const initials = (name: string) =>
