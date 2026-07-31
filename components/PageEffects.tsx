@@ -1,0 +1,164 @@
+"use client";
+
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+
+export default function PageEffects() {
+  const [showTop, setShowTop] = useState(false);
+  const progressRef = useRef<HTMLDivElement>(null);
+  const reduceMotionRef = useRef(false);
+
+  useEffect(() => {
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    reduceMotionRef.current = reduceMotion;
+    const cleanups: (() => void)[] = [];
+
+    /* ---------- Loader + hero heading lines ---------- */
+    const markLoaded = () => document.body.classList.add("loaded");
+    const revealHeroLines = () => {
+      setTimeout(() => {
+        document.querySelectorAll("[data-hero-lines] .line-mask").forEach((m, i) => {
+          const line = m.querySelector<HTMLElement>(".line");
+          if (line) line.style.transitionDelay = `${0.15 + i * 0.11}s`;
+          m.classList.add("in-view");
+        });
+      }, reduceMotion ? 0 : 500);
+    };
+    const onLoad = () => {
+      setTimeout(markLoaded, reduceMotion ? 0 : 350);
+      revealHeroLines();
+    };
+    if (document.readyState === "complete") {
+      onLoad();
+    } else {
+      window.addEventListener("load", onLoad);
+      cleanups.push(() => window.removeEventListener("load", onLoad));
+    }
+    /* fallbacks if load never settles quickly */
+    const tLoad = setTimeout(markLoaded, 2500);
+    const tLines = setTimeout(() => {
+      document.querySelectorAll("[data-hero-lines] .line-mask").forEach((m) => m.classList.add("in-view"));
+    }, 2600);
+    cleanups.push(() => {
+      clearTimeout(tLoad);
+      clearTimeout(tLines);
+    });
+
+    /* ---------- Scroll progress + back-to-top ---------- */
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const h = document.documentElement;
+        const max = h.scrollHeight - h.clientHeight;
+        if (progressRef.current) {
+          progressRef.current.style.transform = `scaleX(${max > 0 ? h.scrollTop / max : 0})`;
+        }
+        setShowTop(window.scrollY > 900);
+        ticking = false;
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    cleanups.push(() => window.removeEventListener("scroll", onScroll));
+
+    /* ---------- Reveal on scroll ---------- */
+    const revealEls = document.querySelectorAll("[data-reveal]");
+    if ("IntersectionObserver" in window) {
+      const siblingCounts = new Map<Element, number>();
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (!e.isIntersecting) return;
+            const el = e.target as HTMLElement;
+            const parent = el.parentElement ?? document.body;
+            const count = siblingCounts.get(parent) ?? 0;
+            siblingCounts.set(parent, count + 1);
+            el.style.transitionDelay = `${Math.min(count * 90, 450)}ms`;
+            el.classList.add("in-view");
+            io.unobserve(el);
+            setTimeout(() => siblingCounts.set(parent, 0), 400);
+          });
+        },
+        { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+      );
+      revealEls.forEach((el) => io.observe(el));
+      cleanups.push(() => io.disconnect());
+    } else {
+      revealEls.forEach((el) => el.classList.add("in-view"));
+    }
+
+    /* ---------- Hero parallax chips ---------- */
+    if (finePointer && !reduceMotion) {
+      const hero = document.getElementById("hero");
+      const chips = document.querySelectorAll<HTMLElement>("[data-parallax]");
+      const onMove = (ev: MouseEvent) => {
+        const cx = ev.clientX / window.innerWidth - 0.5;
+        const cy = ev.clientY / window.innerHeight - 0.5;
+        chips.forEach((ch) => {
+          const depth = parseFloat(ch.dataset.parallax ?? "0");
+          ch.style.translate = `${cx * depth}px ${cy * depth}px`;
+        });
+      };
+      hero?.addEventListener("mousemove", onMove);
+      cleanups.push(() => hero?.removeEventListener("mousemove", onMove));
+    }
+
+    /* ---------- Magnetic buttons ---------- */
+    if (finePointer && !reduceMotion) {
+      document.querySelectorAll<HTMLElement>("[data-magnetic]").forEach((btn) => {
+        const onMove = (ev: MouseEvent) => {
+          const r = btn.getBoundingClientRect();
+          const x = (ev.clientX - r.left - r.width / 2) * 0.25;
+          const y = (ev.clientY - r.top - r.height / 2) * 0.35;
+          btn.style.transform = `translate(${x}px,${y}px)`;
+        };
+        const onLeave = () => {
+          btn.style.transition = "transform .5s cubic-bezier(.16,1,.3,1)";
+          btn.style.transform = "";
+          setTimeout(() => {
+            btn.style.transition = "";
+          }, 500);
+        };
+        btn.addEventListener("mousemove", onMove);
+        btn.addEventListener("mouseleave", onLeave);
+        cleanups.push(() => {
+          btn.removeEventListener("mousemove", onMove);
+          btn.removeEventListener("mouseleave", onLeave);
+        });
+      });
+    }
+
+    return () => cleanups.forEach((fn) => fn());
+  }, []);
+
+  return (
+    <>
+      <div id="loader" aria-hidden="true">
+        <div className="loader-mark">
+          <span>
+            <Image src="/logo/logo-mark.png" alt="Valentisys" width={256} height={256} priority />
+          </span>
+        </div>
+      </div>
+
+      <div id="progress" ref={progressRef} aria-hidden="true" />
+      <div id="nav-veil" aria-hidden="true" />
+
+      <button
+        id="toTop"
+        className={showTop ? "show" : ""}
+        aria-label="Back to top"
+        onClick={() =>
+          window.scrollTo({ top: 0, behavior: reduceMotionRef.current ? "auto" : "smooth" })
+        }
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
+          <path d="M12 19V5M5 12l7-7 7 7" />
+        </svg>
+      </button>
+    </>
+  );
+}

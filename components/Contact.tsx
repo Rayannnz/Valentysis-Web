@@ -1,0 +1,80 @@
+"use client";
+
+import { FormEvent, useState } from "react";
+
+export default function Contact() {
+  const [sent, setSent] = useState(false);
+
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const fields = form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>("input, textarea");
+    for (const field of fields) {
+      if (!field.value.trim()) {
+        field.focus();
+        return;
+      }
+    }
+    setSent(true);
+    form.reset();
+  };
+
+  return (
+    <section id="contact" className="section">
+      <div className="container">
+        <div className="contact-layout">
+          <div className="contact-info">
+            <p className="sec-eyebrow" data-reveal>Contact us</p>
+            <h2 data-reveal>Let&apos;s build something that matters.</h2>
+            <p data-reveal>
+              Share a few details and a senior engineer — not a sales rep — will get back to you
+              within one business day.
+            </p>
+            <div className="contact-rows" data-reveal>
+              <a href="mailto:hello@valentisys.dev">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <rect x="2" y="4" width="20" height="16" rx="2" />
+                  <path d="m2 7 10 6L22 7" />
+                </svg>
+                hello@valentisys.dev
+              </a>
+              <a href="tel:+10000000000">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.8.7a2 2 0 0 1 1.8 2.1z" />
+                </svg>
+                +1 (000) 000-0000
+              </a>
+            </div>
+          </div>
+
+          <form className={`form${sent ? " sent" : ""}`} onSubmit={onSubmit} noValidate data-reveal>
+            <div className="field">
+              <label htmlFor="f-name">Your name</label>
+              <input id="f-name" name="name" type="text" autoComplete="name" required />
+              <span className="bar" />
+            </div>
+            <div className="field">
+              <label htmlFor="f-email">Work email</label>
+              <input id="f-email" name="email" type="email" autoComplete="email" required />
+              <span className="bar" />
+            </div>
+            <div className="field">
+              <label htmlFor="f-msg">Tell us about your project</label>
+              <textarea id="f-msg" name="message" rows={4} required />
+              <span className="bar" />
+            </div>
+            <button className="btn btn-primary" type="submit" data-magnetic>
+              Send message
+              <svg className="arr" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
+                <path d="M7 17L17 7M9 7h8v8" />
+              </svg>
+            </button>
+            <p className="form-success" role="status">
+              Thanks — your message is in. We&apos;ll reply within one business day.
+            </p>
+          </form>
+        </div>
+      </div>
+    </section>
+  );
+}
