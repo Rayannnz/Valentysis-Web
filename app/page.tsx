@@ -1,5 +1,4 @@
 import Approach from "@/components/Approach";
-import Clients from "@/components/Clients";
 import Contact from "@/components/Contact";
 import Cta from "@/components/Cta";
 import Footer from "@/components/Footer";
@@ -11,7 +10,6 @@ import Process from "@/components/Process";
 import Services from "@/components/Services";
 import Stack from "@/components/Stack";
 import Stats from "@/components/Stats";
-import Testimonial from "@/components/Testimonial";
 
 export default function Home() {
   return (
@@ -20,14 +18,12 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
-        <Clients />
         <Services />
         <Industries />
         <Stats />
         <Approach />
         <Process />
         <Stack />
-        <Testimonial />
         <Cta />
         <Contact />
       </main>

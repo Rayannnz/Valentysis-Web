@@ -8,12 +8,12 @@ export default function Cta() {
       </div>
       <div className="container cta-inner">
         <h2 data-reveal>
-          <span className="line-mask"><span className="line">Looking for a software</span></span>
-          <span className="line-mask"><span className="line">development partner?</span></span>
+          <span className="line-mask"><span className="line">Looking for a services</span></span>
+          <span className="line-mask"><span className="line">partner you can trust?</span></span>
         </h2>
         <p data-reveal>
-          Tell us where you&apos;re headed. We&apos;ll scope it, price it, and staff it — in days,
-          not months.
+          Tell us what you need — web, support, outsourcing, or social. We&apos;ll scope it, price
+          it, and staff it — in days, not months.
         </p>
         <a className="btn btn-magenta" href="/#contact" data-magnetic data-reveal>
           Get my free estimate

@@ -5,11 +5,10 @@ const columns = [
   {
     heading: "Services",
     links: [
-      { label: "Consulting", href: "/#services" },
-      { label: "Custom development", href: "/#services" },
-      { label: "Modernization", href: "/#services" },
-      { label: "Dedicated teams", href: "/#services" },
-      { label: "QA & automation", href: "/#services" },
+      { label: "Web Development", href: "/services/web-development" },
+      { label: "Customer Support", href: "/services/customer-support" },
+      { label: "Outsourcing", href: "/services/outsourcing" },
+      { label: "Social Media Marketing", href: "/services/social-media-marketing" },
     ],
   },
   {
@@ -44,7 +43,7 @@ export default function Footer() {
               <Image src="/logo/logo-mark.png" alt="" width={256} height={256} style={{ height: 44, width: "auto" }} />
               Valentisys
             </Link>
-            <p>A software development company engineering products that outlast trends.</p>
+            <p>Business & digital services — web, support, outsourcing, and social — built to outlast trends.</p>
             <div className="socials">
               <a href="#" aria-label="LinkedIn">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">

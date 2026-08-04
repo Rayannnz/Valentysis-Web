@@ -2,12 +2,13 @@
 
 import { useState } from "react";
 
+/* What we actually build with day to day — not a list of everything that exists. */
 const categories = [
-  { id: "frontend", label: "Frontend", items: ["React", "Next.js", "TypeScript", "Vue / Nuxt", "Angular", "Svelte", "Tailwind CSS", "GraphQL clients"] },
-  { id: "backend", label: "Backend", items: ["Node.js", "Python", "Go", "Java / Kotlin", ".NET", "PostgreSQL", "Redis", "gRPC & GraphQL"] },
-  { id: "mobile", label: "Mobile", items: ["Swift / iOS", "Kotlin / Android", "React Native", "Flutter"] },
-  { id: "devops", label: "Cloud & DevOps", items: ["AWS", "Azure", "Google Cloud", "Kubernetes", "Docker", "Terraform", "GitHub Actions", "Observability"] },
-  { id: "ai", label: "Data & AI", items: ["LLM integration", "PyTorch", "TensorFlow", "LangChain", "Vector databases", "Spark & dbt", "MLOps", "RAG pipelines"] },
+  { id: "frontend", label: "Frontend", items: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Design systems"] },
+  { id: "backend", label: "Backend", items: ["Node.js", "Python", "PostgreSQL", "Redis", "REST & GraphQL APIs"] },
+  { id: "mobile", label: "Mobile", items: ["React Native", "Flutter", "App Store & Play releases"] },
+  { id: "devops", label: "Cloud & DevOps", items: ["AWS", "Vercel", "Docker", "GitHub Actions", "Monitoring & logging"] },
+  { id: "ai", label: "Data & AI", items: ["LLM integration", "RAG pipelines", "Vector databases", "Python data tooling"] },
 ];
 
 export default function Stack() {
@@ -23,7 +24,7 @@ export default function Stack() {
             <h2 className="sec-title" data-reveal>Our technology stack</h2>
           </div>
           <p className="sec-note" data-reveal>
-            Boring where it should be, cutting-edge where it counts.
+            A deliberately short list — the tools we know well enough to be fast in.
           </p>
         </div>
 

@@ -2,12 +2,22 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { services } from "@/lib/services";
 
-const industriesLeft = ["Fintech", "Proptech", "Automotive", "Foodtech", "Ecommerce"];
-const industriesRight = ["Healthtech", "Edtech", "Game dev", "Adtech", "AI"];
+const industriesLeft = ["Fintech", "Healthtech", "Edtech"];
+const industriesRight = ["Ecommerce", "Proptech", "AI & Data"];
+
+const serviceNav = services.map(({ slug, navLabel }) => ({
+  label: navLabel,
+  href: `/services/${slug}`,
+}));
+const servicesLeft = serviceNav.slice(0, 2);
+const servicesRight = serviceNav.slice(2);
 
 export default function Header() {
+  const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
@@ -42,9 +52,28 @@ export default function Header() {
     };
   }, [menuOpen]);
 
+  /* clear mega-menu blur + mobile menu after route changes (mouseleave can miss on nav) */
+  useEffect(() => {
+    document.body.classList.remove("nav-blur");
+    setMenuOpen(false);
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
+  }, [pathname]);
+
+  useEffect(() => {
+    return () => {
+      document.body.classList.remove("nav-blur");
+    };
+  }, []);
+
   const veilOn = () => document.body.classList.add("nav-blur");
   const veilOff = () => document.body.classList.remove("nav-blur");
   const closeMenu = () => setMenuOpen(false);
+  const go = () => {
+    veilOff();
+    closeMenu();
+  };
 
   return (
     <>
@@ -66,7 +95,46 @@ export default function Header() {
               onFocus={veilOn}
               onBlur={veilOff}
             >
-              <Link className="nav-link" href="/#industries">
+              <Link className="nav-link" href="/#services" onClick={go}>
+                Services
+                <svg className="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </Link>
+              <div className="mega">
+                <div className="mega-grid">
+                  <div className="mega-col">
+                    {servicesLeft.map(({ label, href }) => (
+                      <Link key={href} href={href} onClick={go}>{label}</Link>
+                    ))}
+                  </div>
+                  <div className="mega-col">
+                    {servicesRight.map(({ label, href }) => (
+                      <Link key={href} href={href} onClick={go}>{label}</Link>
+                    ))}
+                  </div>
+                  <div className="mega-promo">
+                    <h4>Need the right fit?</h4>
+                    <p>Tell us the problem. We&apos;ll recommend a service mix, timeline, and a clear price.</p>
+                    <Link className="btn btn-magenta" href="/#contact" style={{ marginTop: 10 }} onClick={go}>
+                      Get an estimate
+                      <svg className="arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
+                        <path d="M7 17L17 7M9 7h8v8" />
+                      </svg>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              className="nav-item"
+              onMouseEnter={veilOn}
+              onMouseLeave={veilOff}
+              onFocus={veilOn}
+              onBlur={veilOff}
+            >
+              <Link className="nav-link" href="/#industries" onClick={go}>
                 Industries
                 <svg className="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
                   <path d="M6 9l6 6 6-6" />
@@ -76,19 +144,19 @@ export default function Header() {
                 <div className="mega-grid">
                   <div className="mega-col">
                     {industriesLeft.map((name) => (
-                      <Link key={name} href="/#industries">{name}</Link>
+                      <Link key={name} href="/#industries" onClick={go}>{name}</Link>
                     ))}
                   </div>
                   <div className="mega-col">
                     {industriesRight.map((name) => (
-                      <Link key={name} href="/#industries">{name}</Link>
+                      <Link key={name} href="/#industries" onClick={go}>{name}</Link>
                     ))}
                   </div>
                   <div className="mega-promo">
-                    <h4>Project cost calculator</h4>
-                    <p>Assess your costs in 60 seconds.</p>
-                    <Link className="btn btn-magenta" href="/#contact" style={{ marginTop: 10 }}>
-                      Get my free estimate
+                    <h4>Not sure where to start?</h4>
+                    <p>Send us the problem. We&apos;ll come back with scope, timeline, and a price.</p>
+                    <Link className="btn btn-magenta" href="/#contact" style={{ marginTop: 10 }} onClick={go}>
+                      Get an estimate
                       <svg className="arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
                         <path d="M7 17L17 7M9 7h8v8" />
                       </svg>
@@ -124,10 +192,17 @@ export default function Header() {
 
       <nav id="mobile-menu" aria-label="Mobile navigation">
         <Link href="/" onClick={closeMenu}><small>01</small>Home</Link>
-        <Link href="/#industries" onClick={closeMenu}><small>02</small>Industries</Link>
-        <Link href="/careers" onClick={closeMenu}><small>03</small>Careers</Link>
-        <Link href="/about" onClick={closeMenu}><small>04</small>About Us</Link>
-        <Link href="/#contact" onClick={closeMenu} style={{ color: "var(--primary)" }}><small>05</small>Contact</Link>
+        <Link href="/#services" onClick={closeMenu}><small>02</small>Services</Link>
+        {serviceNav.map(({ label, href }, i) => (
+          <Link key={href} className="mobile-sub" href={href} onClick={closeMenu}>
+            <small>02.{i + 1}</small>
+            {label}
+          </Link>
+        ))}
+        <Link href="/#industries" onClick={closeMenu}><small>03</small>Industries</Link>
+        <Link href="/careers" onClick={closeMenu}><small>04</small>Careers</Link>
+        <Link href="/about" onClick={closeMenu}><small>05</small>About Us</Link>
+        <Link href="/#contact" onClick={closeMenu} style={{ color: "var(--primary)" }}><small>06</small>Contact</Link>
       </nav>
     </>
   );

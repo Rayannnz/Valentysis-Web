@@ -1,7 +1,7 @@
 const cards = [
   {
-    title: "Senior talent only",
-    desc: "Every squad is anchored by engineers with 8+ years of shipping production software — no bench, no juniors learning on your dime.",
+    title: "Senior hands only",
+    desc: "The engineer who scopes your project is the engineer who builds it. Nothing gets passed to a junior learning on your budget.",
     icon: (
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <path d="M12 2l2.9 6.26L21 9.27l-4.5 4.38L17.8 20 12 16.77 6.2 20l1.3-6.35L3 9.27l6.1-1.01L12 2z" />
@@ -10,7 +10,7 @@ const cards = [
   },
   {
     title: "Speed with discipline",
-    desc: "Two-week sprints, demo every Friday, and delivery metrics you can audit. Fast never means sloppy.",
+    desc: "Two-week sprints, a working demo every Friday, and a board you can open any day of the week. Fast never means sloppy.",
     icon: (
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <circle cx="12" cy="12" r="9" />
@@ -20,7 +20,7 @@ const cards = [
   },
   {
     title: "Security by default",
-    desc: "SOC 2-aligned processes, least-privilege access, and security review gates on every release — from day one.",
+    desc: "Least-privilege access, secrets and dependencies scanned in CI, and a security review before anything reaches production.",
     icon: (
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <rect x="3" y="11" width="18" height="10" rx="2" />
@@ -29,8 +29,8 @@ const cards = [
     ),
   },
   {
-    title: "Radical transparency",
-    desc: "Your dashboards, our burn-down. You see velocity, budget, and risks in real time — never in a quarterly surprise.",
+    title: "Transparent by default",
+    desc: "You get the repo, the board, and the running build from week one. Progress, blockers, and spend are visible whenever you want to look.",
     icon: (
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />

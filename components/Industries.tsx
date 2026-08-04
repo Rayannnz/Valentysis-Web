@@ -5,22 +5,22 @@ import { useEffect, useRef, useState } from "react";
 const industries = [
   {
     name: "Fintech",
-    desc: "Trading platforms, digital banking, payments infrastructure, and compliance-ready fintech products — built with the security posture regulators expect.",
+    desc: "Payments, dashboards, and financial tooling built with the audit trails, access controls, and careful data handling that money work demands.",
     tags: ["Digital banking", "Payments", "Wealthtech", "Compliance"],
   },
   {
     name: "Healthtech",
-    desc: "HIPAA-conscious patient platforms, telemedicine, EHR integrations, and clinical workflow tools that practitioners actually enjoy using.",
+    desc: "Patient platforms, telemedicine, and clinical workflow tools — designed around strict privacy requirements and the integrations healthcare systems demand.",
     tags: ["Telemedicine", "EHR / EMR", "Patient portals", "Medical devices"],
   },
   {
     name: "Edtech",
-    desc: "Learning platforms, assessment engines, and classroom tools that scale from a pilot cohort to millions of learners.",
+    desc: "Learning platforms, assessment engines, and classroom tools built to grow from a pilot cohort to a full institution without a rewrite.",
     tags: ["LMS", "Assessment", "Gamification", "Analytics"],
   },
   {
     name: "Ecommerce",
-    desc: "Headless storefronts, marketplace platforms, and conversion-obsessed checkout experiences engineered for peak-season traffic.",
+    desc: "Headless storefronts, marketplace platforms, and checkout flows tuned for conversion — and for the traffic spike that arrives with a sale.",
     tags: ["Headless commerce", "Marketplaces", "Checkout", "Logistics"],
   },
   {
@@ -30,7 +30,7 @@ const industries = [
   },
   {
     name: "AI & Data",
-    desc: "Generative AI products, ML pipelines, and data platforms — from proof of concept to governed, production-grade systems.",
+    desc: "LLM-powered features, retrieval pipelines, and the data plumbing behind them — taken from prototype to something you can safely put in front of users.",
     tags: ["Generative AI", "ML engineering", "Data platforms", "MLOps"],
   },
 ];
@@ -61,7 +61,7 @@ export default function Industries() {
             <h2 className="sec-title" data-reveal>Industries we serve</h2>
           </div>
           <p className="sec-note" data-reveal style={{ color: "rgba(255,255,255,.65)" }}>
-            Deep domain knowledge in the sectors where software moves the fastest.
+            The sectors we build for — and what each one demands of the software.
           </p>
         </div>
 

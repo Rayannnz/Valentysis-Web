@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CareerRoles from "@/components/CareerRoles";
+import ApplicationForm from "@/components/ApplicationForm";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import PageEffects from "@/components/PageEffects";
@@ -8,7 +8,7 @@ import PageHero from "@/components/PageHero";
 export const metadata: Metadata = {
   title: "Careers — Valentisys",
   description:
-    "Join Valentisys and build software that outlasts trends. Explore open roles in engineering, design, and quality.",
+    "Join Valentisys across web development, customer support, outsourcing, and social media marketing. Apply through one form and pick the role that fits.",
 };
 
 const perks = [
@@ -23,8 +23,8 @@ const perks = [
     ),
   },
   {
-    title: "Learning budget",
-    desc: "An annual stipend for courses, books, and conferences — plus dedicated time each sprint to actually use it.",
+    title: "Time to learn",
+    desc: "Dedicated hours every sprint for the reading, courses, and side experiments that make you better at this — not squeezed into your weekend.",
     icon: (
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
@@ -33,8 +33,8 @@ const perks = [
     ),
   },
   {
-    title: "Health & wellness",
-    desc: "Full medical cover for you and your family, mental-health support, and a no-questions wellness allowance.",
+    title: "Sane hours",
+    desc: "No crunch culture. We plan for the time work actually takes, and we don't ship on a Friday night to hit a date someone invented.",
     icon: (
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z" />
@@ -42,8 +42,8 @@ const perks = [
     ),
   },
   {
-    title: "Meaningful equity",
-    desc: "Everyone shares in the upside. Transparent bands, annual refreshers, and no cliff surprises.",
+    title: "Work that ships",
+    desc: "Small team, real ownership. What you build goes live in weeks and gets used — it doesn't die in a backlog someone forgot about.",
     icon: (
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <path d="M3 3v18h18" />
@@ -52,8 +52,8 @@ const perks = [
     ),
   },
   {
-    title: "Top-tier hardware",
-    desc: "The laptop, screen, and chair you want, refreshed on schedule — plus a home-office budget on day one.",
+    title: "The right setup",
+    desc: "The machine, screen, and tools you need to do the work properly — sorted before your first day, not after three approvals.",
     icon: (
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <rect x="2" y="4" width="20" height="13" rx="2" />
@@ -62,8 +62,8 @@ const perks = [
     ),
   },
   {
-    title: "Ship-it culture",
-    desc: "Quarterly hackathons, demo Fridays, and a promotion path that rewards impact — not tenure or politics.",
+    title: "Straight talk",
+    desc: "Demo Fridays, direct feedback, and a real say in how we build. You'll never have to guess where you stand.",
     icon: (
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2 0-2.8-.8-.7-2.2-.7-3 .8z" />
@@ -88,15 +88,19 @@ export default function CareersPage() {
               of your <span className="accent">career.</span>
             </>,
           ]}
-          lead="We're 700+ engineers, designers, and delivery leads building products used by millions. If you like hard problems and small egos, you'll fit right in."
+          lead="We're building a team across web development, customer support, outsourcing, and social media marketing. If you like clear ownership, short feedback loops, and small egos, you'll fit right in."
         />
 
         <section className="section" style={{ paddingTop: 0 }}>
           <div className="container">
             <div className="sec-head">
               <div>
-                <p className="sec-eyebrow" data-reveal>Why Valentisys</p>
-                <h2 className="sec-title" data-reveal>Perks that actually matter</h2>
+                <p className="sec-eyebrow" data-reveal>
+                  Why Valentisys
+                </p>
+                <h2 className="sec-title" data-reveal>
+                  Perks that actually matter
+                </h2>
               </div>
               <p className="sec-note" data-reveal>
                 No ping-pong-table theatre — just the conditions great work needs.
@@ -115,23 +119,26 @@ export default function CareersPage() {
           </div>
         </section>
 
-        <section id="roles" className="section" style={{ paddingTop: 0 }}>
+        <section id="apply" className="section application-section">
           <div className="container">
-            <div className="sec-head">
+            <div className="sec-head application-sec-head">
               <div>
-                <p className="sec-eyebrow" data-reveal>Open roles</p>
-                <h2 className="sec-title" data-reveal>Come build with us</h2>
+                <p className="sec-eyebrow" data-reveal>
+                  Apply now
+                </p>
+                <h2 className="sec-title" data-reveal>
+                  One form. Every role.
+                </h2>
               </div>
               <p className="sec-note" data-reveal>
-                Don&apos;t see your role? Pitch us anyway at{" "}
+                Pick your team and the role you want — no separate posts to hunt through. Questions?{" "}
                 <a href="mailto:careers@valentisys.dev" style={{ textDecoration: "underline" }}>
                   careers@valentisys.dev
                 </a>
-                .
               </p>
             </div>
 
-            <CareerRoles />
+            <ApplicationForm />
           </div>
         </section>
       </main>

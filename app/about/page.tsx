@@ -8,7 +8,7 @@ import PageHero from "@/components/PageHero";
 export const metadata: Metadata = {
   title: "About Us — Valentisys",
   description:
-    "Meet Valentisys: a software development company of 700+ engineers, designers, and delivery leads building products that outlast trends.",
+    "Meet Valentisys: a small, senior software team building custom web, mobile, and cloud products that outlast trends.",
 };
 
 const values = [
@@ -43,7 +43,7 @@ const values = [
   },
   {
     title: "Clients as partners",
-    desc: "We win when our clients win — which is why 97% of them stay, year after year, engagement after engagement.",
+    desc: "We'd rather tell you not to build something than bill you for it. The goal is a client who comes back, not a longer invoice.",
     icon: (
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
@@ -54,36 +54,26 @@ const values = [
   },
 ];
 
-const milestones = [
+const fits = [
   {
-    year: "2014",
-    title: "Three engineers, one laptop each",
-    desc: "Valentisys starts as a three-person consultancy fixing a fintech's failing trading platform — and shipping it in eleven weeks.",
+    label: "Founders",
+    title: "Getting a first version in front of users",
+    desc: "You have a clear problem and need a small team that can go from empty repo to something real people can use — without burning a year of runway to get there.",
   },
   {
-    year: "2016",
-    title: "First enterprise partnership",
-    desc: "A Fortune 500 retailer trusts us with its checkout re-platform. Peak-season traffic triples; the platform doesn't blink.",
+    label: "Scale-ups",
+    title: "Adding senior capacity, fast",
+    desc: "Your roadmap is longer than your team. We work inside your repo and your rituals as an extra squad, and leave when you no longer need us.",
   },
   {
-    year: "2019",
-    title: "One hundred engineers",
-    desc: "We cross 100 engineers and open our dedicated-teams practice, embedding senior squads inside client organizations.",
+    label: "Operators",
+    title: "Replacing the spreadsheet",
+    desc: "The manual process quietly holding the business together deserves real software. We build the internal tools nobody else wants to take on.",
   },
   {
-    year: "2022",
-    title: "AI & Data practice launches",
-    desc: "From ML pipelines to production LLM products, we formalize the practice that now powers a third of our engagements.",
-  },
-  {
-    year: "2024",
-    title: "Global by default",
-    desc: "Delivery hubs across three continents put a senior Valentisys squad within four time zones of every client.",
-  },
-  {
-    year: "2026",
-    title: "700+ strong, still shipping",
-    desc: "Five hundred products delivered, $18B raised by our clients, and a retention rate we guard like an SLA.",
+    label: "Rescues",
+    title: "Taking over someone else's codebase",
+    desc: "A half-finished build, a contractor who vanished, a system nobody dares deploy. We audit it, tell you honestly whether to fix or rebuild, then do it.",
   },
 ];
 
@@ -112,7 +102,7 @@ export default function AboutPage() {
               <span className="accent">outlast</span> trends.
             </>,
           ]}
-          lead="Since 2014 we've been the engineering partner behind products that survive scale, audits, and time — for startups on their first release and enterprises on their fiftieth."
+          lead="We're a small, senior engineering team building software meant to still be running — and still be maintainable — long after the launch post goes out."
         />
 
         <section className="section" style={{ paddingTop: 0 }}>
@@ -124,25 +114,24 @@ export default function AboutPage() {
                   Built by engineers, run by engineers
                 </h2>
                 <p data-reveal>
-                  Valentisys began with a rescue mission: a trading platform bleeding users while its
-                  vendor billed by the hour. Three engineers rewrote it in eleven weeks — and decided
-                  a software company should never make its money from a client&apos;s problems
-                  lasting longer.
+                  Valentisys started from a simple frustration: too much software gets sold by
+                  people who will never have to maintain it. Scope inflates, timelines slip, and the
+                  client is left holding a codebase nobody wants to open.
                 </p>
                 <p data-reveal>
-                  That principle still runs the place. Engineers lead our accounts, demos happen
-                  every Friday, and every engagement is priced on outcomes we can be held to. It&apos;s
-                  why the companies that hire us for one product stay for the next five.
+                  So we built the opposite. Engineers run our projects, work is scoped and priced
+                  before it starts, and there&apos;s a working demo every Friday — not a status
+                  report describing one. If something is going wrong, you hear it from us first.
                 </p>
                 <p data-reveal>
-                  Today we&apos;re 700+ engineers, designers, and delivery leads across three
-                  continents — small enough to care about every release, large enough to staff any
-                  ambition.
+                  We&apos;re deliberately small. That means we take on fewer projects than we could,
+                  and the people you meet on the first call are the ones writing the code on the
+                  last day.
                 </p>
               </div>
               <div className="story-panel" data-reveal="scale">
-                <span className="big">12 years</span>
-                <p>of shipping software that our clients&apos; businesses stand on.</p>
+                <span className="big">One team</span>
+                <p>from the first call to the last deploy — no handoffs, no account managers.</p>
               </div>
             </div>
           </div>
@@ -175,14 +164,18 @@ export default function AboutPage() {
           <div className="container">
             <div className="sec-head">
               <div>
-                <p className="sec-eyebrow" data-reveal>The journey</p>
-                <h2 className="sec-title" data-reveal>Twelve years in six chapters</h2>
+                <p className="sec-eyebrow" data-reveal>Good fits</p>
+                <h2 className="sec-title" data-reveal>Where we do our best work</h2>
               </div>
+              <p className="sec-note" data-reveal>
+                If your situation isn&apos;t on this list, say so anyway — we&apos;ll tell you
+                straight if we&apos;re the wrong team for it.
+              </p>
             </div>
             <div className="timeline">
-              {milestones.map(({ year, title, desc }) => (
-                <div className="tl-item" data-reveal key={year}>
-                  <span className="tl-year">{year}</span>
+              {fits.map(({ label, title, desc }) => (
+                <div className="tl-item" data-reveal key={label}>
+                  <span className="tl-year">{label}</span>
                   <h3>{title}</h3>
                   <p>{desc}</p>
                 </div>
@@ -199,7 +192,7 @@ export default function AboutPage() {
                 <h2 className="sec-title" data-reveal>The people steering the ship</h2>
               </div>
               <p className="sec-note" data-reveal>
-                Backed by 700+ colleagues who do the real work.
+                The two people you&apos;ll actually be dealing with.
               </p>
             </div>
             <div className="team-grid">

@@ -15,23 +15,23 @@ const steps = [
   },
   {
     title: "Development",
-    desc: "Senior engineers ship in two-week sprints with continuous integration, code review, and demo-every-Friday cadence.",
+    desc: "Two-week sprints with continuous integration, code review on every change, and a working demo every Friday.",
     tags: ["Agile sprints", "CI/CD", "Code review"],
   },
   {
     title: "QA & hardening",
-    desc: "Automated test suites, performance budgets, and security scans gate every release candidate.",
-    tags: ["Automation", "Pen testing", "Load testing"],
+    desc: "Automated test suites, performance budgets, and dependency scans gate every release candidate.",
+    tags: ["Automation", "Security review", "Load testing"],
   },
   {
     title: "Launch",
-    desc: "Zero-downtime deployments, observability wired in, and a rollback plan we hope to never use.",
-    tags: ["Blue-green deploys", "Monitoring", "Runbooks"],
+    desc: "Staged rollouts, monitoring and alerting wired in before launch, and a rollback plan we hope never to use.",
+    tags: ["Staged rollout", "Monitoring", "Runbooks"],
   },
   {
     title: "Scale & support",
-    desc: "Post-launch we keep optimizing — SLAs, capacity planning, and a roadmap that compounds your momentum.",
-    tags: ["SLA support", "Optimization", "Growth"],
+    desc: "We stay on after launch — an agreed support window, an eye on the numbers, and a roadmap for whatever comes next.",
+    tags: ["Support agreement", "Optimization", "Roadmap"],
   },
 ];
 

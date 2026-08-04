@@ -8,33 +8,33 @@ export default function Hero() {
       </div>
 
       <div className="hero-chip c1" data-parallax="26" aria-hidden="true">
-        <b>700+</b>
-        <span>engineers on board</span>
+        <b>Web</b>
+        <span>sites & apps that convert</span>
       </div>
       <div className="hero-chip c2" data-parallax="-18" aria-hidden="true">
-        <b>97%</b>
-        <span>client retention</span>
+        <b>Support</b>
+        <span>customers feel heard</span>
       </div>
       <div className="hero-chip c3" data-parallax="14" aria-hidden="true">
-        <b>$18B</b>
-        <span>raised by our clients</span>
+        <b>Growth</b>
+        <span>social that builds reach</span>
       </div>
 
       <div className="container hero-inner">
-        <p className="hero-eyebrow">Software development company</p>
-        <h1 data-hero-lines aria-label="Software development services, engineered to ship.">
-          <span className="line-mask"><span className="line">Software</span></span>
-          <span className="line-mask"><span className="line">development</span></span>
+        <p className="hero-eyebrow">Business & digital services</p>
+        <h1 data-hero-lines aria-label="Services that build, support, and grow your business.">
+          <span className="line-mask"><span className="line">Services that</span></span>
           <span className="line-mask">
             <span className="line">
-              <span className="accent">services,</span> <span className="outline">engineered</span>
+              <span className="accent">build,</span> <span className="outline">support,</span>
             </span>
           </span>
-          <span className="line-mask"><span className="line">to ship.</span></span>
+          <span className="line-mask"><span className="line">& grow your</span></span>
+          <span className="line-mask"><span className="line">business.</span></span>
         </h1>
         <p className="hero-sub" data-reveal>
-          We design, build, and scale custom software for startups and enterprises — pairing senior
-          engineering teams with battle-tested delivery, so your product reaches the market faster.
+          Web development, customer support, outsourcing, and social media marketing —
+          delivered by one partner who scopes clearly, ships on time, and stays accountable.
         </p>
         <div className="hero-ctas" data-reveal>
           <a className="btn btn-primary" href="#contact" data-magnetic>

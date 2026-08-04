@@ -15,9 +15,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Valentisys — Software Development Services",
+  title: "Valentisys — Business & Digital Services",
   description:
-    "Valentisys is a software development company building world-class digital products for startups and enterprises.",
+    "Valentisys provides web development, customer support, outsourcing, and social media marketing services for growing businesses.",
   icons: { icon: "/logo/favicon.png" },
 };
 

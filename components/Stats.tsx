@@ -1,74 +1,32 @@
-"use client";
-
-import { useEffect, useRef } from "react";
-
-function Counter({ target }: { target: number }) {
-  const ref = useRef<HTMLSpanElement>(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    const animate = () => {
-      if (reduceMotion) {
-        el.textContent = String(target);
-        return;
-      }
-      const dur = 1600;
-      let start: number | null = null;
-      const tick = (ts: number) => {
-        if (start === null) start = ts;
-        const p = Math.min((ts - start) / dur, 1);
-        const eased = 1 - Math.pow(1 - p, 3);
-        el.textContent = String(Math.round(target * eased));
-        if (p < 1) requestAnimationFrame(tick);
-      };
-      requestAnimationFrame(tick);
-    };
-
-    if (!("IntersectionObserver" in window)) {
-      el.textContent = String(target);
-      return;
-    }
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            animate();
-            io.unobserve(e.target);
-          }
-        });
-      },
-      { threshold: 0.6 }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, [target]);
-
-  return <span ref={ref}>0</span>;
-}
+const commitments = [
+  {
+    title: "Senior-led",
+    desc: "The people you meet on the first call are the people who write the code. Nothing gets handed down to someone you never met.",
+  },
+  {
+    title: "Small by design",
+    desc: "A focused team means fewer handoffs and faster decisions — no account managers sitting between you and the build.",
+  },
+  {
+    title: "Scoped up front",
+    desc: "We agree what we're building and what it costs before the work starts, so the invoice never arrives as a surprise.",
+  },
+  {
+    title: "Yours to keep",
+    desc: "Your repo, your cloud accounts, your documentation. Everything is handed over in full — no lock-in, no ransom.",
+  },
+];
 
 export default function Stats() {
   return (
-    <section id="stats" aria-label="Company statistics">
-      <div className="stats-grid">
-        <div className="stat" data-reveal>
-          <b><Counter target={700} /><i>+</i></b>
-          <span>Engineers &amp; designers on board</span>
-        </div>
-        <div className="stat" data-reveal>
-          <b><Counter target={500} /><i>+</i></b>
-          <span>Products shipped since 2014</span>
-        </div>
-        <div className="stat" data-reveal>
-          <b><Counter target={97} /><i>%</i></b>
-          <span>Client retention, year over year</span>
-        </div>
-        <div className="stat" data-reveal>
-          <b><i>$</i><Counter target={18} /><i>B</i></b>
-          <span>Raised by clients we&apos;ve built for</span>
-        </div>
+    <section id="stats" aria-label="How we work with clients">
+      <div className="stats-grid stats-text">
+        {commitments.map(({ title, desc }) => (
+          <div className="stat" data-reveal key={title}>
+            <b>{title}</b>
+            <span>{desc}</span>
+          </div>
+        ))}
       </div>
     </section>
   );
