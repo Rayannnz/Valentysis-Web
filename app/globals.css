@@ -771,10 +771,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 /* ============================================================
    Careers — perks + open roles
    ============================================================ */
-.perks-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-@media (max-width:1000px){.perks-grid{grid-template-columns:1fr 1fr}}
-@media (max-width:560px){.perks-grid{grid-template-columns:1fr}}
-
 /* Careers application form */
 .application-section{
   background:linear-gradient(165deg,#1a1630 0%,#241b45 48%,#171429 100%);
@@ -827,6 +823,16 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
   transform:translateY(-70%) rotate(45deg);pointer-events:none;
 }
 .app-select-wrap select{padding-right:40px;cursor:pointer}
+.app-field-wide{grid-column:1/-1}
+
+.app-field input[type="file"]{padding:0;border-style:dashed;background:#fbfaff;cursor:pointer}
+.app-field input[type="file"]::file-selector-button{
+  margin:0 14px 0 0;padding:13px 18px;border:0;cursor:pointer;
+  border-radius:6px 0 0 6px;font:inherit;font-size:14.5px;font-weight:650;
+  background:var(--primary);color:#fff;transition:filter .25s;
+}
+.app-field input[type="file"]::file-selector-button:hover{filter:brightness(1.12)}
+.app-file-name{font-size:13px;color:var(--ink-soft);word-break:break-all}
 .app-submit{align-self:flex-start;margin-top:4px}
 
 @media (max-width:760px){

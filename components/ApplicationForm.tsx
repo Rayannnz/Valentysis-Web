@@ -1,82 +1,31 @@
 "use client";
 
-import { FormEvent, type ReactNode, useMemo, useState } from "react";
+import { FormEvent, type ReactNode, useState } from "react";
+import { services } from "@/lib/services";
 
-const teams = [
-  "Web Development",
-  "Customer Support",
-  "Outsourcing",
-  "Social Media Marketing",
-] as const;
+const teams = services.map((s) => s.shortTitle);
 
-const rolesByTeam: Record<(typeof teams)[number], string[]> = {
-  "Web Development": [
-    "Frontend Developer",
-    "Backend Developer",
-    "Full-Stack Developer",
-    "UI/UX Designer",
-    "QA Engineer",
-  ],
-  "Customer Support": [
-    "Customer Support Agent",
-    "Support Team Lead",
-    "Live Chat Specialist",
-    "Customer Success Associate",
-  ],
-  Outsourcing: [
-    "Operations Coordinator",
-    "Project Coordinator",
-    "Virtual Assistant",
-    "Process Specialist",
-  ],
-  "Social Media Marketing": [
-    "Social Media Manager",
-    "Content Creator",
-    "Community Manager",
-    "Paid Social Specialist",
-  ],
-};
+const RESUME_ACCEPT = ".pdf,.png,.jpg,.jpeg,.webp,application/pdf,image/*";
 
-const visaOptions = [
-  "Citizen",
-  "Permanent resident",
-  "Work visa / permit",
-  "Student visa",
-  "Requires sponsorship",
-  "Other",
-];
+/** Leads are sent to this WhatsApp number via a click-to-chat link. */
+const WHATSAPP_NUMBER = "923240151555";
 
-const nationalities = [
-  "Afghan",
-  "American",
-  "Australian",
-  "Bangladeshi",
-  "British",
-  "Canadian",
-  "Chinese",
-  "Egyptian",
-  "Emirati",
-  "Filipino",
-  "French",
-  "German",
-  "Indian",
-  "Indonesian",
-  "Irish",
-  "Italian",
-  "Japanese",
-  "Kenyan",
-  "Malaysian",
-  "Mexican",
-  "Nigerian",
-  "Pakistani",
-  "Saudi",
-  "Singaporean",
-  "South African",
-  "Spanish",
-  "Sri Lankan",
-  "Turkish",
-  "Other",
-];
+function buildWhatsAppUrl(fd: FormData) {
+  const resume = fd.get("resume");
+  const resumeName = resume instanceof File && resume.name ? resume.name : "—";
+  const message = [
+    "*New Career Application — Valentisys*",
+    "",
+    `*Name:* ${fd.get("fullName")}`,
+    `*Email:* ${fd.get("email")}`,
+    `*Contact:* ${fd.get("phone")}`,
+    `*Team applying for:* ${fd.get("team")}`,
+    `*Resume:* ${resumeName}`,
+    "",
+    "_I will attach my resume right after this message._",
+  ].join("\n");
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+}
 
 function FieldLabel({
   htmlFor,
@@ -101,44 +50,46 @@ function FieldLabel({
 }
 
 export default function ApplicationForm() {
-  const [sent, setSent] = useState(false);
+  const [waUrl, setWaUrl] = useState("");
   const [team, setTeam] = useState("");
-  const [role, setRole] = useState("");
-
-  const roles = useMemo(() => {
-    if (!team || !(team in rolesByTeam)) return [];
-    return rolesByTeam[team as (typeof teams)[number]];
-  }, [team]);
-
-  const onTeamChange = (value: string) => {
-    setTeam(value);
-    setRole("");
-  };
+  const [resumeName, setResumeName] = useState("");
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSent(true);
-    e.currentTarget.reset();
+    const form = e.currentTarget;
+    if (!form.reportValidity()) return;
+
+    const url = buildWhatsAppUrl(new FormData(form));
+    setWaUrl(url);
+    window.open(url, "_blank", "noopener,noreferrer");
+
+    form.reset();
     setTeam("");
-    setRole("");
+    setResumeName("");
   };
 
-  if (sent) {
+  if (waUrl) {
     return (
       <div className="application-card" data-reveal>
         <h3 className="application-title">Application</h3>
         <p className="form-success" style={{ display: "block" }} role="status">
-          Application received — thank you! Our talent team will get back to you within five
-          business days. Keep an eye on your inbox.
+          Almost done! WhatsApp should have opened with your application details — press{" "}
+          <strong>Send</strong> there, then attach your resume (PDF or image) in the same chat.
+          If WhatsApp didn&apos;t open, use the button below.
         </p>
-        <button
-          className="btn btn-primary"
-          type="button"
-          style={{ marginTop: 28 }}
-          onClick={() => setSent(false)}
-        >
-          Submit another application
-        </button>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 14, marginTop: 28 }}>
+          <a
+            className="btn btn-primary"
+            href={waUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Open WhatsApp
+          </a>
+          <button className="btn btn-magenta" type="button" onClick={() => setWaUrl("")}>
+            Submit another application
+          </button>
+        </div>
       </div>
     );
   }
@@ -150,7 +101,7 @@ export default function ApplicationForm() {
       <form className="application-form" onSubmit={onSubmit} noValidate>
         <div className="app-grid">
           <div className="app-field">
-            <FieldLabel htmlFor="app-name">Full Name</FieldLabel>
+            <FieldLabel htmlFor="app-name">Name</FieldLabel>
             <input id="app-name" name="fullName" type="text" autoComplete="name" required />
           </div>
 
@@ -165,16 +116,11 @@ export default function ApplicationForm() {
           </div>
 
           <div className="app-field">
-            <FieldLabel htmlFor="app-age">How old are you?</FieldLabel>
-            <input id="app-age" name="age" type="number" min={16} max={99} required />
-          </div>
-
-          <div className="app-field">
             <FieldLabel
               htmlFor="app-phone"
               hint="Please make sure to include your country code in the phone number."
             >
-              Contact Number
+              Contact
             </FieldLabel>
             <input
               id="app-phone"
@@ -187,30 +133,14 @@ export default function ApplicationForm() {
           </div>
 
           <div className="app-field">
-            <FieldLabel htmlFor="app-visa">Visa Status</FieldLabel>
-            <div className="app-select-wrap">
-              <select id="app-visa" name="visaStatus" required defaultValue="">
-                <option value="" disabled>
-                  Select visa status
-                </option>
-                {visaOptions.map((opt) => (
-                  <option key={opt} value={opt}>
-                    {opt}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          <div className="app-field">
-            <FieldLabel htmlFor="app-team">Which team are you applying to?</FieldLabel>
+            <FieldLabel htmlFor="app-team">Team applying for</FieldLabel>
             <div className="app-select-wrap">
               <select
                 id="app-team"
                 name="team"
                 required
                 value={team}
-                onChange={(e) => onTeamChange(e.target.value)}
+                onChange={(e) => setTeam(e.target.value)}
               >
                 <option value="" disabled>
                   Select a team
@@ -224,96 +154,32 @@ export default function ApplicationForm() {
             </div>
           </div>
 
-          <div className="app-field">
-            <FieldLabel htmlFor="app-nationality">Nationality</FieldLabel>
-            <div className="app-select-wrap">
-              <select id="app-nationality" name="nationality" required defaultValue="">
-                <option value="" disabled>
-                  Select nationality
-                </option>
-                {nationalities.map((n) => (
-                  <option key={n} value={n}>
-                    {n}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          <div className="app-field">
-            <FieldLabel htmlFor="app-role">Which role are you interested in?</FieldLabel>
-            <div className="app-select-wrap">
-              <select
-                id="app-role"
-                name="role"
-                required
-                value={role}
-                onChange={(e) => setRole(e.target.value)}
-                disabled={!team}
-              >
-                <option value="" disabled>
-                  {team ? "Select a role" : "Select a team first"}
-                </option>
-                {roles.map((r) => (
-                  <option key={r} value={r}>
-                    {r}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          <div className="app-field">
-            <FieldLabel htmlFor="app-resume" hint="Show us what you've got">
-              Resume{" "}
-              <span className="app-label-soft">
-                Attach your resume and/or portfolio here (Link Only)
-              </span>
+          <div className="app-field app-field-wide">
+            <FieldLabel
+              htmlFor="app-resume"
+              hint="PDF or image (PNG, JPG, WEBP) — max 10 MB. Your application opens in WhatsApp; attach this file there to complete it."
+            >
+              Resume
             </FieldLabel>
             <input
               id="app-resume"
               name="resume"
-              type="url"
-              placeholder="https://"
+              className="app-file"
+              type="file"
+              accept={RESUME_ACCEPT}
               required
+              onChange={(e) => setResumeName(e.target.files?.[0]?.name ?? "")}
             />
-          </div>
-
-          <div className="app-field">
-            <FieldLabel
-              htmlFor="app-video"
-              hint="Show us who you are in 60 Seconds or less. Keep it short, sweet, and totally you"
-            >
-              Intro Video <span className="app-label-soft">(Link Only)</span>
-            </FieldLabel>
-            <input
-              id="app-video"
-              name="introVideo"
-              type="url"
-              placeholder="https://"
-              required
-            />
-          </div>
-
-          <div className="app-field">
-            <FieldLabel
-              htmlFor="app-salary"
-              hint="Please precise the currency"
-            >
-              What is your monthly salary expectation?
-            </FieldLabel>
-            <input
-              id="app-salary"
-              name="salary"
-              type="text"
-              placeholder="e.g. USD 2,500"
-              required
-            />
+            {resumeName && (
+              <span className="app-file-name" aria-live="polite">
+                {resumeName}
+              </span>
+            )}
           </div>
         </div>
 
         <button className="btn btn-primary app-submit" type="submit" data-magnetic>
-          Submit application
+          Submit via WhatsApp
           <svg
             className="arr"
             width="17"

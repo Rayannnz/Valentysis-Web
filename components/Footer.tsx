@@ -5,10 +5,10 @@ const columns = [
   {
     heading: "Services",
     links: [
-      { label: "Web Development", href: "/services/web-development" },
-      { label: "Customer Support", href: "/services/customer-support" },
       { label: "Outsourcing", href: "/services/outsourcing" },
-      { label: "Social Media Marketing", href: "/services/social-media-marketing" },
+      { label: "Real Customer Support", href: "/services/real-customer-support" },
+      { label: "Web Development", href: "/services/web-development" },
+      { label: "Digital Marketing", href: "/services/digital-marketing" },
     ],
   },
   {
