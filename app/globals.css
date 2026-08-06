@@ -911,7 +911,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .application-sec-head .sec-note a{color:#fff}
 
 .application-card{
-  background:var(--paper);color:var(--ink);
+  /* stays pure white, not --paper beige — sits on the dark careers gradient */
+  background:#fff;color:var(--ink);
   border-radius:22px;padding:clamp(28px,4vw,52px);
   box-shadow:0 28px 70px rgba(0,0,0,.28);
 }
