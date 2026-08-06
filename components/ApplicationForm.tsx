@@ -22,9 +22,9 @@ const WHATSAPP_NUMBER = "923240151555";
 
 function buildWhatsAppUrl(fd: FormData) {
   const resume = fd.get("resume");
-  const resumeName = resume instanceof File && resume.name ? resume.name : "—";
+  const resumeName = resume instanceof File && resume.name ? resume.name : "Not attached";
   const message = [
-    "*New Career Application — Valentisys*",
+    "*New Career Application: Valentisys*",
     "",
     `*Name:* ${fd.get("fullName")}`,
     `*Email:* ${fd.get("email")}`,
@@ -83,7 +83,7 @@ export default function ApplicationForm() {
       <div className="application-card" data-reveal>
         <h3 className="application-title">Application</h3>
         <p className="form-success" style={{ display: "block" }} role="status">
-          Almost done! WhatsApp should have opened with your application details — press{" "}
+          Almost done! WhatsApp should have opened with your application details. Press{" "}
           <strong>Send</strong> there, then attach your resume (PDF or image) in the same chat.
           If WhatsApp didn&apos;t open, use the button below.
         </p>
@@ -167,7 +167,7 @@ export default function ApplicationForm() {
           <div className="app-field app-field-wide">
             <FieldLabel
               htmlFor="app-resume"
-              hint="PDF or image (PNG, JPG, WEBP) — max 10 MB. Your application opens in WhatsApp; attach this file there to complete it."
+              hint="PDF or image (PNG, JPG, WEBP), max 10 MB. Your application opens in WhatsApp; attach this file there to complete it."
             >
               Resume
             </FieldLabel>

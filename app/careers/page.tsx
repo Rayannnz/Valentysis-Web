@@ -6,9 +6,9 @@ import PageEffects from "@/components/PageEffects";
 import PageHero from "@/components/PageHero";
 
 export const metadata: Metadata = {
-  title: "Careers — Valentisys",
+  title: "Careers | Valentisys",
   description:
-    "Join Valentisys across real customer support, web development, digital marketing, SEO, paid ads, design, and video. Apply through one form and pick the team that fits.",
+    "Join Valentisys across real customer support, digital marketing, app development, web development, SEO, paid ads, design, and video. Apply through one form and pick the team that fits.",
 };
 
 export default function CareersPage() {
@@ -25,7 +25,7 @@ export default function CareersPage() {
               of your <span className="accent">career.</span>
             </>,
           ]}
-          lead="We're building a team across real customer support, web development, digital marketing, SEO, paid ads, graphic design, and video editing. If you like clear ownership, short feedback loops, and small egos, you'll fit right in."
+          lead="We're building teams across real customer support, digital marketing, app and web development, SEO, paid ads, graphic design, and video editing. If you like clear ownership, short feedback loops, and small egos, you'll fit right in."
         />
 
         <section id="apply" className="section application-section">
@@ -40,7 +40,7 @@ export default function CareersPage() {
                 </h2>
               </div>
               <p className="sec-note" data-reveal>
-                Pick the team you want to join — no separate posts to hunt through. Questions?{" "}
+                Pick the team you want to join. No separate posts to hunt through. Questions?{" "}
                 <a href="mailto:careers@valentisys.dev" style={{ textDecoration: "underline" }}>
                   careers@valentisys.dev
                 </a>

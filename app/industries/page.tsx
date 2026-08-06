@@ -7,9 +7,9 @@ import PageEffects from "@/components/PageEffects";
 import PageHero from "@/components/PageHero";
 
 export const metadata: Metadata = {
-  title: "Industries — Valentisys",
+  title: "Industries | Valentisys",
   description:
-    "The sectors Valentisys builds for — fintech, healthtech, edtech, ecommerce, proptech, and AI & data — and what each one demands of the software.",
+    "The sectors Valentisys staffs and supports (health, legal, engineering, finance, and hospitality) and what each one expects of the people doing the work.",
 };
 
 export default function IndustriesPage() {
@@ -26,7 +26,7 @@ export default function IndustriesPage() {
               know <span className="accent">in depth</span>.
             </>,
           ]}
-          lead="Every industry brings its own constraints — regulation, integrations, data sensitivity, the load pattern that only shows up on launch day. Here's what we've learned building in each of them."
+          lead="Every industry brings its own paperwork, deadlines, and rules about who may touch what. Here's what we've learned staffing and supporting each of them."
         />
 
         <section className="section" style={{ paddingTop: 0 }}>
@@ -35,23 +35,23 @@ export default function IndustriesPage() {
               <div className="story-copy">
                 <p className="sec-eyebrow" data-reveal>Overview</p>
                 <h2 className="sec-title" data-reveal style={{ marginBottom: 26 }}>
-                  Sector knowledge that shortens the build
+                  Sector knowledge that shortens the ramp-up
                 </h2>
                 <p data-reveal>
-                  Most delivery risk isn&apos;t technical. It&apos;s not knowing what a sector
-                  expects until you&apos;re halfway through — the compliance rule nobody mentioned,
-                  the integration everyone assumes you&apos;ll support, the audit trail that turns
-                  out to be mandatory.
+                  The risk in outsourcing isn&apos;t finding people. It&apos;s the weeks lost while
+                  they learn what your sector takes for granted: the form that must be filed a
+                  certain way, the caller who has to be escalated, the record nobody outside the
+                  practice may open.
                 </p>
                 <p data-reveal>
-                  We build in these sectors regularly. That means the hard requirements are on the
-                  table in week one, the architecture accounts for them from the start, and
-                  you&apos;re not funding our education in your industry.
+                  We staff these five sectors regularly. That means the rules are understood before
+                  anyone touches a live file, the process is written down on day one, and
+                  you&apos;re not paying for our education in your industry.
                 </p>
               </div>
               <div className="story-panel" data-reveal="scale">
-                <span className="big">Six sectors</span>
-                <p>we work in repeatedly — so the constraints are known before the first sprint.</p>
+                <span className="big">Five sectors</span>
+                <p>we staff repeatedly, so the rules are known before anyone starts.</p>
               </div>
             </div>
           </div>

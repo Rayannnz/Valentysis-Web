@@ -1,19 +1,19 @@
 const commitments = [
   {
-    title: "Senior-led",
-    desc: "The people you meet on the first call are the people who write the code. Nothing gets handed down to someone you never met.",
+    title: "Vetted, then trained",
+    desc: "Everyone we place is screened for your industry and trained on your process before they touch a live file or a real customer.",
   },
   {
-    title: "Small by design",
-    desc: "A focused team means fewer handoffs and faster decisions — no account managers sitting between you and the build.",
+    title: "One point of contact",
+    desc: "A named account lead who knows your business, not a ticket queue and a different name every week.",
   },
   {
-    title: "Scoped up front",
-    desc: "We agree what we're building and what it costs before the work starts, so the invoice never arrives as a surprise.",
+    title: "Priced up front",
+    desc: "Scope, hours, and cost agreed before the work starts, so the invoice never arrives as a surprise.",
   },
   {
-    title: "Yours to keep",
-    desc: "Your repo, your cloud accounts, your documentation. Everything is handed over in full — no lock-in, no ransom.",
+    title: "No lock-in",
+    desc: "Scale down or stop with clear notice. We keep the account by doing the work well, not by holding you to a contract.",
   },
 ];
 

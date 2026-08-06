@@ -15,9 +15,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Valentisys — Business & Digital Services",
+  title: "Valentisys | Outsourcing & Customer Support Services",
   description:
-    "Valentisys provides web development, customer support, outsourcing, and social media marketing services for growing businesses.",
+    "Valentisys provides outsourcing, customer support, social media marketing, app development, and web development for health, legal, engineering, finance, and hospitality businesses.",
   icons: { icon: "/logo/favicon.png" },
 };
 
@@ -28,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="en-US"
       className={`${spaceGrotesk.variable} ${inter.variable}`}
       suppressHydrationWarning
     >

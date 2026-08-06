@@ -20,7 +20,7 @@ export default function Industries() {
     return () => window.removeEventListener("resize", applyHeights);
   }, [openIndex]);
 
-  /* open the industry named in the URL hash, e.g. /industries#fintech — also on
+  /* open the industry named in the URL hash, e.g. /industries#health — also on
      hash-only changes, when nav links fire without remounting this component */
   useEffect(() => {
     const openFromHash = () => {
@@ -43,7 +43,7 @@ export default function Industries() {
             <h2 className="sec-title" data-reveal>Industries we serve</h2>
           </div>
           <p className="sec-note" data-reveal style={{ color: "rgba(255,255,255,.65)" }}>
-            The sectors we build for — and what each one demands of the software.
+            The sectors we staff and support, and what each one expects of the people doing it.
           </p>
         </div>
 

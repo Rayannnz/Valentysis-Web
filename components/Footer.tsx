@@ -15,8 +15,9 @@ const columns: FooterColumn[] = [
     links: [
       { label: "Outsourcing", href: "/services/outsourcing" },
       { label: "Real Customer Support", href: "/services/real-customer-support" },
-      { label: "Web Development", href: "/services/web-development" },
       { label: "Digital Marketing", href: "/services/digital-marketing" },
+      { label: "App Development", href: "/services/app-development" },
+      { label: "Web Development", href: "/services/web-development" },
     ],
   },
   {
@@ -46,7 +47,7 @@ export default function Footer() {
               <Image src="/logo/logo-mark.png" alt="" width={256} height={256} style={{ height: 44, width: "auto" }} />
               Valentisys
             </Link>
-            <p>Business & digital services — web, support, outsourcing, and social — built to outlast trends.</p>
+            <p>Outsourcing, customer support, and digital growth, staffed by trained teams that work like your own.</p>
             <div className="socials">
               <a href="#" aria-label="LinkedIn">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">

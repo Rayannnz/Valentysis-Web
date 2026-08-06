@@ -11,7 +11,7 @@
   --violet:      #4B3ED6;
   --ink:         #171429;
   --ink-soft:    #3E3A52;
-  --paper:       #FFFFFF;
+  --paper:       #FDFBF6;
   --bg:          #F1EFF7;
   --bg-2:        #E7E4F0;
   --line:        rgba(23,20,41,.14);
@@ -407,7 +407,7 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
 
 /* floating chips */
 .hero-chip{
-  position:absolute;z-index:2;background:#fff;box-shadow:0 18px 50px rgba(23,20,41,.13);
+  position:absolute;z-index:2;background:var(--paper);box-shadow:0 18px 50px rgba(23,20,41,.13);
   padding:16px 22px;font-family:var(--font-head);
   display:flex;flex-direction:column;line-height:1.2;
   animation:chipFloat 6s ease-in-out infinite;

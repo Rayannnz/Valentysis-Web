@@ -8,8 +8,8 @@ export default function Hero() {
       </div>
 
       <div className="hero-chip c1" data-parallax="26" aria-hidden="true">
-        <b>Web</b>
-        <span>sites & apps that convert</span>
+        <b>Staff</b>
+        <span>teams that plug straight in</span>
       </div>
       <div className="hero-chip c2" data-parallax="-18" aria-hidden="true">
         <b>Support</b>
@@ -21,20 +21,19 @@ export default function Hero() {
       </div>
 
       <div className="container hero-inner">
-        <p className="hero-eyebrow">Business & digital services</p>
-        <h1 data-hero-lines aria-label="Services that build, support, and grow your business.">
-          <span className="line-mask"><span className="line">Services that</span></span>
+        <p className="hero-eyebrow">Outsourcing, support & growth</p>
+        <h1 data-hero-lines aria-label="Staff, support, and grow your business.">
           <span className="line-mask">
             <span className="line">
-              <span className="accent">build,</span> <span className="outline">support,</span>
+              <span className="accent">Staff,</span> <span className="outline">support,</span>
             </span>
           </span>
           <span className="line-mask"><span className="line">& grow your</span></span>
           <span className="line-mask"><span className="line">business.</span></span>
         </h1>
         <p className="hero-sub" data-reveal>
-          Web development, customer support, outsourcing, and social media marketing —
-          delivered by one partner who scopes clearly, ships on time, and stays accountable.
+          Dedicated remote staff and customer support for health, legal, engineering, finance,
+          and hospitality, plus the social, app, and web work that grows what you&apos;ve built.
         </p>
         <div className="hero-ctas" data-reveal>
           <a className="btn btn-primary" href="#contact" data-magnetic>

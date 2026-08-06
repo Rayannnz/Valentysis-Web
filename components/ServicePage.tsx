@@ -47,7 +47,7 @@ export default function ServicePage({ service }: { service: Service }) {
                 <p data-reveal>{service.summary}</p>
                 <p data-reveal>
                   Tell us what you need covered. We&apos;ll come back with scope, timeline, and a
-                  clear price — before any work starts.
+                  clear price before any work starts.
                 </p>
                 <div data-reveal style={{ marginTop: 28 }}>
                   <a className="btn btn-primary" href="/#contact" data-magnetic>
@@ -88,7 +88,7 @@ export default function ServicePage({ service }: { service: Service }) {
                 </h2>
               </div>
               <p className="sec-note" data-reveal>
-                Practical capabilities you can put to work — scoped to what you actually need.
+                Practical capabilities you can put to work, scoped to what you actually need.
               </p>
             </div>
             <div className="approach-grid">
@@ -114,7 +114,7 @@ export default function ServicePage({ service }: { service: Service }) {
                 </h2>
               </div>
               <p className="sec-note" data-reveal>
-                If your situation isn&apos;t listed, ask anyway — we&apos;ll tell you straight if
+                If your situation isn&apos;t listed, ask anyway. We&apos;ll tell you straight if
                 we&apos;re the right partner.
               </p>
             </div>

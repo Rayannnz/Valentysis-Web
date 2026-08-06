@@ -6,15 +6,15 @@ import PageEffects from "@/components/PageEffects";
 import PageHero from "@/components/PageHero";
 
 export const metadata: Metadata = {
-  title: "About Us — Valentisys",
+  title: "About Us | Valentisys",
   description:
-    "Meet Valentisys: a small, senior software team building custom web, mobile, and cloud products that outlast trends.",
+    "Meet Valentisys: an outsourcing and customer support partner staffing health, legal, engineering, finance, and hospitality businesses, plus the social, app, and web work that grows them.",
 };
 
 const values = [
   {
     title: "Craft over shortcuts",
-    desc: "We'd rather ship one thing that lasts a decade than ten things that break by Friday. Quality is the strategy.",
+    desc: "We'd rather place one person who handles your work properly than five who need checking. Quality is the strategy.",
     icon: (
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
@@ -23,7 +23,7 @@ const values = [
   },
   {
     title: "Own the outcome",
-    desc: "Nobody here says 'not my job.' Every squad owns its product's success — from architecture to the metric that matters.",
+    desc: "Nobody here says “not my job.” Every team owns the result on its account, from the first ticket to the number you judge us on.",
     icon: (
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <circle cx="12" cy="12" r="9" />
@@ -34,7 +34,7 @@ const values = [
   },
   {
     title: "Candor, kindly",
-    desc: "Direct feedback, early and often — delivered with respect. Surprises belong in demos, never in retrospectives.",
+    desc: "Direct feedback, early and often, delivered with respect. Surprises belong in demos, never in retrospectives.",
     icon: (
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
@@ -43,7 +43,7 @@ const values = [
   },
   {
     title: "Clients as partners",
-    desc: "We'd rather tell you not to build something than bill you for it. The goal is a client who comes back, not a longer invoice.",
+    desc: "We'd rather tell you a role isn't worth filling than bill you for it. The goal is a client who stays, not a longer invoice.",
     icon: (
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
@@ -56,24 +56,24 @@ const values = [
 
 const fits = [
   {
-    label: "Founders",
-    title: "Getting a first version in front of users",
-    desc: "You have a clear problem and need a small team that can go from empty repo to something real people can use — without burning a year of runway to get there.",
+    label: "Practices & firms",
+    title: "Growing faster than you can hire",
+    desc: "The caseload is up, local hiring is slow and expensive, and qualified people are doing work that should never have reached their desk.",
   },
   {
-    label: "Scale-ups",
-    title: "Adding senior capacity, fast",
-    desc: "Your roadmap is longer than your team. We work inside your repo and your rituals as an extra squad, and leave when you no longer need us.",
+    label: "Front offices",
+    title: "Calls and inquiries going unanswered",
+    desc: "The phone rings out at lunch, inquiries sit overnight, and you can hear the business you're losing. We cover the hours you can't.",
   },
   {
-    label: "Operators",
-    title: "Replacing the spreadsheet",
-    desc: "The manual process quietly holding the business together deserves real software. We build the internal tools nobody else wants to take on.",
+    label: "Back offices",
+    title: "Paperwork stacking up behind the work",
+    desc: "Files, filings, invoices, and reconciliations quietly fall behind until a deadline forces a scramble. We keep them current instead.",
   },
   {
     label: "Rescues",
-    title: "Taking over someone else's codebase",
-    desc: "A half-finished build, a contractor who vanished, a system nobody dares deploy. We audit it, tell you honestly whether to fix or rebuild, then do it.",
+    title: "An outsourcing arrangement that went wrong",
+    desc: "A provider who overpromised, staff who churned every month, quality you ended up policing yourself. We'll take an honest look and tell you what's salvageable.",
   },
 ];
 
@@ -86,12 +86,12 @@ export default function AboutPage() {
         <PageHero
           eyebrow="About us"
           lines={[
-            "Software should",
+            "An extension of",
             <>
-              <span className="accent">outlast</span> trends.
+              your <span className="accent">own team.</span>
             </>,
           ]}
-          lead="We're a small, senior engineering team building software meant to still be running — and still be maintainable — long after the launch post goes out."
+          lead="We place trained people inside the businesses that need them: answering the calls, clearing the paperwork, and keeping the back office current. Then we help those businesses grow with social, apps, and web."
         />
 
         <section className="section" style={{ paddingTop: 0 }}>
@@ -100,27 +100,27 @@ export default function AboutPage() {
               <div className="story-copy">
                 <p className="sec-eyebrow" data-reveal>Our story</p>
                 <h2 className="sec-title" data-reveal style={{ marginBottom: 26 }}>
-                  Built by engineers, run by engineers
+                  Built around the work, not the headcount
                 </h2>
                 <p data-reveal>
-                  Valentisys started from a simple frustration: too much software gets sold by
-                  people who will never have to maintain it. Scope inflates, timelines slip, and the
-                  client is left holding a codebase nobody wants to open.
+                  Valentisys started from a simple frustration: outsourcing is usually sold by the
+                  seat. You get bodies on a contract, a rotating cast nobody introduced you to, and
+                  a quality problem that becomes yours to manage.
                 </p>
                 <p data-reveal>
-                  So we built the opposite. Engineers run our projects, work is scoped and priced
-                  before it starts, and there&apos;s a working demo every Friday — not a status
-                  report describing one. If something is going wrong, you hear it from us first.
+                  So we built the opposite. People are matched to your brief and trained on your
+                  process before they touch live work. You meet them first. The scope and the price
+                  are agreed before anyone starts, and if something is going wrong you hear it from
+                  us, not from your customers.
                 </p>
                 <p data-reveal>
-                  We&apos;re deliberately small. That means we take on fewer projects than we could,
-                  and the people you meet on the first call are the ones writing the code on the
-                  last day.
+                  We stay deliberately small on accounts. That means fewer clients than we could
+                  take, and the people who scope your work are the ones still on it a year later.
                 </p>
               </div>
               <div className="story-panel" data-reveal="scale">
                 <span className="big">One team</span>
-                <p>from the first call to the last deploy — no handoffs, no account managers.</p>
+                <p>from the first call onward. No handoffs, no account managers in between.</p>
               </div>
             </div>
           </div>
@@ -157,8 +157,8 @@ export default function AboutPage() {
                 <h2 className="sec-title" data-reveal>Where we do our best work</h2>
               </div>
               <p className="sec-note" data-reveal>
-                If your situation isn&apos;t on this list, say so anyway — we&apos;ll tell you
-                straight if we&apos;re the wrong team for it.
+                If your situation isn&apos;t on this list, say so anyway. We&apos;ll tell you
+                straight if we&apos;re the wrong partner for it.
               </p>
             </div>
             <div className="timeline">

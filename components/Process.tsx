@@ -4,34 +4,34 @@ import { useEffect, useRef, useState } from "react";
 
 const steps = [
   {
-    title: "Discovery & scoping",
-    desc: "We map your goals, users, and constraints into a concrete technical brief — with an estimate you can hold us to.",
-    tags: ["Workshops", "Tech audit", "Roadmap"],
+    title: "Scoping call",
+    desc: "We map the work, the volume, and the hours you need covered, then come back with a scope and a price you can hold us to.",
+    tags: ["Discovery", "Volume review", "Fixed quote"],
   },
   {
-    title: "UX & UI design",
-    desc: "Wireframes to polished design systems, validated with real users before a single line of code is written.",
-    tags: ["Prototyping", "Design system", "User testing"],
+    title: "Team match",
+    desc: "We shortlist people against your brief: sector experience, language, and the tools you already run on. You meet them before anything starts.",
+    tags: ["Vetting", "Shortlist", "Your sign-off"],
   },
   {
-    title: "Development",
-    desc: "Two-week sprints with continuous integration, code review on every change, and a working demo every Friday.",
-    tags: ["Agile sprints", "CI/CD", "Code review"],
+    title: "Onboarding",
+    desc: "Access, tools, and your process written into a runbook, so the team works your way from day one instead of guessing at it.",
+    tags: ["Runbook", "Systems access", "Training"],
   },
   {
-    title: "QA & hardening",
-    desc: "Automated test suites, performance budgets, and dependency scans gate every release candidate.",
-    tags: ["Automation", "Security review", "Load testing"],
+    title: "Supervised start",
+    desc: "Live work begins under close supervision, with early output reviewed daily until the quality is where you want it.",
+    tags: ["Daily review", "QA sampling", "Feedback loop"],
   },
   {
-    title: "Launch",
-    desc: "Staged rollouts, monitoring and alerting wired in before launch, and a rollback plan we hope never to use.",
-    tags: ["Staged rollout", "Monitoring", "Runbooks"],
+    title: "Reporting",
+    desc: "Agreed SLAs, weekly numbers, and a named account lead who picks up when something needs escalating.",
+    tags: ["SLAs", "Weekly reports", "Escalation path"],
   },
   {
-    title: "Scale & support",
-    desc: "We stay on after launch — an agreed support window, an eye on the numbers, and a roadmap for whatever comes next.",
-    tags: ["Support agreement", "Optimization", "Roadmap"],
+    title: "Scale or adjust",
+    desc: "Add hours, add people, or wind down as demand shifts. Reviewed every quarter so you never pay for capacity you stopped needing.",
+    tags: ["Flex capacity", "Quarterly review", "No lock-in"],
   },
 ];
 

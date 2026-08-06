@@ -12,8 +12,8 @@ export default function Cta() {
           <span className="line-mask"><span className="line">partner you can trust?</span></span>
         </h2>
         <p data-reveal>
-          Tell us what you need — web, support, outsourcing, or social. We&apos;ll scope it, price
-          it, and staff it — in days, not months.
+          Tell us what you need: outsourcing, customer support, social, apps, or web. We&apos;ll
+          scope it, price it, and staff it in days, not months.
         </p>
         <a className="btn btn-magenta" href="/#contact" data-magnetic data-reveal>
           Get my free estimate

@@ -25,10 +25,10 @@ export default function Contact() {
         <div className="contact-layout">
           <div className="contact-info">
             <p className="sec-eyebrow" data-reveal>Contact us</p>
-            <h2 data-reveal>Let&apos;s build something that matters.</h2>
+            <h2 data-reveal>Tell us what you need covered.</h2>
             <p data-reveal>
-              Share a few details and a senior engineer — not a sales rep — will get back to you
-              within one business day.
+              Share a few details and someone who actually runs the work, not a sales rep, will
+              get back to you within one business day.
             </p>
             <div className="contact-rows" data-reveal>
               <a href="mailto:hello@valentisys.dev">
@@ -61,7 +61,7 @@ export default function Contact() {
               <span className="bar" />
             </div>
             <div className="field">
-              <label htmlFor="f-msg">Tell us about your project</label>
+              <label htmlFor="f-msg">What do you need covered?</label>
               <textarea id="f-msg" name="message" rows={4} required />
               <span className="bar" />
             </div>
@@ -72,7 +72,7 @@ export default function Contact() {
               </svg>
             </button>
             <p className="form-success" role="status">
-              Thanks — your message is in. We&apos;ll reply within one business day.
+              Thanks, your message is in. We&apos;ll reply within one business day.
             </p>
           </form>
         </div>
