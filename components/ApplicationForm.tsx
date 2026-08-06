@@ -3,7 +3,17 @@
 import { FormEvent, type ReactNode, useState } from "react";
 import { services } from "@/lib/services";
 
-const teams = services.map((s) => s.shortTitle);
+/** Roles hired for outside the service lines listed on the site. */
+const extraRoles = [
+  "SEO Expert",
+  "Ads Expert (Meta Ads / Google Ads)",
+  "Graphic Designer & Video Editor",
+];
+
+const teams = [
+  ...services.filter((s) => s.slug !== "outsourcing").map((s) => s.shortTitle),
+  ...extraRoles,
+];
 
 const RESUME_ACCEPT = ".pdf,.png,.jpg,.jpeg,.webp,application/pdf,image/*";
 

@@ -8,7 +8,7 @@ import PageHero from "@/components/PageHero";
 export const metadata: Metadata = {
   title: "Careers — Valentisys",
   description:
-    "Join Valentisys across outsourcing, real customer support, web development, and digital marketing. Apply through one form and pick the team that fits.",
+    "Join Valentisys across real customer support, web development, digital marketing, SEO, paid ads, design, and video. Apply through one form and pick the team that fits.",
 };
 
 export default function CareersPage() {
@@ -25,7 +25,7 @@ export default function CareersPage() {
               of your <span className="accent">career.</span>
             </>,
           ]}
-          lead="We're building a team across outsourcing, real customer support, web development, and digital marketing. If you like clear ownership, short feedback loops, and small egos, you'll fit right in."
+          lead="We're building a team across real customer support, web development, digital marketing, SEO, paid ads, graphic design, and video editing. If you like clear ownership, short feedback loops, and small egos, you'll fit right in."
         />
 
         <section id="apply" className="section application-section">

@@ -77,17 +77,6 @@ const fits = [
   },
 ];
 
-const team = [
-  { name: "Fareed Tanveer", role: "Chief Executive Officer" },
-  { name: "Hasnat Khan", role: "Chief Operating Officer" },
-];
-
-const initials = (name: string) =>
-  name
-    .split(" ")
-    .map((part) => part[0])
-    .join("");
-
 export default function AboutPage() {
   return (
     <>
@@ -179,29 +168,6 @@ export default function AboutPage() {
                   <h3>{title}</h3>
                   <p>{desc}</p>
                 </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="section" style={{ paddingTop: 0 }}>
-          <div className="container">
-            <div className="sec-head">
-              <div>
-                <p className="sec-eyebrow" data-reveal>Leadership</p>
-                <h2 className="sec-title" data-reveal>The people steering the ship</h2>
-              </div>
-              <p className="sec-note" data-reveal>
-                The two people you&apos;ll actually be dealing with.
-              </p>
-            </div>
-            <div className="team-grid">
-              {team.map(({ name, role }) => (
-                <article className="team-card" data-reveal key={name}>
-                  <div className="team-avatar" aria-hidden="true">{initials(name)}</div>
-                  <b>{name}</b>
-                  <span>{role}</span>
-                </article>
               ))}
             </div>
           </div>

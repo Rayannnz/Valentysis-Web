@@ -4,10 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { industries } from "@/lib/industries";
 import { services } from "@/lib/services";
-
-const industriesLeft = ["Fintech", "Healthtech", "Edtech"];
-const industriesRight = ["Ecommerce", "Proptech", "AI & Data"];
 
 const serviceNav = services.map(({ slug, navLabel }) => ({
   label: navLabel,
@@ -15,6 +13,15 @@ const serviceNav = services.map(({ slug, navLabel }) => ({
 }));
 const servicesLeft = serviceNav.slice(0, 2);
 const servicesRight = serviceNav.slice(2);
+
+/* rendered as native anchors, not <Link> — Link pushState's same-page hash links
+   without firing hashchange, so the accordion wouldn't open from /industries itself */
+const industryNav = industries.map(({ id, name }) => ({
+  label: name,
+  href: `/industries#${id}`,
+}));
+const industriesLeft = industryNav.slice(0, 3);
+const industriesRight = industryNav.slice(3);
 
 export default function Header() {
   const pathname = usePathname();
@@ -134,7 +141,7 @@ export default function Header() {
               onFocus={veilOn}
               onBlur={veilOff}
             >
-              <Link className="nav-link" href="/#industries" onClick={go}>
+              <Link className="nav-link" href="/industries" onClick={go}>
                 Industries
                 <svg className="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
                   <path d="M6 9l6 6 6-6" />
@@ -143,13 +150,13 @@ export default function Header() {
               <div className="mega">
                 <div className="mega-grid">
                   <div className="mega-col">
-                    {industriesLeft.map((name) => (
-                      <Link key={name} href="/#industries" onClick={go}>{name}</Link>
+                    {industriesLeft.map(({ label, href }) => (
+                      <a key={href} href={href} onClick={go}>{label}</a>
                     ))}
                   </div>
                   <div className="mega-col">
-                    {industriesRight.map((name) => (
-                      <Link key={name} href="/#industries" onClick={go}>{name}</Link>
+                    {industriesRight.map(({ label, href }) => (
+                      <a key={href} href={href} onClick={go}>{label}</a>
                     ))}
                   </div>
                   <div className="mega-promo">
@@ -191,6 +198,11 @@ export default function Header() {
       </header>
 
       <nav id="mobile-menu" aria-label="Mobile navigation">
+        <button className="menu-close" type="button" aria-label="Close menu" onClick={closeMenu}>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
+            <path d="M18 6L6 18M6 6l12 12" />
+          </svg>
+        </button>
         <Link href="/" onClick={closeMenu}><small>01</small>Home</Link>
         <Link href="/#services" onClick={closeMenu}><small>02</small>Services</Link>
         {serviceNav.map(({ label, href }, i) => (
@@ -199,7 +211,13 @@ export default function Header() {
             {label}
           </Link>
         ))}
-        <Link href="/#industries" onClick={closeMenu}><small>03</small>Industries</Link>
+        <Link href="/industries" onClick={closeMenu}><small>03</small>Industries</Link>
+        {industryNav.map(({ label, href }, i) => (
+          <a key={href} className="mobile-sub" href={href} onClick={closeMenu}>
+            <small>03.{i + 1}</small>
+            {label}
+          </a>
+        ))}
         <Link href="/careers" onClick={closeMenu}><small>04</small>Careers</Link>
         <Link href="/about" onClick={closeMenu}><small>05</small>About Us</Link>
         <Link href="/#contact" onClick={closeMenu} style={{ color: "var(--primary)" }}><small>06</small>Contact</Link>

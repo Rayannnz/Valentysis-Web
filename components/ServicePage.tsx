@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import PageEffects from "@/components/PageEffects";
 import PageHero from "@/components/PageHero";
+import ServiceDetail from "@/components/ServiceDetail";
 import type { Service } from "@/lib/services";
 import { services } from "@/lib/services";
 
@@ -73,7 +74,9 @@ export default function ServicePage({ service }: { service: Service }) {
           </div>
         </section>
 
-        <section className="section" style={{ paddingTop: 0 }}>
+        {service.detail && <ServiceDetail detail={service.detail} />}
+
+        <section className="section" style={service.detail ? undefined : { paddingTop: 0 }}>
           <div className="container">
             <div className="sec-head">
               <div>

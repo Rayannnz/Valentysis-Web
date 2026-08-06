@@ -1,7 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
+import { industries } from "@/lib/industries";
 
-const columns = [
+type FooterColumn = {
+  heading: string;
+  links: { label: string; href: string }[];
+  /* native anchors instead of <Link> — see the note in Header.tsx */
+  plain?: boolean;
+};
+
+const columns: FooterColumn[] = [
   {
     heading: "Services",
     links: [
@@ -13,13 +21,8 @@ const columns = [
   },
   {
     heading: "Industries",
-    links: [
-      { label: "Fintech", href: "/#industries" },
-      { label: "Healthtech", href: "/#industries" },
-      { label: "Edtech", href: "/#industries" },
-      { label: "Ecommerce", href: "/#industries" },
-      { label: "AI & Data", href: "/#industries" },
-    ],
+    plain: true,
+    links: industries.map(({ id, name }) => ({ label: name, href: `/industries#${id}` })),
   },
   {
     heading: "Company",
@@ -69,12 +72,16 @@ export default function Footer() {
             </div>
           </div>
 
-          {columns.map(({ heading, links }) => (
+          {columns.map(({ heading, links, plain }) => (
             <div className="footer-col" key={heading}>
               <h4>{heading}</h4>
-              {links.map(({ label, href }) => (
-                <Link href={href} key={label}>{label}</Link>
-              ))}
+              {links.map(({ label, href }) =>
+                plain ? (
+                  <a href={href} key={label}>{label}</a>
+                ) : (
+                  <Link href={href} key={label}>{label}</Link>
+                )
+              )}
             </div>
           ))}
         </div>
@@ -83,7 +90,7 @@ export default function Footer() {
 
         <div className="footer-bottom">
           <span>&copy; 2026 Valentisys. All rights reserved.</span>
-          <span style={{ display: "flex", gap: 22 }}>
+          <span className="footer-legal">
             <a href="#">Privacy policy</a>
             <a href="#">Terms of service</a>
             <a href="#">Cookies</a>
