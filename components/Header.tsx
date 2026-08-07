@@ -95,7 +95,17 @@ export default function Header() {
       <header id="header" className={`${scrolled ? "scrolled" : ""} ${hidden ? "hidden" : ""}`.trim()}>
         <div className="header-inner">
           <Link className="logo" href="/" aria-label="Valentisys home">
-            <Image src="/logo/logo-valentisys.png" alt="Valentisys" width={900} height={240} priority />
+            {/* sizes matters here: the source is 900px wide but .logo img renders
+                it 40px tall (150px wide), and without this the browser assumes
+                100vw and downloads the largest variant on every page */}
+            <Image
+              src="/logo/logo-valentisys.png"
+              alt="Valentisys"
+              width={900}
+              height={240}
+              sizes="(max-width: 640px) 120px, 150px"
+              priority
+            />
           </Link>
 
           <nav className="nav" aria-label="Main navigation">
@@ -129,7 +139,9 @@ export default function Header() {
                     ))}
                   </div>
                   <div className="mega-promo">
-                    <h4>Need the right fit?</h4>
+                    {/* not a heading — the header renders before the page's h1,
+                        so an h4 here breaks heading order on every page */}
+                    <p className="mega-promo-title">Need the right fit?</p>
                     <p>Tell us the problem. We&apos;ll recommend a service mix, timeline, and a clear price.</p>
                     <Link className="btn btn-magenta" href="/contact" style={{ marginTop: 10 }} onClick={go}>
                       Get an estimate
@@ -168,7 +180,7 @@ export default function Header() {
                     ))}
                   </div>
                   <div className="mega-promo">
-                    <h4>Not sure where to start?</h4>
+                    <p className="mega-promo-title">Not sure where to start?</p>
                     <p>Send us the problem. We&apos;ll come back with scope, timeline, and a price.</p>
                     <Link className="btn btn-magenta" href="/contact" style={{ marginTop: 10 }} onClick={go}>
                       Get an estimate

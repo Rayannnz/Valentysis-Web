@@ -14,9 +14,14 @@ npm start        # serve the production build
 There is no test framework in this project — no runner, no test files. `npm run build` is the type-check
 (`tsconfig` is `noEmit`), so build + lint is the full verification loop. Don't invent a test command.
 
-`/api/contact` needs SMTP credentials: copy `.env.example` to `.env.local` and fill it in. Next reads env
-at boot, so restart the dev server after changing it. Without those vars the route returns 503 and the rest
-of the site works fine.
+There is no API route and no SMTP config. Both forms post to Netlify Forms (see below), so locally they
+will fail against the dev server — that is expected, and the failure is logged with a `[contact]` or
+`[careers]` prefix. Test form submission on a Netlify deploy preview, not on localhost.
+
+`scripts/generate-icons.cjs` regenerates the whole icon set (favicon, apple-icon, PWA icons) from
+`public/logo/logo-mark.png`. Run `node scripts/generate-icons.cjs` after changing the logo. Its `.ico`
+frames must stay RGBA — Next decodes `app/favicon.ico` at build time and a paletted PNG frame fails
+every route with "The PNG is not in RGBA format".
 
 ## Dev server: there is exactly one, on port 3000 — reuse it
 
@@ -140,15 +145,20 @@ React 19, TypeScript strict, `@/*` maps to the repo root. Every route is statica
 The optional `detail` field is what renders the dark accordion on a service page; services without it skip
 that section. `lib/industries.ts` works the same way for the five sectors and their `#id` anchors.
 
-So: adding or renaming a service means editing `lib/services.ts` — **and** `components/Footer.tsx`, which
-hardcodes its Services column instead of mapping over `services`. Changing a slug means adding a redirect
-in `next.config.ts` (see Gotchas below before you rely on that working).
+Each service also carries `seoTitle` / `seoDescription`, kept separate from `title` and `lead` because
+those are written for the page and these are written for the SERP.
+
+Adding a service means editing `lib/services.ts` and nothing else — the footer now maps over `services`
+rather than hardcoding its column. Changing a slug means adding a redirect in `next.config.ts`.
 
 ## Page composition
 
-Every route renders the same shell: `<PageEffects /> <Header /> <main>…</main> <Footer />`. Sub-pages open
-with `<PageHero eyebrow lines lead>` (`lines` is an array of ReactNode, one per masked heading line); the
-home page uses the bespoke `<Hero />`. `<Cta />` closes most pages. Section markup follows a fixed
+Every route renders the same shell: `<PageEffects /> <Header /> <main id="main">…</main> <Footer />`
+followed by a `<JsonLd>` graph. **`id="main"` is not optional** — it is the target of the skip link in
+`app/layout.tsx`. Sub-pages open with `<PageHero eyebrow lines lead>` (`lines` is an array of ReactNode,
+one per masked heading line) and then `<Breadcrumbs trail={trail} />`, where the same `trail` array also
+feeds `breadcrumbSchema()`; the two must come from one source or Google discards the graph. The home page
+uses the bespoke `<Hero />`. `<Cta />` closes most pages. Section markup follows a fixed
 vocabulary — `.section > .container > .sec-head` with `.sec-eyebrow` / `.sec-title` / `.sec-note` — mirror
 an existing page rather than inventing structure.
 
@@ -204,23 +214,55 @@ Some non-obvious choices in them are deliberate and commented in place:
   `next/link` pushStates a same-page hash without firing `hashchange`, which would leave the accordion shut
   when you click an industry from `/industries` itself. Don't "fix" these to `<Link>`.
 
-## The two forms work differently on purpose
+## Both forms post to Netlify Forms
 
-**`/contact`** → `ContactForm` POSTs JSON to `app/api/contact/route.ts`, which sends mail over SMTP with
-nodemailer (`runtime = "nodejs"` because SMTP needs a long-lived connection). The route has a `website`
-honeypot that returns `{ok: true}` so bots don't learn to retry, per-field length caps, CRLF stripping to
-block header injection, HTML escaping in the mail body, and a best-effort in-memory IP rate limit (5/min)
-that intentionally doesn't survive across serverless instances. Errors are logged with a `[contact]` prefix.
+Netlify detects forms by parsing static HTML at deploy time, and these forms are React client components.
+So both are *declared* in `public/__forms.html` and both POST back to that same path. **Every field name in
+a React form must exist in `__forms.html`** or Netlify silently drops it from the submission.
 
-**`/careers`** → `ApplicationForm` never touches the server. It builds a `wa.me` click-to-chat URL to a
-number hardcoded in the component and opens it in a new tab; the selected CV file is *not* uploaded — the
-applicant attaches it in WhatsApp. Don't wire this to the contact API without being asked.
+**`/contact`** → `ContactForm` posts url-encoded (Netlify rejects JSON). Unselected dropdowns fall back to
+`"Others"` rather than arriving blank.
+
+**`/careers`** → `ApplicationForm` posts multipart, because the CV is a real file upload — it sets no
+`Content-Type` header so the browser can supply its own boundary. The CV is capped at 8 MB client-side:
+Netlify rejects a request over 8 MiB with a 400 read straight off `Content-Length`.
+
+Both redirect to `/thank-you?ref=contact|careers` on success, which is the conversion destination. Failures
+are logged with a `[contact]` / `[careers]` prefix so a broken deploy config is diagnosable from devtools.
 
 ## Gotchas
 
-- **`next.config.ts` silently drops its redirects.** The file assigns `module.exports = { allowedDevOrigins }`
-  after declaring `nextConfig`, which clobbers `export default nextConfig`. Verified against a fresh
-  `npm run build`: `.next/routes-manifest.json` contains only Next's internal trailing-slash redirect, so the
-  `/services/customer-support` and `/services/social-media-marketing` redirects are dead. Fold
-  `allowedDevOrigins` into the `nextConfig` object to restore them.
+- **Keep everything inside the single `nextConfig` object in `next.config.ts`.** A previous revision assigned
+  `module.exports = { allowedDevOrigins }` below the declaration, which clobbered `export default nextConfig`
+  and silently dropped every redirect. Fixed, and verifiable: `routes-manifest.json` should list eight
+  redirects, not one.
+- **Never set an `icons` key in the root layout's `metadata`.** Doing so replaces Next's file-convention
+  icon detection wholesale, and `app/apple-icon.png` stops emitting a `rel="apple-touch-icon"` link.
+  `app/favicon.ico`, `app/icon.png`, and `app/apple-icon.png` are picked up automatically.
+- **A page that exports its own `openGraph` block loses the inherited `opengraph-image`.** That is why
+  `lib/seo.ts` names `/opengraph-image` and `/twitter-image` explicitly instead of relying on the file
+  convention to cascade — without it, `og:image` appears on `/` and nowhere else.
+- **Page titles go through `buildMetadata`, which sets `title.absolute`.** A bare `title` string picks up
+  the layout's `"%s | Valentisys"` template and renders the brand twice.
 - Commit messages in this repo are terse and untyped ("fixed", "content audited"). No convention to follow.
+
+## SEO, structured data, and legal pages
+
+Four `lib/` modules carry everything a page asserts about the business:
+
+- **`lib/site.ts`** — the single source of truth for name, canonical URL, emails, postal address, service
+  area, and opening hours. Blank fields are deliberate: `lib/schema.ts` drops empty values rather than
+  emitting a placeholder, so an unverified detail never ships as structured data. `site.social` is empty,
+  which is why the footer renders no social icons — add a real URL and the icon and the Organization
+  `sameAs` entry both appear.
+- **`lib/seo.ts`** — `buildMetadata({title, description, path})` builds canonical + Open Graph + Twitter from
+  one pair. Titles are held to 50–60 characters and descriptions to 140–160.
+- **`lib/schema.ts`** — JSON-LD builders. The root layout emits Organization + WebSite + ProfessionalService
+  once, with stable `@id`s; each page adds WebPage/Breadcrumb/Service/FAQ nodes that reference those by
+  `@id` instead of restating the company.
+- **`lib/consent.ts`** — cookie consent, stored in localStorage and read through `useSyncExternalStore`.
+
+`robots.txt`, `sitemap.xml`, and the web manifest are generated by `app/robots.ts`, `app/sitemap.ts`, and
+`app/manifest.ts`. Adding a route means adding it to `app/sitemap.ts` **and** to the grouped list in
+`app/sitemap/page.tsx` (the human-readable sitemap). The four policy pages share `components/LegalPage.tsx`
+and all read their "last updated" date from `site.legalUpdated`.

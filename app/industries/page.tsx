@@ -1,15 +1,44 @@
 import type { Metadata } from "next";
+import Breadcrumbs, { type Crumb } from "@/components/Breadcrumbs";
 import Cta from "@/components/Cta";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Industries from "@/components/Industries";
+import JsonLd from "@/components/JsonLd";
 import PageEffects from "@/components/PageEffects";
 import PageHero from "@/components/PageHero";
+import { industries } from "@/lib/industries";
+import { breadcrumbSchema, graph, webPageSchema } from "@/lib/schema";
+import { buildMetadata } from "@/lib/seo";
+import { absoluteUrl } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Industries | Valentisys",
-  description:
-    "The sectors Valentisys staffs and supports (health, legal, engineering, finance, and hospitality) and what each one expects of the people doing the work.",
+const TITLE = "Industries: Health, Legal, Finance & More | Valentisys";
+const DESCRIPTION =
+  "The five sectors Valentisys staffs in depth — health, legal, engineering, finance and hospitality — and what each expects of the people doing the work.";
+
+export const metadata: Metadata = buildMetadata({
+  title: TITLE,
+  description: DESCRIPTION,
+  path: "/industries",
+});
+
+const trail: Crumb[] = [
+  { name: "Home", path: "/" },
+  { name: "Industries", path: "/industries" },
+];
+
+/* the five sectors are accordion panels on one page, so they are an ItemList of
+   in-page anchors rather than five crawlable URLs */
+const industryList = {
+  "@type": "ItemList",
+  name: "Industries served by Valentisys",
+  itemListElement: industries.map(({ id, name, desc }, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    name,
+    description: desc,
+    url: absoluteUrl(`/industries#${id}`),
+  })),
 };
 
 export default function IndustriesPage() {
@@ -17,7 +46,7 @@ export default function IndustriesPage() {
     <>
       <PageEffects />
       <Header />
-      <main>
+      <main id="main">
         <PageHero
           eyebrow="Industries"
           lines={[
@@ -28,6 +57,8 @@ export default function IndustriesPage() {
           ]}
           lead="Every industry brings its own paperwork, deadlines, and rules about who may touch what. Here's what we've learned staffing and supporting each of them."
         />
+
+        <Breadcrumbs trail={trail} />
 
         <section className="section" style={{ paddingTop: 0 }}>
           <div className="container">
@@ -62,6 +93,18 @@ export default function IndustriesPage() {
         <Cta />
       </main>
       <Footer />
+      <JsonLd
+        data={graph(
+          webPageSchema({
+            name: TITLE,
+            description: DESCRIPTION,
+            path: "/industries",
+            type: "CollectionPage",
+          }),
+          breadcrumbSchema(trail),
+          industryList
+        )}
+      />
     </>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
-import { FormEvent, type ReactNode, useState } from "react";
+import { useRouter } from "next/navigation";
+import { FormEvent, type ReactNode, useEffect, useRef, useState } from "react";
 import { industries } from "@/lib/industries";
 import { services } from "@/lib/services";
 
@@ -44,10 +45,18 @@ function FieldLabel({
 }
 
 export default function ContactForm() {
+  const router = useRouter();
   const [industry, setIndustry] = useState("");
   const [service, setService] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
   const [error, setError] = useState("");
+  const errorRef = useRef<HTMLParagraphElement>(null);
+
+  /* move focus to the failure message: role="alert" announces it, but a
+     keyboard user is otherwise left on a button whose state just changed back */
+  useEffect(() => {
+    if (error) errorRef.current?.focus();
+  }, [error]);
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -88,6 +97,9 @@ export default function ContactForm() {
       setIndustry("");
       setService("");
       setStatus("sent");
+      /* a real destination, so the confirmation is linkable and can be set as a
+         conversion goal — the inline state below only shows if navigation stalls */
+      router.push("/thank-you");
     } catch {
       setError("We couldn't reach the server. Please check your connection and try again.");
       setStatus("idle");
@@ -148,7 +160,7 @@ export default function ContactForm() {
 
         <div className="app-field">
           <FieldLabel htmlFor="c-phone" required>
-            Work contact
+            Phone number
           </FieldLabel>
           <input id="c-phone" name="phone" type="tel" autoComplete="tel" required />
         </div>
@@ -215,7 +227,7 @@ export default function ContactForm() {
         </div>
 
         {error && (
-          <p className="form-error" role="alert">
+          <p className="form-error" role="alert" tabIndex={-1} ref={errorRef}>
             {error}
           </p>
         )}
@@ -225,6 +237,7 @@ export default function ContactForm() {
           type="submit"
           data-magnetic
           disabled={sending}
+          aria-busy={sending}
         >
           {sending ? "Sending…" : "Send enquiry"}
           <svg

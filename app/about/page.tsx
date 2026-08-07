@@ -1,15 +1,28 @@
 import type { Metadata } from "next";
+import Breadcrumbs, { type Crumb } from "@/components/Breadcrumbs";
 import Cta from "@/components/Cta";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import JsonLd from "@/components/JsonLd";
 import PageEffects from "@/components/PageEffects";
 import PageHero from "@/components/PageHero";
+import { breadcrumbSchema, graph, webPageSchema } from "@/lib/schema";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "About Us | Valentisys",
-  description:
-    "Meet Valentisys: an outsourcing and customer support partner staffing health, legal, engineering, finance, and hospitality businesses, plus the social, app, and web work that grows them.",
-};
+const TITLE = "About Us: Your Outsourcing & Support Partner | Valentisys";
+const DESCRIPTION =
+  "How Valentisys matches and trains remote staff before they touch live work, the four values we hold to, and the situations where we do our best work.";
+
+export const metadata: Metadata = buildMetadata({
+  title: TITLE,
+  description: DESCRIPTION,
+  path: "/about",
+});
+
+const trail: Crumb[] = [
+  { name: "Home", path: "/" },
+  { name: "About us", path: "/about" },
+];
 
 const values = [
   {
@@ -82,7 +95,7 @@ export default function AboutPage() {
     <>
       <PageEffects />
       <Header />
-      <main>
+      <main id="main">
         <PageHero
           eyebrow="About us"
           lines={[
@@ -93,6 +106,8 @@ export default function AboutPage() {
           ]}
           lead="We place trained people inside the businesses that need them: answering the calls, clearing the paperwork, and keeping the back office current. Then we help those businesses grow with social, apps, and web."
         />
+
+        <Breadcrumbs trail={trail} />
 
         <section className="section" style={{ paddingTop: 0 }}>
           <div className="container">
@@ -176,6 +191,17 @@ export default function AboutPage() {
         <Cta />
       </main>
       <Footer />
+      <JsonLd
+        data={graph(
+          webPageSchema({
+            name: TITLE,
+            description: DESCRIPTION,
+            path: "/about",
+            type: "AboutPage",
+          }),
+          breadcrumbSchema(trail)
+        )}
+      />
     </>
   );
 }

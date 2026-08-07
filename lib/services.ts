@@ -20,6 +20,13 @@ export type Service = {
   title: string;
   shortTitle: string;
   navLabel: string;
+  /**
+   * Search copy, kept apart from `title`/`lead` because those are tuned for the
+   * page and these are tuned for the SERP. Hold seoTitle to 50–60 characters
+   * and seoDescription to 140–160, or the result gets truncated with an ellipsis.
+   */
+  seoTitle: string;
+  seoDescription: string;
   eyebrow: string;
   headline: string[];
   accentWord: string;
@@ -39,6 +46,9 @@ export const services: Service[] = [
     title: "Outsourcing Services",
     shortTitle: "Outsourcing",
     navLabel: "Outsourcing",
+    seoTitle: "Outsourcing Services: Dedicated Teams | Valentisys",
+    seoDescription:
+      "Scale capacity without full-time hiring. Valentisys builds dedicated remote pods, runs back-office processes, and staffs specialist roles to your brief.",
     eyebrow: "Outsourcing",
     headline: ["Dedicated talent,", "on your terms."],
     accentWord: "your terms",
@@ -90,6 +100,9 @@ export const services: Service[] = [
     title: "Real Customer Support",
     shortTitle: "Real Customer Support",
     navLabel: "Real Customer Support",
+    seoTitle: "Real Customer Support: Trained Remote Staff | Valentisys",
+    seoDescription:
+      "Trained remote staff for law firms, medical practices, accounting and ecommerce: paralegal work, front desk cover, scheduling, books and buyer care.",
     eyebrow: "Real customer support",
     headline: ["Support that", "feels like your team."],
     accentWord: "your team",
@@ -260,6 +273,9 @@ export const services: Service[] = [
     title: "Digital Marketing",
     shortTitle: "Digital Marketing",
     navLabel: "Digital Marketing",
+    seoTitle: "Digital Marketing: SEO, Ads, Social & Leads | Valentisys",
+    seoDescription:
+      "Social, content, paid ads, SEO and lead generation run as one program by Valentisys, with reporting tied to pipeline and sales rather than impressions.",
     eyebrow: "Digital marketing",
     headline: ["Marketing that", "brings in customers."],
     accentWord: "customers",
@@ -518,6 +534,9 @@ export const services: Service[] = [
     title: "App Development",
     shortTitle: "App Development",
     navLabel: "App Development",
+    seoTitle: "App Development: iOS, Android & Cross-Platform | Valentisys",
+    seoDescription:
+      "Valentisys builds iOS, Android and cross-platform apps around one real workflow, handles App Store and Play submission, and supports them after launch.",
     eyebrow: "App development",
     headline: ["Mobile apps people", "actually keep."],
     accentWord: "keep",
@@ -569,6 +588,9 @@ export const services: Service[] = [
     title: "Web Development",
     shortTitle: "Web Development",
     navLabel: "Web Development",
+    seoTitle: "Web Development: Sites, Portals & Stores | Valentisys",
+    seoDescription:
+      "Custom websites, client portals and ecommerce platforms designed around your business by Valentisys: fast, accessible, and built to be updated in-house.",
     eyebrow: "Web development",
     headline: ["Websites built", "to perform."],
     accentWord: "perform",
@@ -620,6 +642,9 @@ export const services: Service[] = [
     title: "AI Solutions",
     shortTitle: "AI Solutions",
     navLabel: "AI Solutions",
+    seoTitle: "AI Solutions: Assistants & Workflow Automation | Valentisys",
+    seoDescription:
+      "AI assistants, document extraction and workflow automation built by Valentisys around one repeated task, with a person in the loop and measured results.",
     eyebrow: "AI solutions",
     headline: ["AI that does", "actual work."],
     accentWord: "actual work",

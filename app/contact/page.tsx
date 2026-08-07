@@ -1,22 +1,65 @@
 import type { Metadata } from "next";
+import Breadcrumbs, { type Crumb } from "@/components/Breadcrumbs";
 import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import JsonLd from "@/components/JsonLd";
 import PageEffects from "@/components/PageEffects";
 import PageHero from "@/components/PageHero";
+import { breadcrumbSchema, faqSchema, graph, webPageSchema } from "@/lib/schema";
+import { buildMetadata } from "@/lib/seo";
+import { careersEmail, contactEmail, site } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Contact Us | Valentisys",
-  description:
-    "Tell us what you need covered. Share your industry, the service you're after, and your idea, and someone who actually runs the work will reply within one business day.",
-};
+const TITLE = "Contact Us: Scope, Timeline & Price Upfront | Valentisys";
+const DESCRIPTION =
+  "Tell us what you need covered. Share your industry, the service you want and your budget, and someone who runs the work replies within one business day.";
+
+export const metadata: Metadata = buildMetadata({
+  title: TITLE,
+  description: DESCRIPTION,
+  path: "/contact",
+});
+
+const trail: Crumb[] = [
+  { name: "Home", path: "/" },
+  { name: "Contact", path: "/contact" },
+];
+
+/* Answers are on the page, not only in the markup — Google drops an FAQ graph
+   whose questions a visitor cannot actually read. */
+const faqs = [
+  {
+    q: "How quickly can you have someone working?",
+    a: "For roles we staff regularly — front desk, paralegal support, bookkeeping, customer support — a shortlist usually reaches you within a week, and a trained person is on live work inside two to three weeks. Specialist or unusual briefs take longer, and we will say so at the scoping call rather than after you have signed.",
+  },
+  {
+    q: "How is the work priced?",
+    a: "Scope, hours, and cost are agreed in writing before anyone starts, so the first invoice holds no surprises. Ongoing staffing is priced monthly per person or per agreed capacity; project work such as an app or a website is quoted as a fixed price against a defined scope.",
+  },
+  {
+    q: "Do we have to sign a long contract?",
+    a: "No. There is no minimum term and no lock-in. You can scale down or stop with clear notice. We would rather keep the account by doing the work well than by holding you to a contract you have outgrown.",
+  },
+  {
+    q: "Where is your team based, and which hours do you cover?",
+    a: "Our office is in Lahore, Pakistan, and our teams are scheduled around your time zone and your customers' hours rather than ours. Cover for UK, European, US, and Gulf business hours is routine; tell us the window you need and we will confirm it in the scope.",
+  },
+  {
+    q: "How do you protect our data and our clients' records?",
+    a: "Everyone signs an NDA before starting. Access is least-privilege: people are given only the systems their role requires, and access is revoked when they roll off. We are used to the handling standards that legal, medical, and financial records carry, and we will work inside your systems and policies rather than copying data into ours.",
+  },
+  {
+    q: "Can we meet the people before they start?",
+    a: "Yes, and we prefer it. We shortlist against your brief and you meet and approve candidates before anyone touches live work. You are not handed an anonymous pool of seats.",
+  },
+];
 
 export default function ContactPage() {
   return (
     <>
       <PageEffects />
       <Header />
-      <main>
+      <main id="main">
         <PageHero
           eyebrow="Contact us"
           lines={[
@@ -27,6 +70,8 @@ export default function ContactPage() {
           ]}
           lead="Share a few details and someone who actually runs the work, not a sales rep, will get back to you within one business day."
         />
+
+        <Breadcrumbs trail={trail} />
 
         <section id="contact" className="section" style={{ paddingTop: 0 }}>
           <div className="container">
@@ -42,7 +87,7 @@ export default function ContactPage() {
                   clear price before any work starts.
                 </p>
                 <div className="contact-rows" data-reveal>
-                  <a href="mailto:hello@valentisys.dev">
+                  <a href={`mailto:${contactEmail}`}>
                     <svg
                       width="22"
                       height="22"
@@ -50,13 +95,14 @@ export default function ContactPage() {
                       fill="none"
                       stroke="currentColor"
                       strokeWidth="2"
+                      aria-hidden="true"
                     >
                       <rect x="2" y="4" width="20" height="16" rx="2" />
                       <path d="m2 7 10 6L22 7" />
                     </svg>
-                    hello@valentisys.dev
+                    {contactEmail}
                   </a>
-                  <a href="mailto:careers@valentisys.dev">
+                  <a href={`mailto:${careersEmail}`}>
                     <svg
                       width="22"
                       height="22"
@@ -64,22 +110,90 @@ export default function ContactPage() {
                       fill="none"
                       stroke="currentColor"
                       strokeWidth="2"
+                      aria-hidden="true"
                     >
                       <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
                       <circle cx="9" cy="7" r="4" />
                       <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
                     </svg>
-                    careers@valentisys.dev
+                    {careersEmail}
                   </a>
+                  {/* address block, not a link — the same NAP we publish in the
+                      Organization schema and to directories */}
+                  <address className="contact-address">
+                    <svg
+                      width="22"
+                      height="22"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      aria-hidden="true"
+                    >
+                      <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z" />
+                      <circle cx="12" cy="10" r="3" />
+                    </svg>
+                    <span>
+                      {site.address.street}
+                      <br />
+                      {site.address.locality}, {site.address.region}
+                      <br />
+                      {site.address.countryName}
+                    </span>
+                  </address>
                 </div>
+                <p className="contact-hours" data-reveal>
+                  Office hours 9:00–18:00, Monday to Friday (PKT). Teams are scheduled around your
+                  time zone, not ours.
+                </p>
               </div>
 
               <ContactForm />
             </div>
           </div>
         </section>
+
+        <section className="section faq-section" style={{ paddingTop: 0 }}>
+          <div className="container">
+            <div className="sec-head">
+              <div>
+                <p className="sec-eyebrow" data-reveal>
+                  Before you write
+                </p>
+                <h2 className="sec-title" data-reveal>
+                  Questions we get asked first
+                </h2>
+              </div>
+              <p className="sec-note" data-reveal>
+                The answers we would give you on a first call, written down so you can decide
+                whether it is worth having one.
+              </p>
+            </div>
+
+            <div className="faq-grid">
+              {faqs.map(({ q, a }) => (
+                <article className="faq-item" data-reveal key={q}>
+                  <h3>{q}</h3>
+                  <p>{a}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
       </main>
       <Footer />
+      <JsonLd
+        data={graph(
+          webPageSchema({
+            name: TITLE,
+            description: DESCRIPTION,
+            path: "/contact",
+            type: "ContactPage",
+          }),
+          breadcrumbSchema(trail),
+          faqSchema(faqs)
+        )}
+      />
     </>
   );
 }

@@ -1,10 +1,13 @@
 import Link from "next/link";
+import Breadcrumbs, { type Crumb } from "@/components/Breadcrumbs";
 import Cta from "@/components/Cta";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import JsonLd from "@/components/JsonLd";
 import PageEffects from "@/components/PageEffects";
 import PageHero from "@/components/PageHero";
 import ServiceDetail from "@/components/ServiceDetail";
+import { breadcrumbSchema, graph, serviceSchema, webPageSchema } from "@/lib/schema";
 import type { Service } from "@/lib/services";
 import { services } from "@/lib/services";
 
@@ -22,17 +25,29 @@ function accentize(line: string, accentWord: string) {
 
 export default function ServicePage({ service }: { service: Service }) {
   const others = services.filter((s) => s.slug !== service.slug);
+  const path = `/services/${service.slug}`;
+
+  /* Services is a listing section on the home page rather than its own route,
+     so the middle crumb points at that anchor — a crumb to a 404 is worse than
+     a shallower trail */
+  const trail: Crumb[] = [
+    { name: "Home", path: "/" },
+    { name: "Services", path: "/#services" },
+    { name: service.shortTitle, path },
+  ];
 
   return (
     <>
       <PageEffects />
       <Header />
-      <main>
+      <main id="main">
         <PageHero
           eyebrow={service.eyebrow}
           lines={service.headline.map((line) => accentize(line, service.accentWord))}
           lead={service.lead}
         />
+
+        <Breadcrumbs trail={trail} />
 
         <section className="section" style={{ paddingTop: 0 }}>
           <div className="container">
@@ -171,6 +186,13 @@ export default function ServicePage({ service }: { service: Service }) {
         <Cta />
       </main>
       <Footer />
+      <JsonLd
+        data={graph(
+          webPageSchema({ name: service.seoTitle, description: service.seoDescription, path }),
+          breadcrumbSchema(trail),
+          serviceSchema(service)
+        )}
+      />
     </>
   );
 }

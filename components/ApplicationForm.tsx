@@ -1,6 +1,7 @@
 "use client";
 
-import { FormEvent, type ReactNode, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { FormEvent, type ReactNode, useEffect, useRef, useState } from "react";
 import { services } from "@/lib/services";
 
 /** Roles hired for outside the service lines listed on the site. */
@@ -45,30 +46,46 @@ function FieldLabel({
   htmlFor,
   children,
   hint,
+  hintId,
 }: {
   htmlFor: string;
   children: ReactNode;
   hint?: string;
+  /** Lets a custom control point at the hint with aria-describedby. */
+  hintId?: string;
 }) {
   return (
     <label className="app-label" htmlFor={htmlFor}>
       <span className="app-label-main">
         {children}
+        {/* the asterisk is decoration; `required` on the control is what a
+            screen reader actually announces */}
         <span className="req" aria-hidden="true">
           *
         </span>
       </span>
-      {hint && <span className="app-hint">{hint}</span>}
+      {hint && (
+        <span className="app-hint" id={hintId}>
+          {hint}
+        </span>
+      )}
     </label>
   );
 }
 
 export default function ApplicationForm() {
+  const router = useRouter();
   const [team, setTeam] = useState("");
   const [cvName, setCvName] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
   const [error, setError] = useState("");
   const cvInputRef = useRef<HTMLInputElement>(null);
+  const errorRef = useRef<HTMLParagraphElement>(null);
+
+  /* see the note in ContactForm — an announced error still needs focus moved */
+  useEffect(() => {
+    if (error) errorRef.current?.focus();
+  }, [error]);
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -101,6 +118,8 @@ export default function ApplicationForm() {
       setTeam("");
       setCvName("");
       setStatus("sent");
+      /* see ContactForm — a linkable confirmation, trackable as a conversion */
+      router.push("/thank-you/application");
     } catch {
       setError("We couldn't reach the server. Please check your connection and try again.");
       setStatus("idle");
@@ -156,7 +175,9 @@ export default function ApplicationForm() {
           </div>
 
           <div className="app-field">
-            <FieldLabel htmlFor="app-phone">Contact</FieldLabel>
+            {/* "Contact" was ambiguous for a tel field, and collided with the
+                header's Contact link when read out of context */}
+            <FieldLabel htmlFor="app-phone">Phone number</FieldLabel>
             <input id="app-phone" name="phone" type="tel" autoComplete="tel" required />
           </div>
 
@@ -183,7 +204,7 @@ export default function ApplicationForm() {
           </div>
 
           <div className="app-field app-field-wide">
-            <FieldLabel htmlFor="app-cv" hint="PDF or image (PNG, JPG), max 8 MB.">
+            <FieldLabel htmlFor="app-cv" hint="PDF or image (PNG, JPG), max 8 MB." hintId="app-cv-hint">
               CV
             </FieldLabel>
             {/* the native control is layered invisibly over the zone so validation can
@@ -216,14 +237,19 @@ export default function ApplicationForm() {
                   setCvName(file.name);
                 }}
               />
+              {/* the native input is tabIndex -1, so this button is the only
+                  keyboard route in — it has to carry the label, the format
+                  hint, and the current selection itself */}
               <button
                 className="app-file-btn"
                 type="button"
+                aria-label="Choose CV file"
+                aria-describedby="app-cv-hint app-cv-name"
                 onClick={() => cvInputRef.current?.click()}
               >
                 Choose CV
               </button>
-              <span className="app-file-name" aria-live="polite">
+              <span className="app-file-name" id="app-cv-name" aria-live="polite">
                 {cvName || "No CV selected"}
               </span>
             </div>
@@ -237,7 +263,7 @@ export default function ApplicationForm() {
         </div>
 
         {error && (
-          <p className="form-error" role="alert">
+          <p className="form-error" role="alert" tabIndex={-1} ref={errorRef}>
             {error}
           </p>
         )}
@@ -247,6 +273,7 @@ export default function ApplicationForm() {
           type="submit"
           data-magnetic
           disabled={sending}
+          aria-busy={sending}
         >
           {sending ? "Sending…" : "Submit Application"}
           <svg

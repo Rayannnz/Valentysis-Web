@@ -1,22 +1,36 @@
 import type { Metadata } from "next";
 import ApplicationForm from "@/components/ApplicationForm";
+import Breadcrumbs, { type Crumb } from "@/components/Breadcrumbs";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import JsonLd from "@/components/JsonLd";
 import PageEffects from "@/components/PageEffects";
 import PageHero from "@/components/PageHero";
+import { breadcrumbSchema, graph, webPageSchema } from "@/lib/schema";
+import { buildMetadata } from "@/lib/seo";
+import { careersEmail } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Careers | Valentisys",
-  description:
-    "Join Valentisys across real customer support, digital marketing, app development, web development, SEO, paid ads, design, and video. Apply through one form and pick the team that fits.",
-};
+const TITLE = "Careers: Remote Roles Across Eight Teams | Valentisys";
+const DESCRIPTION =
+  "Join Valentisys in customer support, marketing, app and web development, SEO, paid ads, design or video. One form, every team, and a reply either way.";
+
+export const metadata: Metadata = buildMetadata({
+  title: TITLE,
+  description: DESCRIPTION,
+  path: "/careers",
+});
+
+const trail: Crumb[] = [
+  { name: "Home", path: "/" },
+  { name: "Careers", path: "/careers" },
+];
 
 export default function CareersPage() {
   return (
     <>
       <PageEffects />
       <Header />
-      <main>
+      <main id="main">
         <PageHero
           eyebrow="Careers"
           lines={[
@@ -27,6 +41,8 @@ export default function CareersPage() {
           ]}
           lead="We're building teams across real customer support, digital marketing, app and web development, SEO, paid ads, graphic design, and video editing. If you like clear ownership, short feedback loops, and small egos, you'll fit right in."
         />
+
+        <Breadcrumbs trail={trail} />
 
         <section id="apply" className="section application-section">
           <div className="container">
@@ -41,8 +57,8 @@ export default function CareersPage() {
               </div>
               <p className="sec-note" data-reveal>
                 Pick the team you want to join. No separate posts to hunt through. Questions?{" "}
-                <a href="mailto:careers@valentisys.dev" style={{ textDecoration: "underline" }}>
-                  careers@valentisys.dev
+                <a href={`mailto:${careersEmail}`} className="sec-note-link">
+                  {careersEmail}
                 </a>
               </p>
             </div>
@@ -52,6 +68,12 @@ export default function CareersPage() {
         </section>
       </main>
       <Footer />
+      <JsonLd
+        data={graph(
+          webPageSchema({ name: TITLE, description: DESCRIPTION, path: "/careers" }),
+          breadcrumbSchema(trail)
+        )}
+      />
     </>
   );
 }

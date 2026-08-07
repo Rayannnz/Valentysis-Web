@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Valentisys
 
-## Getting Started
+Marketing site for Valentisys — outsourcing, customer support, digital marketing, app and web
+development, and AI services.
 
-First, run the development server:
+Next.js 16 (App Router) · React 19 · TypeScript strict · one hand-written stylesheet · deployed on Netlify.
+
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+There is one dev server, on port 3000, and it is shared across sessions. Probe before starting another:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+curl -s -o /dev/null -w "%{http_code}\n" --max-time 3 http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Scripts
 
-## Learn More
+| Command | What it does |
+| --- | --- |
+| `npm run dev` | Dev server with Turbopack on :3000 |
+| `npm run build` | Production build — also the TypeScript check (`tsconfig` is `noEmit`) |
+| `npm run lint` | ESLint across the repo |
+| `npm start` | Serve the production build |
+| `node scripts/generate-icons.cjs` | Regenerate favicon, apple-icon, and PWA icons from the logo mark |
 
-To learn more about Next.js, take a look at the following resources:
+There is no test framework. `npm run build && npm run lint` is the full verification loop.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Where things live
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+app/            routes; also robots.ts, sitemap.ts, manifest.ts, opengraph-image.tsx, not-found.tsx
+  globals.css   the entire stylesheet, sectioned by banner comments
+components/     shared UI; only Header, PageEffects, the two forms, ServiceDetail,
+                Industries, Process, and the cookie components are client components
+lib/
+  services.ts   the six service lines — drives routes, nav, footer, and both form dropdowns
+  industries.ts the five sectors and their #id anchors
+  site.ts       business facts: URL, emails, address, service area (single source of truth)
+  seo.ts        buildMetadata() — canonical, Open Graph, Twitter from one title/description
+  schema.ts     JSON-LD builders
+  consent.ts    cookie consent state
+public/         logo, PWA icons, and __forms.html (the Netlify form declarations)
+scripts/        build-time tooling, run by hand
+```
 
-## Deploy on Vercel
+## Forms
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Both forms post to Netlify Forms, declared in `public/__forms.html`. They only work on a Netlify
+deployment — submitting from localhost fails by design. A field added to a React form must be added to
+`__forms.html` too, or Netlify drops it.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Before deploying
+
+- Set the primary domain in Netlify so the apex redirects to `www`; canonicals point at
+  `https://www.valentisys.com`.
+- Set `NEXT_PUBLIC_SITE_URL` if the canonical host ever changes.
+- Submit `https://www.valentisys.com/sitemap.xml` to Google Search Console and Bing Webmaster Tools.
+
+Deeper conventions, and the traps worth knowing about, are in [CLAUDE.md](./CLAUDE.md).

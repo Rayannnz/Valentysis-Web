@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Build-time CommonJS tooling — run by hand with node, never bundled, so
+    // the app's ESM and React rules do not apply to it.
+    "scripts/**",
   ]),
 ]);
 

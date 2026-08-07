@@ -7,6 +7,10 @@
   --primary:      #6D28D9;
   --primary-deep: #5B21B6;
   --primary-dark: #4C1D95;
+  /* --primary is only 2.4:1 on --ink and --footer, so it fails AA as text on
+     every dark section. This is the same hue lifted until it clears — 6.4:1 on
+     --ink. Use it for any text or icon that sits on a dark ground. */
+  --primary-lift: #A78BFA;
   --magenta:     #FF3DD9;
   --violet:      #4B3ED6;
   --ink:         #171429;
@@ -169,19 +173,6 @@ body.nav-blur #nav-veil{
 .nav-link .chev{transition:transform .3s}
 .nav-item:hover .chev,.nav-item:focus-within .chev{transform:rotate(180deg)}
 
-/* dropdown */
-.dropdown{
-  position:absolute;top:100%;left:0;min-width:240px;background:var(--paper);
-  box-shadow:0 24px 60px rgba(23,20,41,.14);padding:12px 0;
-  opacity:0;visibility:hidden;transform:translateY(14px);
-  transition:opacity .3s var(--ease-out),transform .3s var(--ease-out),visibility .3s;
-}
-.nav-item:hover > .dropdown,.nav-item:focus-within > .dropdown{opacity:1;visibility:visible;transform:none}
-.dropdown a{
-  display:block;padding:10px 24px;font-size:15px;transition:background .2s,color .2s,padding-left .25s var(--ease-out);
-}
-.dropdown a:hover,.dropdown a:focus-visible{background:var(--bg);color:var(--primary-deep);padding-left:30px}
-
 /* mega menu */
 .mega{
   position:fixed;top:var(--header-h);left:0;right:0;background:var(--bg-2);
@@ -217,7 +208,11 @@ body.nav-blur #nav-veil{
 .mega-promo::before{top:-60px;right:-10px}
 .mega-promo::after{content:"÷";bottom:-70px;right:130px;font-size:190px;animation-delay:-3.5s}
 @keyframes floatKey{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-16px) rotate(6deg)}}
-.mega-promo h4{font-size:clamp(24px,2vw,32px);font-weight:600}
+/* a <p>, not a heading — the header precedes the page h1 (see Header.tsx) */
+.mega-promo .mega-promo-title{
+  font-family:var(--font-head);font-size:clamp(24px,2vw,32px);font-weight:600;
+  line-height:1.04;letter-spacing:-.02em;opacity:1;
+}
 .mega-promo p{opacity:.85;font-size:15px}
 
 /* header CTA + burger */
@@ -429,25 +424,6 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
   text-align:center;font-size:13px;letter-spacing:.24em;text-transform:uppercase;
   color:var(--ink-soft);margin-bottom:38px;font-weight:600;
 }
-.marquee{overflow:hidden;position:relative;
-  mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
-  -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
-}
-.marquee-track{
-  display:flex;gap:clamp(48px,7vw,110px);width:max-content;
-  animation:marquee 30s linear infinite;
-}
-.marquee:hover .marquee-track{animation-play-state:paused}
-@keyframes marquee{to{transform:translateX(-50%)}}
-.client-logo{
-  font-family:var(--font-head);font-size:clamp(22px,2.4vw,32px);font-weight:700;
-  color:var(--ink);opacity:.35;white-space:nowrap;letter-spacing:-.02em;
-  transition:opacity .3s,color .3s;cursor:default;
-}
-.client-logo:hover{opacity:1;color:var(--primary-deep)}
-.client-logo.thin{font-weight:400;font-style:italic}
-.client-logo.mono{letter-spacing:.14em;font-size:.85em}
-
 /* ============================================================
    Section headers (shared)
    ============================================================ */
@@ -512,7 +488,7 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
    Industries — dark accordion
    ============================================================ */
 #industries{background:var(--ink);color:#fff;position:relative;overflow:hidden}
-#industries .sec-eyebrow{color:var(--primary)}
+#industries .sec-eyebrow{color:var(--primary-lift)}
 #industries::after{
   content:"";position:absolute;bottom:-200px;left:-200px;width:560px;height:560px;border-radius:50%;
   background:radial-gradient(circle,rgba(124,58,237,.2),transparent 65%);pointer-events:none;
@@ -528,10 +504,10 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
   font-family:var(--font-head);font-weight:700;font-size:17px;color:transparent;
   -webkit-text-stroke:1px rgba(255,255,255,.5);transition:color .3s,-webkit-text-stroke-color .3s;
 }
-.acc-item.open .acc-num{color:var(--primary);-webkit-text-stroke-color:var(--primary)}
-@media (hover:hover){.acc-btn:hover .acc-num{color:var(--primary);-webkit-text-stroke-color:var(--primary)}}
+.acc-item.open .acc-num{color:var(--primary-lift);-webkit-text-stroke-color:var(--primary-lift)}
+@media (hover:hover){.acc-btn:hover .acc-num{color:var(--primary-lift);-webkit-text-stroke-color:var(--primary-lift)}}
 .acc-btn h3{font-size:clamp(22px,5.5vw,44px);font-weight:600;letter-spacing:-.02em;transition:color .3s}
-.acc-item.open .acc-btn h3{color:var(--primary)}
+.acc-item.open .acc-btn h3{color:var(--primary-lift)}
 .acc-icon{
   width:44px;height:44px;flex:none;border:1.5px solid rgba(255,255,255,.4);border-radius:50%;
   position:relative;justify-self:end;transition:transform .45s var(--ease-out),border-color .3s,background .3s;
@@ -566,7 +542,7 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
    Service detail — dark accordion on service pages
    ============================================================ */
 #service-detail{background:var(--ink);color:#fff;position:relative;overflow:hidden}
-#service-detail .sec-eyebrow{color:var(--primary)}
+#service-detail .sec-eyebrow{color:var(--primary-lift)}
 #service-detail .sec-title{max-width:20ch}
 #service-detail .sec-note{color:rgba(255,255,255,.65)}
 #service-detail .container{position:relative;z-index:2}
@@ -698,7 +674,12 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
 .step{
   display:grid;grid-template-columns:76px minmax(0,1fr);gap:clamp(16px,2.5vw,32px);
   padding:clamp(26px,3.5vw,38px) 0;border-top:1px solid var(--line-strong);
-  opacity:.32;transform:translateX(24px);
+  /* Inactive steps are dimmed, but they are still on screen and still readable,
+     so the dim has to clear AA on its own. At the previous .32 the body copy
+     measured 1.74:1 against a 4.5 requirement. .78 keeps every element in this
+     block above threshold (body copy 4.9:1, tags 6.7:1); the reveal leans on
+     the longer travel below to make up the difference. */
+  opacity:.78;transform:translateX(36px);
   transition:opacity .5s var(--ease-out),transform .5s var(--ease-out);
 }
 .step:last-child{border-bottom:1px solid var(--line-strong)}
@@ -723,29 +704,6 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
 @media (max-width:560px){
   .step{grid-template-columns:minmax(0,1fr);gap:6px}
   .step-num{padding-top:0;font-size:16px}
-}
-
-/* ============================================================
-   Testimonial
-   ============================================================ */
-#testimonial{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.quote-wrap{max-width:900px;margin:0 auto;text-align:center}
-.quote-mark{
-  font-family:var(--font-head);font-size:110px;line-height:.6;color:var(--primary);
-  display:block;margin-bottom:20px;
-}
-blockquote p{
-  font-family:var(--font-head);font-size:clamp(24px,3.2vw,40px);font-weight:500;
-  line-height:1.28;letter-spacing:-.02em;
-}
-.quote-author{margin-top:34px;display:flex;flex-direction:column;align-items:center;gap:4px}
-.quote-author b{font-size:17px}
-.quote-author span{font-size:14px;color:var(--ink-soft)}
-.quote-avatar{
-  width:60px;height:60px;border-radius:50%;margin-bottom:14px;
-  background:linear-gradient(135deg,var(--primary),var(--magenta));
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--font-head);font-weight:700;color:#fff;font-size:20px;
 }
 
 /* ============================================================
@@ -809,18 +767,24 @@ blockquote p{
    Footer
    ============================================================ */
 footer{background:var(--footer);color:#fff;padding:clamp(56px,8vw,110px) 0 0;overflow:hidden}
+/* four link columns since Legal was added — at 1.4fr the brand crowded them */
 .footer-top{
-  display:grid;grid-template-columns:1.4fr repeat(3,minmax(0,1fr));
+  display:grid;grid-template-columns:1.5fr repeat(4,minmax(0,1fr));
   gap:clamp(28px,4vw,40px);padding-bottom:clamp(44px,6vw,70px);
 }
 .footer-brand p{color:rgba(255,255,255,.6);font-size:15px;max-width:34ch;margin-top:18px}
 .footer-col{min-width:0}
-.footer-col h4{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:16px;font-family:var(--font-body);font-weight:600}
+/* h2, not h4 — see Footer.tsx. Colour lifted from .45 to .62 white: the old
+   value measured 4.5:1 on --footer with no margin, and this is 13px uppercase. */
+.footer-col h2{
+  font-size:13px;letter-spacing:.2em;text-transform:uppercase;line-height:1.4;
+  color:rgba(255,255,255,.62);margin-bottom:16px;font-family:var(--font-body);font-weight:600;
+}
 .footer-col a{
   display:block;padding:9px 0;color:rgba(255,255,255,.78);font-size:15px;
   transition:color .25s,padding-left .3s var(--ease-out);
 }
-@media (hover:hover){.footer-col a:hover{color:var(--primary);padding-left:8px}}
+@media (hover:hover){.footer-col a:hover{color:var(--primary-lift);padding-left:8px}}
 .socials{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
 .socials a{
   width:44px;height:44px;flex:none;border:1px solid rgba(255,255,255,.25);border-radius:50%;
@@ -844,8 +808,14 @@ footer{background:var(--footer);color:#fff;padding:clamp(56px,8vw,110px) 0 0;ove
 .footer-legal{display:flex;flex-wrap:wrap;gap:8px 22px}
 .footer-bottom a{display:inline-block;padding:4px 0}
 @media (hover:hover){.footer-bottom a:hover{color:#fff}}
-@media (max-width:900px){.footer-top{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:540px){
+@media (max-width:1080px){
+  /* brand goes full width so the four columns keep equal room below it */
+  .footer-top{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .footer-brand{grid-column:1/-1}
+  .footer-brand p{max-width:52ch}
+}
+@media (max-width:760px){.footer-top{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:460px){
   .footer-top{grid-template-columns:minmax(0,1fr)}
   .footer-bottom{justify-content:flex-start}
 }
@@ -886,7 +856,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
   background:linear-gradient(165deg,#1a1630 0%,#241b45 48%,#171429 100%);
   color:#fff;padding-top:clamp(72px,8vw,110px);padding-bottom:clamp(80px,9vw,120px);
 }
-.application-sec-head .sec-eyebrow{color:var(--primary)}
+.application-sec-head .sec-eyebrow{color:var(--primary-lift)}
 .application-sec-head .sec-title{color:#fff}
 .application-sec-head .sec-note{color:rgba(255,255,255,.72)}
 .application-sec-head .sec-note a{color:#fff}
@@ -920,9 +890,10 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
   font-family:var(--font-body);
 }
 .app-label-main .req{color:#e11d48;margin-left:3px;font-weight:700}
-.app-label-main .app-opt{color:#8a869c;margin-left:6px;font-weight:500;font-size:13px}
+/* #615E75, not the old #8a869c — that was 3.5:1 on the white card and failed AA */
+.app-label-main .app-opt{color:#615E75;margin-left:6px;font-weight:500;font-size:13px}
 .app-label-soft{font-weight:500;color:var(--ink-soft);font-size:13.5px}
-.app-hint{font-size:12.5px;line-height:1.45;color:#8a869c;font-weight:400}
+.app-hint{font-size:12.5px;line-height:1.45;color:#615E75;font-weight:400}
 
 .app-field input,
 .app-field select,
@@ -1000,7 +971,10 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .story-copy p:last-child{margin-bottom:0}
 .story-panel{
   position:relative;overflow:hidden;color:#fff;
-  background:linear-gradient(135deg,var(--primary-dark),var(--primary) 55%,#8B5CF6);
+  /* final stop was #8B5CF6, against which the white body copy measured 4.23:1
+     — under the 4.5 AA floor at the light end of the sweep. #7C3AED keeps the
+     same lift in the gradient and takes it to 5.7:1. */
+  background:linear-gradient(135deg,var(--primary-dark),var(--primary) 55%,#7C3AED);
   padding:clamp(28px,5vw,64px);min-height:clamp(260px,52vw,420px);
   display:flex;flex-direction:column;justify-content:flex-end;gap:10px;
 }
@@ -1035,6 +1009,286 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .tl-item h3{font-size:clamp(19px,4.5vw,26px);margin:6px 0 8px}
 .tl-item p{color:var(--ink-soft);max-width:60ch;font-size:clamp(15px,1.2vw,16px)}
 
+/* ============================================================
+   Skip link — first tab stop on every page
+   ============================================================ */
+.skip-link{
+  position:fixed;top:0;left:0;z-index:300;
+  padding:14px 24px;background:var(--ink);color:#fff;
+  font-family:var(--font-head);font-weight:600;font-size:15px;
+  border-radius:0 0 12px 0;
+  /* moved rather than hidden, so it animates in and stays reachable */
+  transform:translateY(-130%);
+  transition:transform .22s var(--ease-out);
+}
+/* :focus, not :focus-visible — a skip link is only ever reached by keyboard */
+.skip-link:focus{transform:none;outline:3px solid var(--magenta);outline-offset:-3px}
+
+/* ============================================================
+   Breadcrumbs
+   ============================================================ */
+.breadcrumbs{padding-bottom:clamp(18px,3vw,32px)}
+.breadcrumbs ol{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;font-size:13.5px}
+.breadcrumbs li{display:flex;align-items:center;gap:4px 8px;min-width:0}
+.breadcrumbs a{color:var(--ink-soft);padding:4px 0;border-bottom:1px solid transparent;transition:color .25s,border-color .25s}
+@media (hover:hover){.breadcrumbs a:hover{color:var(--primary-deep);border-bottom-color:currentColor}}
+.breadcrumbs [aria-current="page"]{color:var(--ink);font-weight:600}
+.breadcrumbs .crumb-sep{color:var(--ink-soft);opacity:.45;flex:none}
+/* on the dark careers hero the trail sits on --bg like everywhere else, so no
+   variant is needed — only the industries accordion is dark, and it has no trail */
+
+/* ============================================================
+   Contact — address block and FAQ
+   ============================================================ */
+.contact-address{
+  display:flex;gap:12px;align-items:flex-start;padding:12px 0;
+  font-family:var(--font-head);font-size:clamp(15px,1.3vw,17px);font-style:normal;line-height:1.5;
+}
+.contact-address svg{color:var(--primary-deep);flex:none;margin-top:2px}
+.contact-hours{margin-top:18px;font-size:14px;color:var(--ink-soft);max-width:40ch}
+.sec-note-link{text-decoration:underline;text-underline-offset:3px}
+
+.faq-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(20px,3vw,34px)}
+.faq-item{
+  background:var(--paper);border:1px solid var(--line);border-radius:16px;
+  padding:clamp(22px,2.6vw,32px);min-width:0;
+}
+.faq-item h3{font-size:clamp(17px,1.6vw,21px);line-height:1.25;margin-bottom:12px}
+.faq-item p{color:var(--ink-soft);font-size:clamp(14.5px,1.1vw,15.5px);line-height:1.65}
+@media (max-width:820px){.faq-grid{grid-template-columns:minmax(0,1fr)}}
+
+/* ============================================================
+   Legal pages — privacy, terms, cookies, accessibility
+   ============================================================ */
+.legal-section{padding-top:0}
+.legal-layout{display:grid;grid-template-columns:minmax(0,240px) minmax(0,1fr);gap:clamp(32px,5vw,72px);align-items:start}
+.legal-toc{position:sticky;top:calc(var(--header-h) + 28px)}
+.legal-toc-title{
+  font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;
+  color:var(--primary-deep);margin-bottom:14px;
+}
+.legal-toc ol{list-style:none;counter-reset:toc;display:flex;flex-direction:column;gap:2px}
+.legal-toc a{
+  display:block;padding:7px 0 7px 14px;font-size:14px;color:var(--ink-soft);line-height:1.4;
+  border-left:2px solid var(--line);transition:color .25s,border-color .25s,padding-left .25s var(--ease-out);
+}
+@media (hover:hover){.legal-toc a:hover{color:var(--primary-deep);border-left-color:var(--primary);padding-left:20px}}
+
+.legal-body{min-width:0;max-width:70ch}
+.legal-updated{
+  font-size:13.5px;color:var(--ink-soft);padding-bottom:22px;margin-bottom:8px;
+  border-bottom:1px solid var(--line);
+}
+.legal-block{padding-top:clamp(30px,4vw,46px);scroll-margin-top:calc(var(--header-h) + 24px)}
+.legal-block h2{font-size:clamp(21px,2.4vw,30px);line-height:1.2;margin-bottom:16px}
+.legal-block h3{font-size:clamp(16px,1.5vw,18.5px);margin:26px 0 8px;letter-spacing:-.01em}
+.legal-block p{color:var(--ink-soft);font-size:clamp(15px,1.15vw,16.5px);line-height:1.72;margin-bottom:14px}
+.legal-block p:last-child{margin-bottom:0}
+.legal-block a{color:var(--primary-deep);text-decoration:underline;text-underline-offset:3px}
+@media (hover:hover){.legal-block a:hover{color:var(--magenta)}}
+.legal-block strong{color:var(--ink);font-weight:600}
+.legal-block code{
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.88em;
+  background:var(--bg-2);padding:2px 6px;border-radius:4px;overflow-wrap:anywhere;
+}
+.legal-list{display:flex;flex-direction:column;gap:12px;margin:4px 0 16px}
+.legal-list li{
+  position:relative;padding-left:22px;color:var(--ink-soft);
+  font-size:clamp(15px,1.15vw,16.5px);line-height:1.7;
+}
+.legal-list li::before{
+  content:"";position:absolute;left:0;top:.68em;width:7px;height:7px;border-radius:50%;
+  background:var(--primary);
+}
+.legal-callout{
+  background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--primary);
+  border-radius:0 12px 12px 0;padding:18px 22px;margin:6px 0 16px;
+}
+.legal-address{font-style:normal;color:var(--ink-soft);line-height:1.75}
+.legal-table-wrap{overflow-x:auto;margin:6px 0 18px;border:1px solid var(--line);border-radius:12px}
+.legal-table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:540px;text-align:left}
+.legal-table-caption{
+  caption-side:top;text-align:left;padding:14px 16px;font-size:13px;font-weight:600;
+  color:var(--ink-soft);border-bottom:1px solid var(--line);
+}
+.legal-table th,.legal-table td{padding:13px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+.legal-table thead th{background:var(--bg-2);font-weight:600;font-size:13px;letter-spacing:.04em}
+.legal-table tbody th{font-weight:500;color:var(--ink)}
+.legal-table td{color:var(--ink-soft);line-height:1.6}
+.legal-table tr:last-child th,.legal-table tr:last-child td{border-bottom:0}
+@media (max-width:900px){
+  .legal-layout{grid-template-columns:minmax(0,1fr)}
+  .legal-toc{position:static;border:1px solid var(--line);border-radius:14px;padding:20px 22px;background:var(--paper)}
+}
+
+/* ============================================================
+   Cookie consent — banner and preference centre
+   ============================================================ */
+.cookie-bar{
+  position:fixed;z-index:110;
+  left:clamp(12px,3vw,24px);right:clamp(12px,3vw,24px);bottom:clamp(12px,3vw,24px);
+  background:var(--ink);color:#fff;border-radius:16px;
+  box-shadow:0 26px 70px rgba(11,8,26,.42);
+  /* The .75s delay is the point of this. Without it the bar animates during
+     first paint, while the hero is still resolving, so nobody sees it move —
+     it just looks like it was always there. Holding it off-screen (the `both`
+     fill keeps the from-state through the delay) until the page has settled
+     is what makes the entrance read as an entrance. */
+  animation:cookieIn .6s var(--ease-out) .75s both;
+}
+.cookie-bar.is-leaving{animation:cookieOut .34s var(--ease-io) forwards}
+/* slides the full height of the bar plus its offset, so it clears the viewport */
+@keyframes cookieIn{
+  from{opacity:0;transform:translateY(calc(100% + 32px))}
+  to{opacity:1;transform:none}
+}
+@keyframes cookieOut{
+  from{opacity:1;transform:none}
+  to{opacity:0;transform:translateY(calc(100% + 32px))}
+}
+.cookie-bar-inner{
+  max-width:var(--container);margin:0 auto;
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  gap:18px clamp(20px,3vw,44px);padding:clamp(18px,2.4vw,26px) clamp(20px,3vw,32px);
+}
+.cookie-bar-copy{flex:1 1 380px;min-width:0}
+.cookie-bar-copy h2{font-size:clamp(17px,1.6vw,20px);margin-bottom:6px}
+.cookie-bar-copy p{font-size:14px;line-height:1.6;color:rgba(255,255,255,.76);max-width:70ch}
+.cookie-bar-copy a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+.cookie-bar-actions{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;flex:none}
+/* the two choices are the same size and weight on purpose — a de-emphasised
+   reject button is the pattern regulators treat as invalid consent */
+.cookie-bar .cookie-btn{padding:13px 22px;font-size:14.5px}
+.cookie-bar .btn-ghost{border-color:rgba(255,255,255,.55);color:#fff}
+.cookie-bar .btn-ghost::before{background:#fff}
+@media (hover:hover){.cookie-bar .btn-ghost:hover{color:var(--ink)}}
+.cookie-link{
+  font-size:14px;color:rgba(255,255,255,.72);padding:6px 0;
+  border-bottom:1px solid rgba(255,255,255,.35);transition:color .25s,border-color .25s;
+}
+@media (hover:hover){.cookie-link:hover{color:#fff;border-bottom-color:#fff}}
+/* keep the back-to-top button clear of the banner while it is on screen */
+body:has(.cookie-bar) #toTop{bottom:calc(clamp(14px,4vw,26px) + 132px)}
+@media (max-width:640px){
+  .cookie-bar-actions{width:100%}
+  .cookie-bar .cookie-btn{flex:1 1 auto;justify-content:center}
+  .cookie-link{width:100%;text-align:center;border-bottom:0;text-decoration:underline;text-underline-offset:3px}
+}
+
+.prefs{
+  margin-top:clamp(38px,5vw,60px);padding-top:clamp(30px,4vw,46px);
+  border-top:1px solid var(--line);scroll-margin-top:calc(var(--header-h) + 24px);
+}
+.prefs-title{font-size:clamp(21px,2.4vw,30px);line-height:1.2;margin-bottom:10px}
+.prefs-status{font-size:14px;color:var(--ink-soft);margin-bottom:22px}
+.prefs-list{display:flex;flex-direction:column;gap:14px}
+.prefs-row{
+  display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:14px 24px;
+  background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px 22px;
+}
+.prefs-row-copy{flex:1 1 320px;min-width:0}
+.prefs-row-copy h3{font-size:16.5px;margin-bottom:6px}
+.prefs-row-copy p{font-size:14.5px;line-height:1.6;color:var(--ink-soft);margin:0}
+.prefs-toggle{display:flex;align-items:center;gap:10px;flex:none;cursor:pointer;font-size:14px;font-weight:600}
+.prefs-toggle.is-locked{cursor:default;color:var(--ink-soft)}
+/* the native checkbox stays in the layout so it keeps its focus ring and hit
+   area; the painted switch sits on top of it */
+.prefs-toggle input{position:absolute;opacity:0;width:46px;height:26px;margin:0;cursor:inherit}
+.prefs-switch{
+  width:46px;height:26px;border-radius:999px;background:var(--line-strong);flex:none;
+  position:relative;transition:background .25s;
+}
+.prefs-switch::after{
+  content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;
+  background:#fff;transition:transform .25s var(--ease-out);
+}
+.prefs-toggle input:checked ~ .prefs-switch{background:var(--primary)}
+.prefs-toggle input:checked ~ .prefs-switch::after{transform:translateX(20px)}
+.prefs-toggle input:disabled ~ .prefs-switch{opacity:.55}
+.prefs-toggle input:focus-visible ~ .prefs-switch{outline:3px solid var(--primary);outline-offset:3px}
+.prefs-toggle-text{min-width:5.5ch}
+.prefs-actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px;margin-top:26px}
+.prefs-actions .btn{padding:14px 26px;font-size:15px}
+.prefs-actions .btn[disabled]{opacity:.55;pointer-events:none}
+.prefs-withdraw{
+  font-size:14px;color:#b91c40;padding:8px 0;
+  border-bottom:1px solid currentColor;
+}
+.prefs-confirm{margin-top:16px;font-size:14px;font-weight:500;color:#1d7a44;min-height:1.4em}
+
+/* ============================================================
+   404 and thank-you pages
+   ============================================================ */
+.error-hero,.thanks-hero{
+  position:relative;overflow:hidden;
+  padding:calc(var(--header-h) + clamp(40px,8vw,86px)) 0 clamp(44px,7vw,72px);
+}
+.error-hero .container,.thanks-hero .container{position:relative;z-index:2}
+.error-code{
+  font-family:var(--font-head);font-weight:700;line-height:.8;letter-spacing:-.05em;
+  font-size:clamp(88px,22vw,220px);color:transparent;
+  -webkit-text-stroke:2px var(--line-strong);margin-bottom:clamp(8px,2vw,18px);
+  user-select:none;
+}
+.error-hero h1,.thanks-hero h1{font-size:clamp(34px,8vw,76px);letter-spacing:-.035em;max-width:16ch}
+.error-hero h1 .accent,.thanks-hero h1 .accent{color:var(--primary)}
+.error-hero .lead,.thanks-hero .lead{
+  max-width:56ch;margin-top:clamp(16px,3vw,24px);
+  font-size:clamp(15.5px,1.4vw,19px);color:var(--ink-soft);
+}
+.error-ctas,.thanks-ctas{display:flex;flex-wrap:wrap;gap:14px;margin-top:clamp(26px,4vw,38px)}
+.thanks-ctas{margin-top:clamp(34px,5vw,52px)}
+
+.thanks-tick{
+  width:clamp(52px,9vw,64px);height:clamp(52px,9vw,64px);border-radius:50%;
+  background:var(--primary);color:#fff;
+  display:flex;align-items:center;justify-content:center;margin-bottom:clamp(18px,3vw,26px);
+  box-shadow:0 14px 34px rgba(109,40,217,.34);
+}
+.thanks-inline-link{color:var(--primary-deep);text-decoration:underline;text-underline-offset:3px}
+
+.error-links{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(28px,4vw,56px);
+  margin-top:clamp(44px,6vw,80px);padding-top:clamp(34px,5vw,54px);border-top:1px solid var(--line);
+}
+.error-links-col h3{font-size:clamp(18px,1.8vw,22px);margin-bottom:18px}
+.error-links-col ul{display:flex;flex-direction:column;gap:14px}
+.error-links-col li{display:flex;flex-direction:column;gap:2px;min-width:0}
+.error-links-col a{font-weight:600;font-size:16px;color:var(--primary-deep);width:fit-content;border-bottom:1px solid transparent;transition:border-color .25s}
+@media (hover:hover){.error-links-col a:hover{border-bottom-color:currentColor}}
+.error-links-col span{font-size:14px;color:var(--ink-soft);line-height:1.55}
+.error-help{margin-top:clamp(32px,4vw,50px);font-size:15px;color:var(--ink-soft)}
+.error-help a{color:var(--primary-deep);text-decoration:underline;text-underline-offset:3px}
+@media (max-width:760px){.error-links{grid-template-columns:minmax(0,1fr)}}
+
+/* ============================================================
+   HTML sitemap
+   ============================================================ */
+.sitemap-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(30px,4.5vw,64px)}
+.sitemap-group h2{font-size:clamp(20px,2.2vw,27px);margin-bottom:6px}
+.sitemap-note{font-size:14px;color:var(--ink-soft);margin-bottom:20px}
+.sitemap-group ul{display:flex;flex-direction:column;gap:16px}
+.sitemap-group li{display:flex;flex-direction:column;gap:3px;min-width:0}
+.sitemap-group a{
+  font-family:var(--font-head);font-weight:600;font-size:clamp(16px,1.4vw,18px);
+  color:var(--ink);width:fit-content;border-bottom:1.5px solid transparent;transition:color .25s,border-color .25s;
+}
+@media (hover:hover){.sitemap-group a:hover{color:var(--primary-deep);border-bottom-color:currentColor}}
+.sitemap-group span{font-size:14px;color:var(--ink-soft);line-height:1.6;max-width:52ch}
+@media (max-width:760px){.sitemap-grid{grid-template-columns:minmax(0,1fr)}}
+
+/* ============================================================
+   Footer — NAP block
+   ============================================================ */
+.footer-nap{margin-top:22px;display:flex;flex-direction:column;gap:2px;font-style:normal}
+.footer-nap-line{
+  display:flex;align-items:flex-start;gap:10px;padding:7px 0;
+  font-size:14.5px;color:rgba(255,255,255,.72);line-height:1.5;
+  transition:color .25s;
+}
+.footer-nap-line svg{flex:none;margin-top:3px;color:var(--magenta)}
+@media (hover:hover){a.footer-nap-line:hover{color:#fff}}
+
 /* reduced motion */
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
@@ -1042,4 +1296,5 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
   .js [data-reveal]{opacity:1;transform:none}
   .js .line-mask .line{transform:none}
   .step{opacity:1;transform:none}
+  .cookie-bar{animation:none}
 }
