@@ -18,6 +18,48 @@ There is no test framework in this project — no runner, no test files. `npm ru
 at boot, so restart the dev server after changing it. Without those vars the route returns 503 and the rest
 of the site works fine.
 
+## Dev server: there is exactly one, on port 3000 — reuse it
+
+**The user keeps a `next dev` server running on `http://localhost:3000` across sessions. Never kill it and
+never start a second one.** Do not `taskkill`, `Stop-Process`, or `kill` a node process to free the port,
+and do not restart the server "to pick up changes" — see below, it already picks them up.
+
+**Always probe before doing anything with the server.** Prints `200` when it's up:
+
+```bash
+curl -s -o /dev/null -w "%{http_code}\n" --max-time 3 http://localhost:3000
+```
+
+PowerShell equivalent (`-ErrorAction SilentlyContinue` alone makes this tool report exit 1, so keep the `if`):
+
+```powershell
+$c = Get-NetTCPConnection -LocalPort 3000 -State Listen -ErrorAction SilentlyContinue
+if ($c) { "up, pid=$($c[0].OwningProcess)" } else { "port 3000 free" }
+```
+
+Then:
+
+- **Responds (`200`, or any HTTP status)** → that's the server. Use `http://localhost:3000` directly for
+  curl, Playwright, and browser tools. Run nothing.
+- **Nothing listening** → start one, and only then:
+  `npm run dev` with `run_in_background: true`.
+- **Port held but no HTTP response** → say so and ask; don't assume it's dead and kill it.
+
+The probe is the whole mechanism. A background shell from an earlier session isn't visible in a new one, so
+without checking you'd start a duplicate — and because `npm run dev` silently falls back to the next free
+port (3001, 3002, …) when 3000 is taken, the duplicate *appears* to work while you and the user are looking
+at two different servers.
+
+**Editing files does not require a restart.** Fast Refresh covers everything in `app/`, `components/`,
+`lib/`, and `app/globals.css`. Only these need one, and they are the *only* reasons to propose it:
+
+- `next.config.ts`
+- `.env.local` / any env var
+- installing or removing a dependency
+
+When a restart is genuinely required, tell the user what changed and let them decide — they own that
+process. If they hand it to you, stop and restart on 3000, not on a new port.
+
 ## What this is
 
 Marketing site for Valentisys (outsourcing / customer support / digital agency). Next.js 16 App Router,

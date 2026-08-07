@@ -22,25 +22,12 @@ const teams = [
 
 const CV_ACCEPT = ".pdf,.png,.jpg,.jpeg,.webp,application/pdf,image/*";
 
-/** Leads are sent to this WhatsApp number via a click-to-chat link. */
-const WHATSAPP_NUMBER = "923240151555";
+/** Must match the <form name> declared in public/__forms.html. */
+const FORM_NAME = "careers";
 
-function buildWhatsAppUrl(fd: FormData) {
-  const cv = fd.get("cv");
-  const cvName = cv instanceof File && cv.name ? cv.name : "Not attached";
-  const message = [
-    "*New Career Application: Valentisys*",
-    "",
-    `*Name:* ${fd.get("fullName")}`,
-    `*Email:* ${fd.get("email")}`,
-    `*Contact:* ${fd.get("phone")}`,
-    `*Team applying for:* ${fd.get("team")}`,
-    `*CV:* ${cvName}`,
-    "",
-    "_I will attach my CV right after this message._",
-  ].join("\n");
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-}
+/* Netlify parses static HTML at deploy time, so the form is declared in
+   public/__forms.html and submissions are posted back to that same file. */
+const FORM_ENDPOINT = "/__forms.html";
 
 function FieldLabel({
   htmlFor,
@@ -65,44 +52,53 @@ function FieldLabel({
 }
 
 export default function ApplicationForm() {
-  const [waUrl, setWaUrl] = useState("");
   const [team, setTeam] = useState("");
   const [cvName, setCvName] = useState("");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
+  const [error, setError] = useState("");
   const cvInputRef = useRef<HTMLInputElement>(null);
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
     if (!form.reportValidity()) return;
 
-    const url = buildWhatsAppUrl(new FormData(form));
-    setWaUrl(url);
-    window.open(url, "_blank", "noopener,noreferrer");
+    const fd = new FormData(form);
 
-    form.reset();
-    setTeam("");
-    setCvName("");
+    setStatus("sending");
+    setError("");
+
+    try {
+      /* the CV is a real file, so this posts multipart — no Content-Type header,
+         the browser has to set its own multipart boundary */
+      const res = await fetch(FORM_ENDPOINT, { method: "POST", body: fd });
+
+      if (!res.ok) {
+        setError("Something went wrong sending that. Please try again.");
+        setStatus("idle");
+        return;
+      }
+
+      form.reset();
+      setTeam("");
+      setCvName("");
+      setStatus("sent");
+    } catch {
+      setError("We couldn't reach the server. Please check your connection and try again.");
+      setStatus("idle");
+    }
   };
 
-  if (waUrl) {
+  if (status === "sent") {
     return (
       <div className="application-card" data-reveal>
-        <h3 className="application-title">Application</h3>
+        <h3 className="application-title">APPLICATION FORM</h3>
         <p className="form-success" style={{ display: "block" }} role="status">
-          Almost done! WhatsApp should have opened with your application details. Press{" "}
-          <strong>Send</strong> there, then attach your CV (PDF or image) in the same chat. If
-          WhatsApp didn&apos;t open, use the button below.
+          Thanks, your application is in. We review every CV that comes through and will be in
+          touch if there&apos;s a fit.
         </p>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 14, marginTop: 28 }}>
-          <a
-            className="btn btn-primary"
-            href={waUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Open WhatsApp
-          </a>
-          <button className="btn btn-magenta" type="button" onClick={() => setWaUrl("")}>
+        <div style={{ marginTop: 28 }}>
+          <button className="btn btn-magenta" type="button" onClick={() => setStatus("idle")}>
             Submit another application
           </button>
         </div>
@@ -110,11 +106,24 @@ export default function ApplicationForm() {
     );
   }
 
+  const sending = status === "sending";
+
   return (
     <div className="application-card" data-reveal>
       <h3 className="application-title">APPLICATION FORM</h3>
 
-      <form className="application-form" onSubmit={onSubmit} noValidate>
+      <form
+        className="application-form"
+        name={FORM_NAME}
+        method="post"
+        encType="multipart/form-data"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        onSubmit={onSubmit}
+        noValidate
+      >
+        <input type="hidden" name="form-name" value={FORM_NAME} />
+
         {/* every .app-field holds exactly two children — label, then control — so the
             subgrid in globals.css can line the rows up across both columns */}
         <div className="app-grid">
@@ -124,20 +133,12 @@ export default function ApplicationForm() {
           </div>
 
           <div className="app-field">
-            <FieldLabel
-              htmlFor="app-email"
-            >
-              Email
-            </FieldLabel>
+            <FieldLabel htmlFor="app-email">Email</FieldLabel>
             <input id="app-email" name="email" type="email" autoComplete="email" required />
           </div>
 
           <div className="app-field">
-            <FieldLabel
-              htmlFor="app-phone"
-            >
-              Contact
-            </FieldLabel>
+            <FieldLabel htmlFor="app-phone">Contact</FieldLabel>
             <input id="app-phone" name="phone" type="tel" autoComplete="tel" required />
           </div>
 
@@ -164,10 +165,7 @@ export default function ApplicationForm() {
           </div>
 
           <div className="app-field app-field-wide">
-            <FieldLabel
-              htmlFor="app-cv"
-              hint="PDF or image (PNG, JPG), max 10 MB."
-            >
+            <FieldLabel htmlFor="app-cv" hint="PDF or image (PNG, JPG), max 10 MB.">
               CV
             </FieldLabel>
             {/* the native control is layered invisibly over the zone so validation can
@@ -198,8 +196,25 @@ export default function ApplicationForm() {
           </div>
         </div>
 
-        <button className="btn btn-primary app-submit" type="submit" data-magnetic>
-          Submit via WhatsApp
+        {/* honeypot — hidden from people, named to match netlify-honeypot above */}
+        <div className="app-honeypot" aria-hidden="true">
+          <label htmlFor="app-bot">Leave this field empty</label>
+          <input id="app-bot" name="bot-field" type="text" tabIndex={-1} autoComplete="off" />
+        </div>
+
+        {error && (
+          <p className="form-error" role="alert">
+            {error}
+          </p>
+        )}
+
+        <button
+          className="btn btn-primary app-submit"
+          type="submit"
+          data-magnetic
+          disabled={sending}
+        >
+          {sending ? "Sending…" : "Submit Application"}
           <svg
             className="arr"
             width="17"

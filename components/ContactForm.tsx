@@ -7,6 +7,13 @@ import { services } from "@/lib/services";
 /** Unselected dropdowns are reported as this rather than arriving blank. */
 const FALLBACK = "Others";
 
+/** Must match the <form name> declared in public/__forms.html. */
+const FORM_NAME = "contact";
+
+/* Netlify parses static HTML at deploy time, so the form is declared in
+   public/__forms.html and submissions are posted back to that same file. */
+const FORM_ENDPOINT = "/__forms.html";
+
 const industryOptions = [...industries.map(({ name }) => name), FALLBACK];
 const serviceOptions = [...services.map(({ shortTitle }) => shortTitle), FALLBACK];
 
@@ -48,31 +55,23 @@ export default function ContactForm() {
     if (!form.reportValidity()) return;
 
     const fd = new FormData(form);
-    const payload = {
-      fullName: fd.get("fullName"),
-      company: fd.get("company"),
-      email: fd.get("email"),
-      phone: fd.get("phone"),
-      /* required in the UI, but fall back so nothing ever reaches sales blank */
-      industry: fd.get("industry") || FALLBACK,
-      service: fd.get("service") || FALLBACK,
-      idea: fd.get("idea"),
-      website: fd.get("website"),
-    };
+    /* required in the UI, but keep the fallback so nothing reaches sales blank */
+    if (!fd.get("industry")) fd.set("industry", FALLBACK);
+    if (!fd.get("service")) fd.set("service", FALLBACK);
 
     setStatus("sending");
     setError("");
 
     try {
-      const res = await fetch("/api/contact", {
+      /* Netlify Forms does not accept JSON — this must be url-encoded */
+      const res = await fetch(FORM_ENDPOINT, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(fd as unknown as Record<string, string>).toString(),
       });
-      const data = await res.json().catch(() => ({}));
 
       if (!res.ok) {
-        setError(data.error ?? "Something went wrong. Please try again.");
+        setError("Something went wrong sending that. Please try again, or email us directly.");
         setStatus("idle");
         return;
       }
@@ -107,7 +106,17 @@ export default function ContactForm() {
 
   return (
     <div className="contact-form-card" data-reveal>
-      <form className="application-form" onSubmit={onSubmit} noValidate>
+      <form
+        className="application-form"
+        name={FORM_NAME}
+        method="post"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        onSubmit={onSubmit}
+        noValidate
+      >
+        <input type="hidden" name="form-name" value={FORM_NAME} />
+
         <div className="app-field">
           <FieldLabel htmlFor="c-name" required>
             Your name
@@ -191,10 +200,10 @@ export default function ContactForm() {
           <textarea id="c-idea" name="idea" rows={5} />
         </div>
 
-        {/* honeypot — hidden from people, catches bots that fill every field */}
+        {/* honeypot — hidden from people, named to match netlify-honeypot above */}
         <div className="app-honeypot" aria-hidden="true">
-          <label htmlFor="c-website">Leave this field empty</label>
-          <input id="c-website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+          <label htmlFor="c-bot">Leave this field empty</label>
+          <input id="c-bot" name="bot-field" type="text" tabIndex={-1} autoComplete="off" />
         </div>
 
         {error && (

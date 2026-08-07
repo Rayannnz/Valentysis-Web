@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Netlify form definitions</title>
+    <meta name="robots" content="noindex" />
+  </head>
+  <body>
+    <!--
+      Netlify detects forms by parsing static HTML at deploy time. The real forms are
+      React client components, so they are declared here instead — this file is what the
+      build system reads, and it is also the endpoint both forms POST to.
+
+      Every `name` below must match the corresponding field in the React form exactly.
+      Add a field there, add it here, or it will be dropped from the submission.
+    -->
+
+    <form name="contact" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="contact" />
+      <input type="text" name="bot-field" />
+      <input type="text" name="fullName" />
+      <input type="text" name="company" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <input type="text" name="industry" />
+      <input type="text" name="service" />
+      <textarea name="idea"></textarea>
+    </form>
+
+    <form
+      name="careers"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      enctype="multipart/form-data"
+      hidden
+    >
+      <input type="hidden" name="form-name" value="careers" />
+      <input type="text" name="bot-field" />
+      <input type="text" name="fullName" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <input type="text" name="team" />
+      <input type="file" name="cv" />
+    </form>
+  </body>
+</html>
