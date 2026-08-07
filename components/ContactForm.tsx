@@ -1,0 +1,228 @@
+"use client";
+
+import { FormEvent, type ReactNode, useState } from "react";
+import { industries } from "@/lib/industries";
+import { services } from "@/lib/services";
+
+/** Unselected dropdowns are reported as this rather than arriving blank. */
+const FALLBACK = "Others";
+
+const industryOptions = [...industries.map(({ name }) => name), FALLBACK];
+const serviceOptions = [...services.map(({ shortTitle }) => shortTitle), FALLBACK];
+
+function FieldLabel({
+  htmlFor,
+  children,
+  required,
+  optional,
+}: {
+  htmlFor: string;
+  children: ReactNode;
+  required?: boolean;
+  optional?: boolean;
+}) {
+  return (
+    <label className="app-label" htmlFor={htmlFor}>
+      <span className="app-label-main">
+        {children}
+        {required && (
+          <span className="req" aria-hidden="true">
+            *
+          </span>
+        )}
+        {optional && <span className="app-opt">(optional)</span>}
+      </span>
+    </label>
+  );
+}
+
+export default function ContactForm() {
+  const [industry, setIndustry] = useState("");
+  const [service, setService] = useState("");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
+  const [error, setError] = useState("");
+
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    if (!form.reportValidity()) return;
+
+    const fd = new FormData(form);
+    const payload = {
+      fullName: fd.get("fullName"),
+      company: fd.get("company"),
+      email: fd.get("email"),
+      phone: fd.get("phone"),
+      /* required in the UI, but fall back so nothing ever reaches sales blank */
+      industry: fd.get("industry") || FALLBACK,
+      service: fd.get("service") || FALLBACK,
+      idea: fd.get("idea"),
+      website: fd.get("website"),
+    };
+
+    setStatus("sending");
+    setError("");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        setError(data.error ?? "Something went wrong. Please try again.");
+        setStatus("idle");
+        return;
+      }
+
+      form.reset();
+      setIndustry("");
+      setService("");
+      setStatus("sent");
+    } catch {
+      setError("We couldn't reach the server. Please check your connection and try again.");
+      setStatus("idle");
+    }
+  };
+
+  if (status === "sent") {
+    return (
+      <div className="contact-form-card" data-reveal>
+        <p className="form-success" style={{ display: "block" }} role="status">
+          Thanks, your enquiry is in. Someone who actually runs the work, not a sales rep, will
+          get back to you within one business day.
+        </p>
+        <div style={{ marginTop: 28 }}>
+          <button className="btn btn-magenta" type="button" onClick={() => setStatus("idle")}>
+            Send another enquiry
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  const sending = status === "sending";
+
+  return (
+    <div className="contact-form-card" data-reveal>
+      <form className="application-form" onSubmit={onSubmit} noValidate>
+        <div className="app-field">
+          <FieldLabel htmlFor="c-name" required>
+            Your name
+          </FieldLabel>
+          <input id="c-name" name="fullName" type="text" autoComplete="name" required />
+        </div>
+
+        <div className="app-field">
+          <FieldLabel htmlFor="c-company" optional>
+            Company name
+          </FieldLabel>
+          <input id="c-company" name="company" type="text" autoComplete="organization" />
+        </div>
+
+        <div className="app-field">
+          <FieldLabel htmlFor="c-email" required>
+            Work email
+          </FieldLabel>
+          <input id="c-email" name="email" type="email" autoComplete="email" required />
+        </div>
+
+        <div className="app-field">
+          <FieldLabel htmlFor="c-phone" required>
+            Work contact
+          </FieldLabel>
+          <input id="c-phone" name="phone" type="tel" autoComplete="tel" required />
+        </div>
+
+        <div className="app-field">
+          <FieldLabel htmlFor="c-industry" required>
+            Choose industry
+          </FieldLabel>
+          <div className="app-select-wrap">
+            <select
+              id="c-industry"
+              name="industry"
+              required
+              value={industry}
+              onChange={(e) => setIndustry(e.target.value)}
+            >
+              <option value="" disabled>
+                Select an industry
+              </option>
+              {industryOptions.map((name) => (
+                <option key={name} value={name}>
+                  {name}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        <div className="app-field">
+          <FieldLabel htmlFor="c-service" required>
+            Choose service
+          </FieldLabel>
+          <div className="app-select-wrap">
+            <select
+              id="c-service"
+              name="service"
+              required
+              value={service}
+              onChange={(e) => setService(e.target.value)}
+            >
+              <option value="" disabled>
+                Select a service
+              </option>
+              {serviceOptions.map((name) => (
+                <option key={name} value={name}>
+                  {name}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        <div className="app-field">
+          <FieldLabel htmlFor="c-idea" optional>
+            Tell us about your idea
+          </FieldLabel>
+          <textarea id="c-idea" name="idea" rows={5} />
+        </div>
+
+        {/* honeypot — hidden from people, catches bots that fill every field */}
+        <div className="app-honeypot" aria-hidden="true">
+          <label htmlFor="c-website">Leave this field empty</label>
+          <input id="c-website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+        </div>
+
+        {error && (
+          <p className="form-error" role="alert">
+            {error}
+          </p>
+        )}
+
+        <button
+          className="btn btn-primary app-submit"
+          type="submit"
+          data-magnetic
+          disabled={sending}
+        >
+          {sending ? "Sending…" : "Send enquiry"}
+          <svg
+            className="arr"
+            width="17"
+            height="17"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.4"
+          >
+            <path d="M7 17L17 7M9 7h8v8" />
+          </svg>
+        </button>
+      </form>
+    </div>
+  );
+}

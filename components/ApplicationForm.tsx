@@ -1,28 +1,33 @@
 "use client";
 
-import { FormEvent, type ReactNode, useState } from "react";
+import { FormEvent, type ReactNode, useRef, useState } from "react";
 import { services } from "@/lib/services";
 
 /** Roles hired for outside the service lines listed on the site. */
 const extraRoles = [
+  "AI Expert",
   "SEO Expert",
   "Ads Expert (Meta Ads / Google Ads)",
   "Graphic Designer & Video Editor",
 ];
 
+/* outsourcing staffs the other lines rather than being a team of its own;
+   AI is hired for as "AI Expert" above, so it isn't listed twice */
+const excludedFromHiring = ["outsourcing", "ai-solutions"];
+
 const teams = [
-  ...services.filter((s) => s.slug !== "outsourcing").map((s) => s.shortTitle),
+  ...services.filter((s) => !excludedFromHiring.includes(s.slug)).map((s) => s.shortTitle),
   ...extraRoles,
 ];
 
-const RESUME_ACCEPT = ".pdf,.png,.jpg,.jpeg,.webp,application/pdf,image/*";
+const CV_ACCEPT = ".pdf,.png,.jpg,.jpeg,.webp,application/pdf,image/*";
 
 /** Leads are sent to this WhatsApp number via a click-to-chat link. */
 const WHATSAPP_NUMBER = "923240151555";
 
 function buildWhatsAppUrl(fd: FormData) {
-  const resume = fd.get("resume");
-  const resumeName = resume instanceof File && resume.name ? resume.name : "Not attached";
+  const cv = fd.get("cv");
+  const cvName = cv instanceof File && cv.name ? cv.name : "Not attached";
   const message = [
     "*New Career Application: Valentisys*",
     "",
@@ -30,9 +35,9 @@ function buildWhatsAppUrl(fd: FormData) {
     `*Email:* ${fd.get("email")}`,
     `*Contact:* ${fd.get("phone")}`,
     `*Team applying for:* ${fd.get("team")}`,
-    `*Resume:* ${resumeName}`,
+    `*CV:* ${cvName}`,
     "",
-    "_I will attach my resume right after this message._",
+    "_I will attach my CV right after this message._",
   ].join("\n");
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }
@@ -62,7 +67,8 @@ function FieldLabel({
 export default function ApplicationForm() {
   const [waUrl, setWaUrl] = useState("");
   const [team, setTeam] = useState("");
-  const [resumeName, setResumeName] = useState("");
+  const [cvName, setCvName] = useState("");
+  const cvInputRef = useRef<HTMLInputElement>(null);
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -75,7 +81,7 @@ export default function ApplicationForm() {
 
     form.reset();
     setTeam("");
-    setResumeName("");
+    setCvName("");
   };
 
   if (waUrl) {
@@ -84,8 +90,8 @@ export default function ApplicationForm() {
         <h3 className="application-title">Application</h3>
         <p className="form-success" style={{ display: "block" }} role="status">
           Almost done! WhatsApp should have opened with your application details. Press{" "}
-          <strong>Send</strong> there, then attach your resume (PDF or image) in the same chat.
-          If WhatsApp didn&apos;t open, use the button below.
+          <strong>Send</strong> there, then attach your CV (PDF or image) in the same chat. If
+          WhatsApp didn&apos;t open, use the button below.
         </p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 14, marginTop: 28 }}>
           <a
@@ -106,9 +112,11 @@ export default function ApplicationForm() {
 
   return (
     <div className="application-card" data-reveal>
-      <h3 className="application-title">Application</h3>
+      <h3 className="application-title">APPLICATION FORM</h3>
 
       <form className="application-form" onSubmit={onSubmit} noValidate>
+        {/* every .app-field holds exactly two children — label, then control — so the
+            subgrid in globals.css can line the rows up across both columns */}
         <div className="app-grid">
           <div className="app-field">
             <FieldLabel htmlFor="app-name">Name</FieldLabel>
@@ -118,7 +126,6 @@ export default function ApplicationForm() {
           <div className="app-field">
             <FieldLabel
               htmlFor="app-email"
-              hint="Keep an eye on your inbox for updates about your application."
             >
               Email
             </FieldLabel>
@@ -128,18 +135,10 @@ export default function ApplicationForm() {
           <div className="app-field">
             <FieldLabel
               htmlFor="app-phone"
-              hint="Please make sure to include your country code in the phone number."
             >
               Contact
             </FieldLabel>
-            <input
-              id="app-phone"
-              name="phone"
-              type="tel"
-              autoComplete="tel"
-              placeholder="+1 555 000 0000"
-              required
-            />
+            <input id="app-phone" name="phone" type="tel" autoComplete="tel" required />
           </div>
 
           <div className="app-field">
@@ -166,25 +165,36 @@ export default function ApplicationForm() {
 
           <div className="app-field app-field-wide">
             <FieldLabel
-              htmlFor="app-resume"
-              hint="PDF or image (PNG, JPG, WEBP), max 10 MB. Your application opens in WhatsApp; attach this file there to complete it."
+              htmlFor="app-cv"
+              hint="PDF or image (PNG, JPG), max 10 MB."
             >
-              Resume
+              CV
             </FieldLabel>
-            <input
-              id="app-resume"
-              name="resume"
-              className="app-file"
-              type="file"
-              accept={RESUME_ACCEPT}
-              required
-              onChange={(e) => setResumeName(e.target.files?.[0]?.name ?? "")}
-            />
-            {resumeName && (
+            {/* the native control is layered invisibly over the zone so validation can
+                still focus it, while the visible prompt reads "Choose CV" in every browser */}
+            <div className="app-file-zone">
+              <input
+                ref={cvInputRef}
+                id="app-cv"
+                name="cv"
+                className="app-file-input"
+                type="file"
+                accept={CV_ACCEPT}
+                required
+                tabIndex={-1}
+                onChange={(e) => setCvName(e.target.files?.[0]?.name ?? "")}
+              />
+              <button
+                className="app-file-btn"
+                type="button"
+                onClick={() => cvInputRef.current?.click()}
+              >
+                Choose CV
+              </button>
               <span className="app-file-name" aria-live="polite">
-                {resumeName}
+                {cvName || "No CV selected"}
               </span>
-            )}
+            </div>
           </div>
         </div>
 

@@ -11,7 +11,7 @@
   --violet:      #4B3ED6;
   --ink:         #171429;
   --ink-soft:    #3E3A52;
-  --paper:       #FDFBF6;
+  --paper:       #FFFFFF;
   --bg:          #F1EFF7;
   --bg-2:        #E7E4F0;
   --line:        rgba(23,20,41,.14);
@@ -421,21 +421,6 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
 @keyframes chipFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
 @media (max-width:960px){.hero-chip{display:none}}
 
-.scroll-hint{
-  position:absolute;bottom:34px;left:var(--gutter);display:flex;align-items:center;gap:12px;
-  font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);z-index:2;
-}
-.scroll-hint .wheel{
-  width:24px;height:38px;border:2px solid var(--line-strong);border-radius:14px;position:relative;
-}
-.scroll-hint .wheel::after{
-  content:"";position:absolute;top:7px;left:50%;width:4px;height:8px;margin-left:-2px;
-  background:var(--primary);border-radius:2px;animation:wheel 1.8s ease-in-out infinite;
-}
-@keyframes wheel{0%{transform:translateY(0);opacity:1}70%{transform:translateY(12px);opacity:0}100%{opacity:0}}
-/* on phones the hero is short enough that this decoration lands on top of the CTAs */
-@media (max-width:860px){.scroll-hint{display:none}}
-
 /* ============================================================
    Marquee — trusted by
    ============================================================ */
@@ -800,29 +785,25 @@ blockquote p{
 @media (hover:hover){.contact-rows a:hover::after{transform:scaleX(1)}}
 .contact-rows svg{color:var(--primary-deep);flex:none}
 
-.form{display:flex;flex-direction:column;gap:clamp(20px,3.5vw,26px);min-width:0}
-.field{position:relative}
-.field label{
-  display:block;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--ink-soft);margin-bottom:10px;
+/* the enquiry form on /contact — sits in the right column of .contact-layout */
+.contact-form-card{
+  background:#fff;border:1px solid var(--line);border-radius:20px;
+  padding:clamp(24px,3.4vw,44px);min-width:0;
+  box-shadow:0 22px 54px rgba(26,22,48,.08);
 }
-.field input,.field textarea{
-  width:100%;background:transparent;border:none;border-bottom:1.5px solid var(--line-strong);
-  padding:12px 2px;font:inherit;font-size:17px;color:var(--ink);outline:none;resize:vertical;
-}
-.field .bar{
-  position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--primary);
-  transform:scaleX(0);transform-origin:0 50%;transition:transform .4s var(--ease-out);
-}
-.field input:focus ~ .bar,.field textarea:focus ~ .bar{transform:scaleX(1)}
-.form .btn{align-self:flex-start}
 .form-success{
   display:none;padding:16px 18px;background:rgba(34,160,84,.1);border:1px solid rgba(34,160,84,.4);
   color:#1d7a44;font-weight:500;font-size:15px;
 }
-.form.sent .form-success{display:block}
+.form-error{
+  padding:14px 16px;border-radius:8px;background:rgba(225,29,72,.08);
+  border:1px solid rgba(225,29,72,.35);color:#b91c40;font-weight:500;font-size:14.5px;
+}
+/* honeypot — off-screen rather than display:none, which some bots skip */
+.app-honeypot{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.app-submit[disabled]{opacity:.6;pointer-events:none}
 @media (max-width:860px){.contact-layout{grid-template-columns:minmax(0,1fr)}}
-@media (max-width:480px){.form .btn{align-self:stretch}}
+@media (max-width:540px){.contact-form-card{border-radius:14px;padding:22px 16px 26px}}
 
 /* ============================================================
    Footer
@@ -911,38 +892,50 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .application-sec-head .sec-note a{color:#fff}
 
 .application-card{
-  /* stays pure white, not --paper beige — sits on the dark careers gradient */
   background:#fff;color:var(--ink);
   border-radius:22px;padding:clamp(28px,4vw,52px);
   box-shadow:0 28px 70px rgba(0,0,0,.28);
 }
 .application-title{
   font-size:clamp(24px,5.5vw,40px);font-weight:700;letter-spacing:-.03em;margin-bottom:clamp(22px,3vw,40px);
+  text-align:center;
 }
 .application-form{display:flex;flex-direction:column;gap:clamp(22px,3vw,28px)}
 .app-grid{
   display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(20px,3vw,36px) clamp(24px,3.5vw,48px);
 }
 .app-field{display:flex;flex-direction:column;gap:10px;min-width:0}
+
+/* Labels differ in height because only some fields carry a hint, which pushed the
+   inputs in a row out of line. Each field borrows the parent's rows as a subgrid, so
+   every label sits on one shared row and every input on the next. */
+@supports (grid-template-rows:subgrid){
+  .app-grid > .app-field{
+    display:grid;grid-template-rows:subgrid;grid-row:span 2;row-gap:10px;
+  }
+}
 .app-label{display:flex;flex-direction:column;gap:4px}
 .app-label-main{
   font-size:15px;font-weight:650;color:var(--ink);line-height:1.35;
   font-family:var(--font-body);
 }
 .app-label-main .req{color:#e11d48;margin-left:3px;font-weight:700}
+.app-label-main .app-opt{color:#8a869c;margin-left:6px;font-weight:500;font-size:13px}
 .app-label-soft{font-weight:500;color:var(--ink-soft);font-size:13.5px}
 .app-hint{font-size:12.5px;line-height:1.45;color:#8a869c;font-weight:400}
 
 .app-field input,
-.app-field select{
+.app-field select,
+.app-field textarea{
   width:100%;appearance:none;-webkit-appearance:none;
   background:#fff;border:1.5px solid #d5d2e0;border-radius:8px;
   padding:13px 14px;font:inherit;font-size:15.5px;color:var(--ink);
   outline:none;transition:border-color .25s,box-shadow .25s;
 }
-.app-field input::placeholder{color:#b0adc0}
+.app-field textarea{resize:vertical;min-height:120px;line-height:1.6}
 .app-field input:focus,
-.app-field select:focus{
+.app-field select:focus,
+.app-field textarea:focus{
   border-color:var(--primary);box-shadow:0 0 0 3px rgba(109,40,217,.12);
 }
 .app-field select:disabled{background:#f5f4f8;color:#9b98ab;cursor:not-allowed}
@@ -955,24 +948,47 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .app-select-wrap select{padding-right:40px;cursor:pointer}
 .app-field-wide{grid-column:1/-1}
 
-.app-field input[type="file"]{padding:0;border-style:dashed;background:#fbfaff;cursor:pointer}
-.app-field input[type="file"]::file-selector-button{
-  margin:0 14px 0 0;padding:13px 18px;border:0;cursor:pointer;
-  border-radius:6px 0 0 6px;font:inherit;font-size:14.5px;font-weight:650;
+/* CV upload — the native input is layered invisibly across the zone (not display:none,
+   which would make it unfocusable and break reportValidity) while a real button carries
+   the prompt text, since ::file-selector-button's label can't be changed from CSS */
+.app-file-zone{
+  position:relative;display:flex;align-items:center;min-width:0;
+  border:1.5px dashed #d5d2e0;border-radius:8px;background:#fbfaff;
+  transition:border-color .25s,box-shadow .25s;
+}
+.app-field input.app-file-input{
+  position:absolute;inset:0;width:100%;height:100%;
+  padding:0;border:0;opacity:0;cursor:pointer;
+}
+.app-file-zone:focus-within{
+  border-color:var(--primary);box-shadow:0 0 0 3px rgba(109,40,217,.12);
+}
+.app-file-btn{
+  position:relative;z-index:1;flex:none;
+  padding:13px 18px;border-radius:6px 0 0 6px;
+  font:inherit;font-size:14.5px;font-weight:650;
   background:var(--primary);color:#fff;transition:filter .25s;
 }
-@media (hover:hover){.app-field input[type="file"]::file-selector-button:hover{filter:brightness(1.12)}}
-.app-file-name{font-size:13px;color:var(--ink-soft);word-break:break-all}
+@media (hover:hover){.app-file-btn:hover{filter:brightness(1.12)}}
+.app-file-name{
+  padding:0 14px;min-width:0;font-size:14.5px;color:var(--ink-soft);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+/* the careers form anchors its submit to the bottom-right of the card;
+   .app-submit stays left-aligned wherever else it's used */
 .app-submit{align-self:flex-start;margin-top:4px}
+.application-card .app-submit{align-self:flex-end}
 
 @media (max-width:760px){
   .app-grid{grid-template-columns:minmax(0,1fr)}
   .application-card{border-radius:16px;padding:24px 18px 28px}
   /* iOS Safari zooms the whole page when a focused control is under 16px */
-  .app-field input,.app-field select{font-size:16px}
-  .app-field input[type="file"]::file-selector-button{padding:13px 14px;margin-right:10px}
+  .app-field input,.app-field select,.app-field textarea{font-size:16px}
+  .app-file-btn{padding:13px 14px}
 }
-@media (max-width:480px){.app-submit{align-self:stretch}}
+@media (max-width:480px){
+  .app-submit,.application-card .app-submit{align-self:stretch}
+}
 
 /* ============================================================
    About — story, timeline, team

@@ -615,6 +615,57 @@ export const services: Service[] = [
       },
     ],
   },
+  {
+    slug: "ai-solutions",
+    title: "AI Solutions",
+    shortTitle: "AI Solutions",
+    navLabel: "AI Solutions",
+    eyebrow: "AI solutions",
+    headline: ["AI that does", "actual work."],
+    accentWord: "actual work",
+    lead: "Assistants, automations, and document workflows built around your process, measured on hours saved and errors avoided, not on how clever the demo looks.",
+    summary:
+      "Most AI projects stall because they start with the technology instead of the task. We start with a job your team repeats every day: quoting, triage, intake, reporting, first-line replies. Then we build the smallest thing that does it reliably, keep a person in the loop where the stakes are high, and measure it against what the manual process actually costs you.",
+    homeDesc:
+      "Assistants, automations, and document workflows built around a real task, with a person in the loop and results you can measure.",
+    panelLabel: "Start small",
+    panelCopy: "One workflow, measured against the manual version, before anything else gets automated.",
+    offerings: [
+      {
+        title: "Custom AI assistants",
+        desc: "Assistants trained on your documents and tone that answer staff and customer questions with sources, not guesses.",
+      },
+      {
+        title: "Document & data automation",
+        desc: "Intake forms, invoices, contracts, and reports read, extracted, and routed into your systems without manual re-typing.",
+      },
+      {
+        title: "Workflow automation",
+        desc: "The repetitive steps between your tools automated end to end, with review points wherever a mistake would be costly.",
+      },
+      {
+        title: "AI strategy & integration",
+        desc: "An honest assessment of what's worth automating, what isn't, and how it connects to the software you already run.",
+      },
+    ],
+    fits: [
+      {
+        label: "Operations teams",
+        title: "Hours lost to copy and paste",
+        desc: "Staff move the same data between email, spreadsheets, and your system every day, and the errors only surface later.",
+      },
+      {
+        label: "Support & intake",
+        title: "The same questions, every day",
+        desc: "Most of your inbox is questions already answered somewhere, but nobody has time to find and reuse those answers.",
+      },
+      {
+        label: "Leadership",
+        title: "Pressure to use AI, no clear plan",
+        desc: "You've seen the demos and the pitches, but nobody can tell you which task it should do first or what it's worth.",
+      },
+    ],
+  },
 ];
 
 export function getService(slug: string) {

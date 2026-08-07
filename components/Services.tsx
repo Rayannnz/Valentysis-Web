@@ -15,8 +15,8 @@ export default function Services() {
             </h2>
           </div>
           <p className="sec-note" data-reveal>
-            Five capabilities under one roof: staff your operation, support your customers, and
-            grow with social, apps, and web.
+            Six capabilities under one roof: staff your operation, support your customers, and
+            grow with social, apps, web, and AI.
           </p>
         </div>
 

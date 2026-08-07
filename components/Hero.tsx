@@ -36,7 +36,7 @@ export default function Hero() {
           and hospitality, plus the social, app, and web work that grows what you&apos;ve built.
         </p>
         <div className="hero-ctas" data-reveal>
-          <a className="btn btn-primary" href="#contact" data-magnetic>
+          <a className="btn btn-primary" href="/contact" data-magnetic>
             Get in touch
             <svg className="arr" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
               <path d="M7 17L17 7M9 7h8v8" />
@@ -46,11 +46,6 @@ export default function Hero() {
             Explore services
           </a>
         </div>
-      </div>
-
-      <div className="scroll-hint" aria-hidden="true">
-        <div className="wheel" />
-        <span>Scroll to explore</span>
       </div>
     </section>
   );

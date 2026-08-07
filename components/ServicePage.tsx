@@ -50,7 +50,7 @@ export default function ServicePage({ service }: { service: Service }) {
                   clear price before any work starts.
                 </p>
                 <div data-reveal style={{ marginTop: 28 }}>
-                  <a className="btn btn-primary" href="/#contact" data-magnetic>
+                  <a className="btn btn-primary" href="/contact" data-magnetic>
                     Talk to us
                     <svg
                       className="arr"
@@ -74,7 +74,9 @@ export default function ServicePage({ service }: { service: Service }) {
           </div>
         </section>
 
-        {service.detail && <ServiceDetail detail={service.detail} />}
+        {/* key resets the accordion's open state when moving between service pages,
+            rather than adjusting it from a prop change */}
+        {service.detail && <ServiceDetail detail={service.detail} key={service.slug} />}
 
         <section className="section" style={service.detail ? undefined : { paddingTop: 0 }}>
           <div className="container">

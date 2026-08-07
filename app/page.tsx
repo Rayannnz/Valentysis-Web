@@ -1,5 +1,4 @@
 import Approach from "@/components/Approach";
-import Contact from "@/components/Contact";
 import Cta from "@/components/Cta";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
@@ -21,7 +20,6 @@ export default function Home() {
         <Approach />
         <Process />
         <Cta />
-        <Contact />
       </main>
       <Footer />
     </>

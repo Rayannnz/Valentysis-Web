@@ -18,6 +18,7 @@ const columns: FooterColumn[] = [
       { label: "Digital Marketing", href: "/services/digital-marketing" },
       { label: "App Development", href: "/services/app-development" },
       { label: "Web Development", href: "/services/web-development" },
+      { label: "AI Solutions", href: "/services/ai-solutions" },
     ],
   },
   {
@@ -32,7 +33,7 @@ const columns: FooterColumn[] = [
       { label: "Careers", href: "/careers" },
       { label: "Our approach", href: "/#approach" },
       { label: "How we work", href: "/#process" },
-      { label: "Contact", href: "/#contact" },
+      { label: "Contact", href: "/contact" },
     ],
   },
 ];

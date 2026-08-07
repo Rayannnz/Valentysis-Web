@@ -11,8 +11,9 @@ const serviceNav = services.map(({ slug, navLabel }) => ({
   label: navLabel,
   href: `/services/${slug}`,
 }));
-const servicesLeft = serviceNav.slice(0, 2);
-const servicesRight = serviceNav.slice(2);
+const servicesSplit = Math.ceil(serviceNav.length / 2);
+const servicesLeft = serviceNav.slice(0, servicesSplit);
+const servicesRight = serviceNav.slice(servicesSplit);
 
 /* rendered as native anchors, not <Link> — Link pushState's same-page hash links
    without firing hashchange, so the accordion wouldn't open from /industries itself */
@@ -59,10 +60,17 @@ export default function Header() {
     };
   }, [menuOpen]);
 
-  /* clear mega-menu blur + mobile menu after route changes (mouseleave can miss on nav) */
+  /* close the mobile menu on route change — adjusted during render so React
+     re-renders before committing, instead of flashing the open menu for a frame */
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname);
+    setMenuOpen(false);
+  }
+
+  /* clear mega-menu blur + focus after route changes (mouseleave can miss on nav) */
   useEffect(() => {
     document.body.classList.remove("nav-blur");
-    setMenuOpen(false);
     if (document.activeElement instanceof HTMLElement) {
       document.activeElement.blur();
     }
@@ -123,7 +131,7 @@ export default function Header() {
                   <div className="mega-promo">
                     <h4>Need the right fit?</h4>
                     <p>Tell us the problem. We&apos;ll recommend a service mix, timeline, and a clear price.</p>
-                    <Link className="btn btn-magenta" href="/#contact" style={{ marginTop: 10 }} onClick={go}>
+                    <Link className="btn btn-magenta" href="/contact" style={{ marginTop: 10 }} onClick={go}>
                       Get an estimate
                       <svg className="arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
                         <path d="M7 17L17 7M9 7h8v8" />
@@ -162,7 +170,7 @@ export default function Header() {
                   <div className="mega-promo">
                     <h4>Not sure where to start?</h4>
                     <p>Send us the problem. We&apos;ll come back with scope, timeline, and a price.</p>
-                    <Link className="btn btn-magenta" href="/#contact" style={{ marginTop: 10 }} onClick={go}>
+                    <Link className="btn btn-magenta" href="/contact" style={{ marginTop: 10 }} onClick={go}>
                       Get an estimate
                       <svg className="arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
                         <path d="M7 17L17 7M9 7h8v8" />
@@ -181,7 +189,7 @@ export default function Header() {
             </div>
           </nav>
 
-          <Link className="btn-contact" href="/#contact">
+          <Link className="btn-contact" href="/contact">
             <span>Contact</span>
           </Link>
 
@@ -220,7 +228,7 @@ export default function Header() {
         ))}
         <Link href="/careers" onClick={closeMenu}><small>04</small>Careers</Link>
         <Link href="/about" onClick={closeMenu}><small>05</small>About Us</Link>
-        <Link href="/#contact" onClick={closeMenu} style={{ color: "var(--primary)" }}><small>06</small>Contact</Link>
+        <Link href="/contact" onClick={closeMenu} style={{ color: "var(--primary)" }}><small>06</small>Contact</Link>
       </nav>
     </>
   );

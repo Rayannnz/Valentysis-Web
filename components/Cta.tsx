@@ -15,7 +15,7 @@ export default function Cta() {
           Tell us what you need: outsourcing, customer support, social, apps, or web. We&apos;ll
           scope it, price it, and staff it in days, not months.
         </p>
-        <a className="btn btn-magenta" href="/#contact" data-magnetic data-reveal>
+        <a className="btn btn-magenta" href="/contact" data-magnetic data-reveal>
           Get my free estimate
           <svg className="arr" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
             <path d="M7 17L17 7M9 7h8v8" />

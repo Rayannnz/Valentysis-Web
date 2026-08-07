@@ -1,11 +1,27 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import type { ServiceDetail as Detail } from "@/lib/services";
+
+function subscribeToHash(onChange: () => void) {
+  window.addEventListener("hashchange", onChange);
+  return () => window.removeEventListener("hashchange", onChange);
+}
+
+/* The hash is external browser state, so it's read through useSyncExternalStore
+   rather than an effect. The server never receives the hash, hence the "" snapshot. */
+function useHash() {
+  return useSyncExternalStore(
+    subscribeToHash,
+    () => window.location.hash.slice(1),
+    () => ""
+  );
+}
 
 export default function ServiceDetail({ detail }: { detail: Detail }) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const panelRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const hash = useHash();
 
   /* animate panel height to its measured content size */
   useEffect(() => {
@@ -20,13 +36,14 @@ export default function ServiceDetail({ detail }: { detail: Detail }) {
     return () => window.removeEventListener("resize", applyHeights);
   }, [openIndex]);
 
-  /* open the group named in the URL hash, e.g. /services/...#medical */
-  useEffect(() => {
-    const hash = window.location.hash.slice(1);
-    if (!hash) return;
+  /* open the group named in the URL hash, e.g. /services/...#medical — adjusted
+     during render, so the right panel is open on the same commit the hash lands */
+  const [prevHash, setPrevHash] = useState(hash);
+  if (hash !== prevHash) {
+    setPrevHash(hash);
     const i = detail.groups.findIndex((g) => g.id === hash);
     if (i >= 0) setOpenIndex(i);
-  }, [detail]);
+  }
 
   return (
     <section id="service-detail" className="section">

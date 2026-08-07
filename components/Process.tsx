@@ -1,6 +1,19 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+
+/* Feature support never changes for the life of the page, so there's nothing to
+   subscribe to. The server assumes support, matching the progressive-enhancement
+   default of revealing steps on scroll. */
+const neverChanges = () => () => {};
+
+function useSupportsIntersectionObserver() {
+  return useSyncExternalStore(
+    neverChanges,
+    () => "IntersectionObserver" in window,
+    () => true
+  );
+}
 
 const steps = [
   {
@@ -40,11 +53,12 @@ export default function Process() {
   const [current, setCurrent] = useState(0);
   const stepRefs = useRef<(HTMLElement | null)[]>([]);
 
+  /* without IntersectionObserver there's no way to track scroll position, so every
+     step is shown active rather than left permanently dimmed */
+  const revealAll = !useSupportsIntersectionObserver();
+
   useEffect(() => {
-    if (!("IntersectionObserver" in window)) {
-      setActive(new Set(steps.map((_, i) => i)));
-      return;
-    }
+    if (!("IntersectionObserver" in window)) return;
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
@@ -76,7 +90,7 @@ export default function Process() {
           <div className="steps">
             {steps.map(({ title, desc, tags }, i) => (
               <article
-                className={`step${active.has(i) ? " active" : ""}`}
+                className={`step${revealAll || active.has(i) ? " active" : ""}`}
                 key={title}
                 ref={(el) => {
                   stepRefs.current[i] = el;
