@@ -22,6 +22,18 @@ const teams = [
 
 const CV_ACCEPT = ".pdf,.png,.jpg,.jpeg,.webp,application/pdf,image/*";
 
+/* Netlify caps a whole form request at 8 MiB (8,388,608 bytes) and rejects anything
+   larger with a 400 read straight off Content-Length, before the body finishes
+   uploading — which surfaced here as the generic "something went wrong". Verified
+   against the live endpoint: 8,300,000 bytes posts fine, 8,388,608 returns 400.
+   Cap the CV under that so the other fields and multipart boundaries still fit. */
+const MAX_CV_BYTES = 8_000_000;
+
+const formatSize = (bytes: number) => `${(bytes / 1_000_000).toFixed(1)} MB`;
+
+const OVERSIZE_MESSAGE = (bytes: number) =>
+  `That CV is ${formatSize(bytes)}. The limit is 8 MB — please attach a smaller file.`;
+
 /** Must match the <form name> declared in public/__forms.html. */
 const FORM_NAME = "careers";
 
@@ -74,6 +86,12 @@ export default function ApplicationForm() {
       const res = await fetch(FORM_ENDPOINT, { method: "POST", body: fd });
 
       if (!res.ok) {
+        /* surfaced in devtools so a failed deploy config is diagnosable — see ContactForm */
+        const detail = await res.text().catch(() => "");
+        console.error(
+          `[careers] ${FORM_ENDPOINT} returned ${res.status} ${res.statusText}`,
+          detail.slice(0, 300)
+        );
         setError("Something went wrong sending that. Please try again.");
         setStatus("idle");
         return;
@@ -165,7 +183,7 @@ export default function ApplicationForm() {
           </div>
 
           <div className="app-field app-field-wide">
-            <FieldLabel htmlFor="app-cv" hint="PDF or image (PNG, JPG), max 10 MB.">
+            <FieldLabel htmlFor="app-cv" hint="PDF or image (PNG, JPG), max 8 MB.">
               CV
             </FieldLabel>
             {/* the native control is layered invisibly over the zone so validation can
@@ -180,7 +198,23 @@ export default function ApplicationForm() {
                 accept={CV_ACCEPT}
                 required
                 tabIndex={-1}
-                onChange={(e) => setCvName(e.target.files?.[0]?.name ?? "")}
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (!file) {
+                    setCvName("");
+                    return;
+                  }
+                  if (file.size > MAX_CV_BYTES) {
+                    /* clear the input so the `required` check stays honest — a file
+                       Netlify would reject must not look selected */
+                    e.target.value = "";
+                    setCvName("");
+                    setError(OVERSIZE_MESSAGE(file.size));
+                    return;
+                  }
+                  setError("");
+                  setCvName(file.name);
+                }}
               />
               <button
                 className="app-file-btn"

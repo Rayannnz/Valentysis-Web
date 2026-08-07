@@ -71,6 +71,14 @@ export default function ContactForm() {
       });
 
       if (!res.ok) {
+        /* surfaced in devtools so a failed deploy config is diagnosable —
+           404/405 means Netlify isn't handling POSTs to the form endpoint,
+           which usually means form detection is off or __forms.html isn't deployed */
+        const detail = await res.text().catch(() => "");
+        console.error(
+          `[contact] ${FORM_ENDPOINT} returned ${res.status} ${res.statusText}`,
+          detail.slice(0, 300)
+        );
         setError("Something went wrong sending that. Please try again, or email us directly.");
         setStatus("idle");
         return;
