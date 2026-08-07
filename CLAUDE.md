@@ -60,6 +60,66 @@ at two different servers.
 When a restart is genuinely required, tell the user what changed and let them decide — they own that
 process. If they hand it to you, stop and restart on 3000, not on a new port.
 
+### Never hard-kill a process while Turbopack is compiling
+
+**No SIGKILL, no force-kill, no force-cancel of a running terminal command while Next/Turbopack is
+compiling.** Specifically: no `kill -9`, no `taskkill /F`, no `Stop-Process -Force`, and no aborting an
+in-flight `npm run dev` / `npm run build` command. This holds even when something looks hung.
+
+This is not a style preference — it corrupts the project. Turbopack keeps a persistent on-disk cache under
+`.next/dev/cache/turbopack/` that behaves like an LSM store: `.meta` files reference `.sst` segment files.
+Killing the process mid-persist leaves `.meta` pointing at segments that were never flushed, and the dev
+server then panics on every task lookup:
+
+```
+Persisting failed: Unable to write SST file 00004280.sst
+Compaction failed: Another write batch or compaction is already active
+thread 'tokio-runtime-worker' panicked at turbo-tasks-backend ... Failed to restore task data
+  (corrupted database or bug) ... Unable to open static sorted file 00004258.sst
+⨯ Error: ENOENT ... .next\dev\server\app\page\build-manifest.json
+```
+
+**Restarting does not fix this** — the inconsistent files are on disk and get re-read on boot. Recovery
+requires deleting the cache (below). If a process genuinely must stop, use a graceful stop only, after
+compilation has settled, and ask the user first.
+
+### Let compilation settle before reading or editing files
+
+Turbopack rebuilds on every write. Editing files while a compile is in flight stacks overlapping rebuilds
+onto the same cache writer, which is how you reach `Another write batch or compaction is already active`.
+
+- **Batch related edits into one message**, then stop and let it compile. One rebuild, not one per file.
+- **Never write a file during a `○ Compiling …` window.** Wait for the run to close out — `✓ Compiled in …`
+  or a `GET … 200` line.
+- If you started the server backgrounded, read its output and wait for that line before the next batch.
+- If the server is in the user's own terminal and you can't see its logs, don't fire
+  edit → read → edit → read in tight succession. Re-probe with curl and confirm it still answers 200 before
+  continuing, and ask the user to paste the log if anything looks off.
+
+### Recovering a corrupted Turbopack cache
+
+Symptoms, roughly in the order they show up:
+
+- repeated `Fast Refresh had to perform a full reload when ./node_modules/next/dist/... changed`
+- `Persisting failed:` / `Compaction failed:` spam
+- `panicked at turbo-tasks-backend` with `Unable to open static sorted file NNNN.sst`
+- `ENOENT ... .next\dev\server\app\page\build-manifest.json`
+
+Confirm it's real corruption rather than noise — take a filename from the panic and check whether it exists:
+
+```bash
+ls .next/dev/cache/turbopack/*/00004258.sst
+```
+
+If it's missing while the `.meta` still references it, the cache is corrupt. Fix, **with the user's
+go-ahead**, since it means stopping their server:
+
+1. Stop the dev server gracefully (Ctrl-C in the terminal that owns it — the user's job, not a force-kill).
+2. Delete the cache: `rm -rf .next/dev/cache` (or all of `.next` — it's gitignored and fully regenerated).
+3. Start the dev server again on 3000. The first compile is slow; that's the cache rebuilding.
+
+Never delete `.next` while the server is still running — that reintroduces the same mid-write corruption.
+
 ## What this is
 
 Marketing site for Valentisys (outsourcing / customer support / digital agency). Next.js 16 App Router,
