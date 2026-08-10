@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import LegalPage, { type LegalSection } from "@/components/LegalPage";
 import { buildMetadata } from "@/lib/seo";
-import { contactEmail, formattedAddress, site } from "@/lib/site";
+import { contactEmail, site } from "@/lib/site";
 
 const TITLE = "Terms & Conditions: Using This Website | Valentisys";
 const DESCRIPTION =
@@ -21,9 +21,9 @@ const sections: LegalSection[] = [
     body: (
       <>
         <p>
-          These terms govern your use of this website, operated by {site.legalName} of{" "}
-          {formattedAddress}. By browsing the site or submitting a form, you accept them. If you
-          do not, please stop using the site.
+          These terms govern your use of this website, operated by {site.legalName}. By browsing
+          the site or submitting a form, you accept them. If you do not, please stop using the
+          site.
         </p>
         <p className="legal-callout">
           These are website terms, not a services contract. Any work we do for you is governed by
@@ -194,13 +194,7 @@ const sections: LegalSection[] = [
         <p>
           Questions about these terms: <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
         </p>
-        <p className="legal-address">
-          {site.legalName}
-          <br />
-          {site.address.street}
-          <br />
-          {site.address.locality}, {site.address.countryName}
-        </p>
+        <p className="legal-address">{site.legalName}</p>
       </>
     ),
   },

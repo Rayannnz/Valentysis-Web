@@ -8,7 +8,7 @@ import PageEffects from "@/components/PageEffects";
 import PageHero from "@/components/PageHero";
 import { breadcrumbSchema, faqSchema, graph, webPageSchema } from "@/lib/schema";
 import { buildMetadata } from "@/lib/seo";
-import { careersEmail, contactEmail, site } from "@/lib/site";
+import { careersEmail, contactEmail } from "@/lib/site";
 
 const TITLE = "Contact Us: Scope, Timeline & Price Upfront | Valentisys";
 const DESCRIPTION =
@@ -118,29 +118,8 @@ export default function ContactPage() {
                     </svg>
                     {careersEmail}
                   </a>
-                  {/* address block, not a link — the same NAP we publish in the
-                      Organization schema and to directories */}
-                  <address className="contact-address">
-                    <svg
-                      width="22"
-                      height="22"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      aria-hidden="true"
-                    >
-                      <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z" />
-                      <circle cx="12" cy="10" r="3" />
-                    </svg>
-                    <span>
-                      {site.address.street}
-                      <br />
-                      {site.address.locality}, {site.address.region}
-                      <br />
-                      {site.address.countryName}
-                    </span>
-                  </address>
+                  {/* no postal address here by design — it is published in the
+                      Organization schema only, never on the page */}
                 </div>
                 <p className="contact-hours" data-reveal>
                   Office hours 9:00–18:00, Monday to Friday (PKT). Teams are scheduled around your

@@ -1038,13 +1038,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
    variant is needed — only the industries accordion is dark, and it has no trail */
 
 /* ============================================================
-   Contact — address block and FAQ
+   Contact — hours and FAQ
    ============================================================ */
-.contact-address{
-  display:flex;gap:12px;align-items:flex-start;padding:12px 0;
-  font-family:var(--font-head);font-size:clamp(15px,1.3vw,17px);font-style:normal;line-height:1.5;
-}
-.contact-address svg{color:var(--primary-deep);flex:none;margin-top:2px}
 .contact-hours{margin-top:18px;font-size:14px;color:var(--ink-soft);max-width:40ch}
 .sec-note-link{text-decoration:underline;text-underline-offset:3px}
 

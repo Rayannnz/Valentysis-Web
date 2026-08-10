@@ -32,6 +32,11 @@ export const site = {
   /** Blank until confirmed — see the note at the top of this file. */
   telephone: "",
 
+  /**
+   * Structured data only. The postal address is deliberately not rendered on
+   * any page — it feeds the Organization / ProfessionalService JSON-LD so local
+   * search still has it, and nothing else reads these fields.
+   */
   address: {
     street: "271K Johar Town",
     locality: "Lahore",
@@ -71,12 +76,3 @@ export const careersEmail = site.email.careers;
 
 /** Absolute URL for a site-relative path — canonicals, sitemap, and JSON-LD. */
 export const absoluteUrl = (path: string) => `${site.url}${path.startsWith("/") ? path : `/${path}`}`;
-
-/** Single-line postal address for display in the footer and contact page. */
-export const formattedAddress = [
-  site.address.street,
-  site.address.locality,
-  site.address.countryName,
-]
-  .filter(Boolean)
-  .join(", ");

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import LegalPage, { type LegalSection } from "@/components/LegalPage";
 import { buildMetadata } from "@/lib/seo";
-import { careersEmail, contactEmail, formattedAddress, site } from "@/lib/site";
+import { careersEmail, contactEmail, site } from "@/lib/site";
 
 const TITLE = "Privacy Policy: How We Handle Your Data | Valentisys";
 const DESCRIPTION =
@@ -22,7 +22,7 @@ const sections: LegalSection[] = [
       <>
         <p>
           Valentisys provides outsourcing, customer support, digital marketing, application,
-          web, and AI services. Our office is at {formattedAddress}.
+          web, and AI services.
         </p>
         <p>
           We are the data controller for the personal information described in this policy. For
@@ -240,13 +240,7 @@ const sections: LegalSection[] = [
           Recruitment and CV questions:{" "}
           <a href={`mailto:${careersEmail}`}>{careersEmail}</a>
         </p>
-        <p className="legal-address">
-          {site.legalName}
-          <br />
-          {site.address.street}
-          <br />
-          {site.address.locality}, {site.address.countryName}
-        </p>
+        <p className="legal-address">{site.legalName}</p>
       </>
     ),
   },
