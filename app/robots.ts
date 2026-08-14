@@ -9,7 +9,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        /* Post-submission confirmation only — it carries no content worth
+        /* Post-submission confirmation only. It carries no content worth
            ranking and would otherwise compete with /contact. The page also
            sends its own noindex, which is what actually removes it if a
            crawler reaches it from a link. */

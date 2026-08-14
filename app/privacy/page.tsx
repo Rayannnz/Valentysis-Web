@@ -126,7 +126,7 @@ const sections: LegalSection[] = [
         <ul className="legal-list">
           {site.processors.map(({ name, role, region }) => (
             <li key={name}>
-              <strong>{name}</strong> — {role}. Data processed in: {region}.
+              <strong>{name}</strong>: {role}. Data processed in: {region}.
             </li>
           ))}
         </ul>

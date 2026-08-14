@@ -27,7 +27,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  /* makes every relative URL in metadata absolute — canonicals, OG, icons */
+  /* makes every relative URL in metadata absolute. Canonicals, OG, icons */
   metadataBase: new URL(site.url),
   title: {
     default: "Valentisys | Outsourcing & Customer Support Services",
@@ -108,11 +108,11 @@ export default function RootLayout({
     >
       <head>
         {/* Gates the scroll-reveal CSS so content stays visible without JS.
-            Has to run during parse, before the first paint — see InlineScript. */}
+            Has to run during parse, before the first paint. See InlineScript. */}
         <InlineScript html="document.documentElement.classList.add('js')" />
       </head>
       <body>
-        {/* first focusable element on every page — the nav is 20+ tab stops */}
+        {/* first focusable element on every page. The nav is 20+ tab stops */}
         <a className="skip-link" href="#main">
           Skip to main content
         </a>

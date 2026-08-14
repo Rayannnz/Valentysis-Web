@@ -7,7 +7,7 @@ import PageHero from "@/components/PageHero";
 import { breadcrumbSchema, type Crumb, graph, webPageSchema } from "@/lib/schema";
 
 export type LegalSection = {
-  /** Anchor target — also the contents-list link, so keep it stable. */
+  /** Anchor target. Also the contents-list link, so keep it stable. */
   id: string;
   heading: string;
   body: ReactNode;
@@ -41,7 +41,7 @@ export default function LegalPage({
   updated: string;
   updatedIso: string;
   sections: LegalSection[];
-  /** Rendered after the sections — used by /cookies for the preference center. */
+  /** Rendered after the sections. Used by /cookies for the preference center. */
   children?: ReactNode;
 }) {
   const trail: Crumb[] = [

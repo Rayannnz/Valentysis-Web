@@ -20,7 +20,7 @@ export default function Industries() {
     return () => window.removeEventListener("resize", applyHeights);
   }, [openIndex]);
 
-  /* open the industry named in the URL hash, e.g. /industries#health — also on
+  /* open the industry named in the URL hash, e.g. /industries#health, and also on
      hash-only changes, when nav links fire without remounting this component */
   useEffect(() => {
     const openFromHash = () => {

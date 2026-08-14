@@ -3,8 +3,8 @@ import type { NextConfig } from "next";
 /**
  * Everything must live inside this one object. A previous revision assigned
  * `module.exports = { allowedDevOrigins }` below the declaration, which
- * clobbered `export default nextConfig` and silently dropped the redirects —
- * both legacy service URLs were returning 404 in production.
+ * clobbered `export default nextConfig` and silently dropped the redirects.
+ * Both legacy service URLs were returning 404 in production.
  */
 const nextConfig: NextConfig = {
   allowedDevOrigins: ["10.50.91.50"],
@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
 
   async redirects() {
     return [
-      /* legacy service slugs — kept permanent so link equity transfers */
+      /* legacy service slugs. Kept permanent so link equity transfers */
       {
         source: "/services/customer-support",
         destination: "/services/real-customer-support",
@@ -42,7 +42,7 @@ const nextConfig: NextConfig = {
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "X-Frame-Options", value: "SAMEORIGIN" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-          /* the site uses no camera, mic, or geolocation — deny them outright */
+          /* the site uses no camera, mic, or geolocation. Deny them outright */
           {
             key: "Permissions-Policy",
             value: "camera=(), microphone=(), geolocation=(), interest-cohort=()",
@@ -54,11 +54,11 @@ const nextConfig: NextConfig = {
           },
         ],
       },
-      /* No rule for /_next/static — those files are content-hashed and Next
+      /* No rule for /_next/static. Those files are content-hashed and Next
          already serves them immutable for a year. Overriding it makes the
          build warn that it can break dev behavior. */
       {
-        /* logos and icons are stable but not hashed — a day of cache with a
+        /* logos and icons are stable but not hashed. A day of cache with a
            week of stale-while-revalidate keeps them fast without pinning a
            replaced logo for a year */
         source: "/:path(logo|icons)/:file*",

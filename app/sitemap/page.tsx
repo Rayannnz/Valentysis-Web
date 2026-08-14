@@ -13,7 +13,7 @@ import { services } from "@/lib/services";
 
 const TITLE = "Sitemap | Browse Every Page on the Valentisys Site";
 const DESCRIPTION =
-  "Every page on the Valentisys site in one list — services, industries, company pages and policies — each with a one-line note on what it covers.";
+  "Every page on the Valentisys site in one list: services, industries, company pages and policies, each with a one-line note on what it covers.";
 
 export const metadata: Metadata = buildMetadata({
   title: TITLE,
@@ -24,7 +24,7 @@ export const metadata: Metadata = buildMetadata({
 type LinkGroup = {
   heading: string;
   note: string;
-  /* native anchors for in-page targets — see the note in Header.tsx */
+  /* native anchors for in-page targets. See the note in Header.tsx */
   plain?: boolean;
   links: { label: string; href: string; desc: string }[];
 };

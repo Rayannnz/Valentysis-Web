@@ -30,10 +30,10 @@ async function badge(size, bg, insetRatio, palette = true) {
   return sharp({
     create: { width: size, height: size, channels: 4, background: bg },
   })
-    /* "center" and "centre" are the same constant in sharp (both 0) — US spelling
+    /* "center" and "centre" are the same constant in sharp (both 0). US spelling
        here to match the rest of the project */
     .composite([{ input: mark, gravity: "center" }])
-    /* palette quantization — a flat two-tone mark loses nothing and drops ~80% */
+    /* palette quantization. A flat two-tone mark loses nothing and drops ~80% */
     .png({ compressionLevel: 9, palette, quality: 90 })
     .toBuffer();
 }
@@ -81,20 +81,20 @@ const write = (rel, buf) => {
 (async () => {
   console.log("icons:");
 
-  // Browser tab / Next `icon` convention — transparent, tight crop.
+  // Browser tab / Next `icon` convention. Transparent, tight crop.
   write("app/icon.png", await transparentMark(256, 0.04));
 
-  // iOS home screen — flattened, iOS masks the corners itself.
+  // iOS home screen. Flattened, iOS masks the corners itself.
   write("app/apple-icon.png", await badge(180, "#ffffff", 0.12));
 
   // PWA manifest.
   write("public/icons/icon-192.png", await badge(192, "#ffffff", 0.1));
   write("public/icons/icon-512.png", await badge(512, "#ffffff", 0.1));
-  // Maskable needs the mark inside a 60% safe zone — Android crops to a circle.
+  // Maskable needs the mark inside a 60% safe zone. Android crops to a circle.
   // White, not BRAND: the mark is itself dark purple and disappears against it.
   write("public/icons/icon-maskable-512.png", await badge(512, "#ffffff", 0.22));
 
-  // Legacy /favicon.ico probe — three frames, flattened for dark tab strips.
+  // Legacy /favicon.ico probe. Three frames, flattened for dark tab strips.
   const frames = [];
   for (const size of [16, 32, 48]) {
     frames.push({ size, data: await badge(size, "#ffffff", 0.06, false) });

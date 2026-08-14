@@ -23,12 +23,12 @@ const trail: Crumb[] = [
   { name: "Contact", path: "/contact" },
 ];
 
-/* Answers are on the page, not only in the markup — Google drops an FAQ graph
+/* Answers are on the page, not only in the markup. Google drops an FAQ graph
    whose questions a visitor cannot actually read. */
 const faqs = [
   {
     q: "How quickly can you have someone working?",
-    a: "For roles we staff regularly — front desk, paralegal support, bookkeeping, customer support — a shortlist usually reaches you within a week, and a trained person is on live work inside two to three weeks. Specialist or unusual briefs take longer, and we will say so at the scoping call rather than after you have signed.",
+    a: "For roles we staff regularly (front desk, paralegal support, bookkeeping, customer support), a shortlist usually reaches you within a week, and a trained person is on live work inside two to three weeks. Specialist or unusual briefs take longer, and we will say so at the scoping call rather than after you have signed.",
   },
   {
     q: "How is the work priced?",
@@ -82,7 +82,7 @@ export default function ContactPage() {
                   what&apos;s slowing you down and we&apos;ll come back with scope, timeline, and a
                   clear price before any work starts.
                 </p>
-                {/* no email or postal address here by design — both are published
+                {/* no email or postal address here by design. Both are published
                     in the Organization schema only, never on the page */}
                 <p className="contact-hours" data-reveal>
                   Teams are scheduled around your time zone, not ours.

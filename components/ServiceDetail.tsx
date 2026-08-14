@@ -36,7 +36,7 @@ export default function ServiceDetail({ detail }: { detail: Detail }) {
     return () => window.removeEventListener("resize", applyHeights);
   }, [openIndex]);
 
-  /* open the group named in the URL hash, e.g. /services/...#medical — adjusted
+  /* open the group named in the URL hash, e.g. /services/...#medical, adjusted
      during render, so the right panel is open on the same commit the hash lands */
   const [prevHash, setPrevHash] = useState(hash);
   if (hash !== prevHash) {

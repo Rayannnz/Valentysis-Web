@@ -8,7 +8,7 @@ export type ThankYouVariant = "contact" | "careers";
  *
  * A server component taking the variant as a prop, deliberately. An earlier
  * revision read `?ref=` with useSearchParams behind a Suspense boundary, which
- * forces the whole route to BAILOUT_TO_CLIENT_SIDE_RENDERING — the prerendered
+ * forces the whole route to BAILOUT_TO_CLIENT_SIDE_RENDERING. The prerendered
  * HTML was an empty div with no heading, so the page was blank until JS ran and
  * blank forever without it. Two static routes cost one extra file and render
  * real content on the server.
@@ -27,7 +27,7 @@ const VARIANTS: Record<
 > = {
   contact: {
     eyebrow: "Inquiry received",
-    heading: "Thanks — that's",
+    heading: "Thanks, that's",
     accent: "with us.",
     lead: "Someone who actually runs the work, not a sales rep, will read it and reply within one business day.",
     steps: [
@@ -49,7 +49,7 @@ const VARIANTS: Record<
   },
   careers: {
     eyebrow: "Application received",
-    heading: "Thanks — your",
+    heading: "Thanks, your",
     accent: "resume is in.",
     lead: "We read every application that comes through. If there is a fit, you will hear from a person, not an autoresponder.",
     steps: [
@@ -62,7 +62,7 @@ const VARIANTS: Record<
         desc: "If there is a fit we will be in touch to arrange a first conversation. If not, we will tell you rather than leave you waiting.",
       },
       {
-        title: "We keep good CVs on file",
+        title: "We keep good resumes on file",
         desc: "With your consent, for up to 12 months, so we can come back to you when the right opening appears.",
       },
     ],
@@ -125,7 +125,7 @@ export default function ThankYouMessage({ variant }: { variant: ThankYouVariant 
 
           <div className="thanks-ctas">
             <Link className="btn btn-primary" href="/" data-magnetic>
-              Back to home
+              Back to Home
               <svg
                 className="arr"
                 width="17"
@@ -139,7 +139,7 @@ export default function ThankYouMessage({ variant }: { variant: ThankYouVariant 
               </svg>
             </Link>
             <Link className="btn btn-ghost" href="/services" data-magnetic>
-              Explore our services
+              Explore Our Services
             </Link>
           </div>
         </div>

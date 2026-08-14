@@ -39,15 +39,15 @@ export default function Hero() {
         </p>
         <div className="hero-ctas" data-reveal>
           <a className="btn btn-primary" href="/contact" data-magnetic>
-            Get in touch
+            Discuss Your Project
             <svg className="arr" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
               <path d="M7 17L17 7M9 7h8v8" />
             </svg>
           </a>
-          {/* a real route now, not the old #services anchor — so <Link>, which
+          {/* a real route now, not the old #services anchor, so <Link>, which
               is also what no-html-link-for-pages requires */}
           <Link className="btn btn-ghost" href="/services" data-magnetic>
-            Explore services
+            Explore Services
           </Link>
         </div>
       </div>

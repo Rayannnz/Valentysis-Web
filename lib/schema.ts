@@ -3,7 +3,7 @@
  * reference the organization and site instead of restating them, which is what
  * keeps a crawler from reading the service pages as different companies.
  *
- * Blank fields in lib/site.ts are dropped rather than emitted empty — an
+ * Blank fields in lib/site.ts are dropped rather than emitted empty. An
  * `address` missing its postal code validates; one containing "" does not.
  */
 import { absoluteUrl, site } from "./site";
@@ -125,8 +125,8 @@ export function localBusinessSchema(): Json {
 }
 
 /**
- * One step in a page's trail. There is no visible breadcrumb nav on the site —
- * the trail exists only to build the BreadcrumbList below, so a page's `trail`
+ * One step in a page's trail. There is no visible breadcrumb nav on the site.
+ * The trail exists only to build the BreadcrumbList below, so a page's `trail`
  * array is now purely a description of where the URL sits in the hierarchy.
  */
 export type Crumb = { name: string; path: string };
@@ -199,7 +199,7 @@ export function webPageSchema({
   name: string;
   description: string;
   path: string;
-  /** A narrower subtype where one fits — AboutPage, ContactPage, CollectionPage. */
+  /** A narrower subtype where one fits. AboutPage, ContactPage, CollectionPage. */
   type?: "WebPage" | "AboutPage" | "ContactPage" | "CollectionPage";
 }): Json {
   return {

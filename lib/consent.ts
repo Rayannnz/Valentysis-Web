@@ -3,7 +3,7 @@
  *
  * Nothing optional is loaded until a choice is recorded, so the default for a
  * first-time visitor is "everything off" rather than "on until they object".
- * The record itself lives in localStorage, not a cookie — it is a device
+ * The record itself lives in localStorage, not a cookie. It is a device
  * preference, it never travels to the server, and storing it this way keeps
  * the site from setting a cookie in order to ask about cookies.
  *
@@ -21,7 +21,7 @@ export type Consent = {
   necessary: true;
   analytics: boolean;
   marketing: boolean;
-  /** ISO timestamp of the choice — what an audit request actually asks for. */
+  /** ISO timestamp of the choice. What an audit request actually asks for. */
   decidedAt: string;
 };
 
@@ -55,7 +55,7 @@ export function consentSnapshot(): string {
   try {
     return window.localStorage.getItem(CONSENT_KEY) ?? SERVER_SNAPSHOT;
   } catch {
-    /* private mode or blocked storage — treat as undecided */
+    /* private mode or blocked storage. Treat as undecided */
     return SERVER_SNAPSHOT;
   }
 }
@@ -72,7 +72,7 @@ export function parseConsent(raw: string): Consent | null {
       decidedAt: parsed.decidedAt,
     };
   } catch {
-    /* hand-edited or truncated value — treat as undecided */
+    /* hand-edited or truncated value. Treat as undecided */
     return null;
   }
 }
@@ -87,7 +87,7 @@ export function writeConsent(choice: Omit<Consent, "decidedAt">): Consent {
   try {
     window.localStorage.setItem(CONSENT_KEY, JSON.stringify(record));
   } catch {
-    /* storage unavailable — the choice still applies for this page view */
+    /* storage unavailable. The choice still applies for this page view */
   }
   window.dispatchEvent(new CustomEvent(CONSENT_EVENT));
   return record;

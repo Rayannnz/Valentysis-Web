@@ -59,7 +59,7 @@ export default function ContactForm() {
     setError("");
 
     try {
-      /* Netlify Forms does not accept JSON — this must be url-encoded */
+      /* Netlify Forms does not accept JSON. This must be url-encoded */
       const res = await fetch(FORM_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -67,7 +67,7 @@ export default function ContactForm() {
       });
 
       if (!res.ok) {
-        /* surfaced in devtools so a failed deploy config is diagnosable —
+        /* surfaced in devtools so a failed deploy config is diagnosable.
            404/405 means Netlify isn't handling POSTs to the form endpoint,
            which usually means form detection is off or __forms.html isn't deployed */
         const detail = await res.text().catch(() => "");
@@ -83,7 +83,7 @@ export default function ContactForm() {
       form.reset();
       setStatus("sent");
       /* a real destination, so the confirmation is linkable and can be set as a
-         conversion goal — the inline state below only shows if navigation stalls */
+         conversion goal. The inline state below only shows if navigation stalls */
       router.push("/thank-you");
     } catch {
       setError("We couldn't reach the server. Please check your connection and try again.");
@@ -100,7 +100,7 @@ export default function ContactForm() {
         </p>
         <div style={{ marginTop: 28 }}>
           <button className="btn btn-magenta" type="button" onClick={() => setStatus("idle")}>
-            Send another inquiry
+            Send Another Inquiry
           </button>
         </div>
       </div>
@@ -157,7 +157,7 @@ export default function ContactForm() {
           <textarea id="c-message" name="message" rows={5} required />
         </div>
 
-        {/* honeypot — hidden from people, named to match netlify-honeypot above */}
+        {/* honeypot. Hidden from people, named to match netlify-honeypot above */}
         <div className="app-honeypot" aria-hidden="true">
           <label htmlFor="c-bot">Leave this field empty</label>
           <input id="c-bot" name="bot-field" type="text" tabIndex={-1} autoComplete="off" />
@@ -176,7 +176,7 @@ export default function ContactForm() {
           disabled={sending}
           aria-busy={sending}
         >
-          {sending ? "Sending…" : "Get Started"}
+          {sending ? "Sending…" : "Request a Quote"}
           <svg
             className="arr"
             width="17"

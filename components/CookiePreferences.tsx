@@ -54,7 +54,7 @@ export default function CookiePreferences() {
   const [confirmation, setConfirmation] = useState("");
 
   /* adjust during render instead of syncing in an effect, so the toggles are
-     correct on the same commit the stored value lands — the pattern used by
+     correct on the same commit the stored value lands. The pattern used by
      ServiceDetail and Header */
   const [prevStored, setPrevStored] = useState(stored);
   if (stored !== prevStored) {
@@ -96,7 +96,7 @@ export default function CookiePreferences() {
                 <p id={`${key}-desc`}>{desc}</p>
               </div>
               {/* The label wrap makes the whole control clickable, but its only
-                  non-hidden text is "On"/"Off" — which left both toggles
+                  non-hidden text is "On"/"Off", which left both toggles
                   announcing as "Off, checkbox" with nothing to tell them apart.
                   aria-labelledby overrides that with the category heading; the
                   on/off state is already carried by the checked state. */}

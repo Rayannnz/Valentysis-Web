@@ -1,0 +1,206 @@
+- generic [active] [ref=e1]:
+  - link "Skip to main content" [ref=e2] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link "Valentisys home" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img "Valentisys" [ref=e6]
+      - button "Open menu" [ref=e7] [cursor=pointer]
+  - main [ref=e11]:
+    - generic [ref=e13]:
+      - paragraph [ref=e14]: Cookie policy
+      - heading "What we store, and what we don't." [level=1] [ref=e15]:
+        - generic [ref=e16]: What we store,
+        - generic [ref=e18]: and what we don't.
+      - paragraph [ref=e20]: A short policy, because we store almost nothing. Here is the complete list, and the controls to change it whenever you want.
+    - generic [ref=e23]:
+      - complementary [ref=e24]:
+        - paragraph [ref=e25]: On this page
+        - list [ref=e26]:
+          - listitem [ref=e27]:
+            - link "1. What this covers" [ref=e28] [cursor=pointer]:
+              - /url: "#what-cookies-are"
+          - listitem [ref=e29]:
+            - link "2. What we store today" [ref=e30] [cursor=pointer]:
+              - /url: "#what-we-store"
+          - listitem [ref=e31]:
+            - link "3. The categories we ask about" [ref=e32] [cursor=pointer]:
+              - /url: "#categories"
+          - listitem [ref=e33]:
+            - link "4. Managing your choice" [ref=e34] [cursor=pointer]:
+              - /url: "#managing"
+          - listitem [ref=e35]:
+            - link "5. If this changes" [ref=e36] [cursor=pointer]:
+              - /url: "#changes"
+      - article [ref=e37]:
+        - paragraph [ref=e38]:
+          - text: Last updated
+          - time [ref=e39]: August 8, 2026
+        - generic [ref=e40]:
+          - heading "1. What this covers" [level=2] [ref=e41]
+          - paragraph [ref=e42]: "Cookies are small files a site saves on your device. This policy also covers local storage, which works the same way from your point of view: it keeps a small amount of data in your browser between visits."
+          - paragraph [ref=e43]: We keep this deliberately short because we store very little. Everything currently in use is listed below.
+        - generic [ref=e44]:
+          - heading "2. What we store today" [level=2] [ref=e45]
+          - table [ref=e47]:
+            - caption [ref=e48]: Everything this site stores on your device
+            - rowgroup [ref=e49]:
+              - row [ref=e50]:
+                - columnheader "Name" [ref=e51]
+                - columnheader "Type" [ref=e52]
+                - columnheader "Purpose" [ref=e53]
+                - columnheader "Expires" [ref=e54]
+            - rowgroup [ref=e55]:
+              - row [ref=e56]:
+                - rowheader [ref=e57]:
+                  - code [ref=e58]: valentisys.consent.v1
+                - cell "Local storage" [ref=e59]
+                - cell "Remembers the cookie choice you made here, so we stop asking. Strictly necessary." [ref=e60]
+                - cell "Until you clear it or clear your browser data" [ref=e61]
+          - paragraph [ref=e62]:
+            - text: That is the entire list. We currently set
+            - strong [ref=e63]: "no"
+            - text: analytics cookies, no advertising cookies, and no third-party tracking pixels, and we do not embed content that sets them on our behalf.
+        - generic [ref=e64]:
+          - heading "3. The categories we ask about" [level=2] [ref=e65]
+          - paragraph [ref=e66]: The banner asks about two optional categories so that consent is already in place if we introduce them. Until then, choosing "Accept all" records your permission but loads nothing extra.
+          - list [ref=e67]:
+            - listitem [ref=e68]:
+              - strong [ref=e69]: "Strictly necessary:"
+              - text: makes the site work and remembers this choice. Always on; no consent needed under the applicable rules.
+            - listitem [ref=e70]:
+              - strong [ref=e71]: "Analytics:"
+              - text: anonymous statistics on which pages get read and how people arrive. Off unless you turn it on.
+            - listitem [ref=e72]:
+              - strong [ref=e73]: "Marketing:"
+              - text: measuring whether an ad led to an inquiry. Off unless you turn it on.
+        - generic [ref=e74]:
+          - heading "4. Managing your choice" [level=2] [ref=e75]
+          - paragraph [ref=e76]: Use the controls at the bottom of this page to change your preferences or withdraw consent entirely. Withdrawing is exactly as easy as giving it, and takes effect immediately.
+          - paragraph [ref=e77]: You can also clear site data through your browser settings, in Chrome, Firefox, Safari, and Edge alike. Doing so removes the record of your choice, so the banner will appear again on your next visit.
+        - generic [ref=e78]:
+          - heading "5. If this changes" [level=2] [ref=e79]
+          - paragraph [ref=e80]:
+            - text: If we add analytics or advertising technology, we will list it in the table above and ask for consent before it loads. Your existing choice will be respected. See our
+            - link "privacy policy" [ref=e81] [cursor=pointer]:
+              - /url: /privacy
+            - text: for how we handle personal data more broadly, and email
+            - link "sales@valentisys.com" [ref=e82] [cursor=pointer]:
+              - /url: mailto:sales@valentisys.com
+            - text: with any questions.
+        - generic [ref=e83]:
+          - heading "Your cookie preferences" [level=2] [ref=e84]
+          - status [ref=e85]: Loading your saved preferences…
+          - list [ref=e86]:
+            - listitem [ref=e87]:
+              - generic [ref=e88]:
+                - heading "Strictly necessary" [level=3] [ref=e89]
+                - paragraph [ref=e90]: "Keeps the site working: page routing, form submission, and remembering this cookie choice. These cannot be switched off, and none of them track you."
+              - generic [ref=e91]:
+                - checkbox "Strictly necessary" [checked] [disabled] [ref=e92]
+                - generic [ref=e94]: Always on
+            - listitem [ref=e95]:
+              - generic [ref=e96]:
+                - heading "Analytics" [level=3] [ref=e97]
+                - paragraph [ref=e98]: Anonymous statistics about which pages are read and how people arrive, so we know what to improve. Never used to identify you.
+              - generic [ref=e99] [cursor=pointer]:
+                - checkbox "Analytics" [disabled] [ref=e100]
+                - generic [ref=e102]: "Off"
+            - listitem [ref=e103]:
+              - generic [ref=e104]:
+                - heading "Marketing" [level=3] [ref=e105]
+                - paragraph [ref=e106]: Lets us measure whether an ad led to an inquiry, and avoid showing you the same one repeatedly.
+              - generic [ref=e107] [cursor=pointer]:
+                - checkbox "Marketing" [disabled] [ref=e108]
+                - generic [ref=e110]: "Off"
+          - generic [ref=e111]:
+            - button "Save preferences" [disabled]
+            - button "Accept all" [disabled]
+            - button "Reject optional" [disabled]
+          - status [ref=e112]
+  - contentinfo [ref=e113]:
+    - generic [ref=e114]:
+      - generic [ref=e115]:
+        - generic [ref=e116]:
+          - link "Valentisys" [ref=e117] [cursor=pointer]:
+            - /url: /
+          - paragraph [ref=e118]: Outsourcing, customer support, and digital growth, staffed by trained teams that work like your own.
+        - navigation [ref=e119]:
+          - heading "Services" [level=2] [ref=e120]
+          - link "All services" [ref=e121] [cursor=pointer]:
+            - /url: /services
+          - link "Outsourcing" [ref=e122] [cursor=pointer]:
+            - /url: /services/outsourcing
+          - link "Real Customer Support" [ref=e123] [cursor=pointer]:
+            - /url: /services/real-customer-support
+          - link "Digital Marketing" [ref=e124] [cursor=pointer]:
+            - /url: /services/digital-marketing
+          - link "App Development" [ref=e125] [cursor=pointer]:
+            - /url: /services/app-development
+          - link "Web Development" [ref=e126] [cursor=pointer]:
+            - /url: /services/web-development
+          - link "AI Solutions" [ref=e127] [cursor=pointer]:
+            - /url: /services/ai-solutions
+        - navigation [ref=e128]:
+          - heading "Industries" [level=2] [ref=e129]
+          - link "All industries" [ref=e130] [cursor=pointer]:
+            - /url: /industries
+          - link "Health" [ref=e131] [cursor=pointer]:
+            - /url: /industries#health
+          - link "Legal" [ref=e132] [cursor=pointer]:
+            - /url: /industries#legal
+          - link "Engineering" [ref=e133] [cursor=pointer]:
+            - /url: /industries#engineering
+          - link "Finance" [ref=e134] [cursor=pointer]:
+            - /url: /industries#finance
+          - link "Hospitality" [ref=e135] [cursor=pointer]:
+            - /url: /industries#hospitality
+        - navigation [ref=e136]:
+          - heading "Company" [level=2] [ref=e137]
+          - link "About us" [ref=e138] [cursor=pointer]:
+            - /url: /about
+          - link "Careers" [ref=e139] [cursor=pointer]:
+            - /url: /careers
+          - link "Our approach" [ref=e140] [cursor=pointer]:
+            - /url: /#approach
+          - link "How we work" [ref=e141] [cursor=pointer]:
+            - /url: /#process
+          - link "Contact" [ref=e142] [cursor=pointer]:
+            - /url: /contact
+        - navigation [ref=e143]:
+          - heading "Legal" [level=2] [ref=e144]
+          - link "Privacy policy" [ref=e145] [cursor=pointer]:
+            - /url: /privacy
+          - link "Terms & conditions" [ref=e146] [cursor=pointer]:
+            - /url: /terms
+          - link "Cookie policy" [ref=e147] [cursor=pointer]:
+            - /url: /cookies
+          - link "Accessibility" [ref=e148] [cursor=pointer]:
+            - /url: /accessibility
+          - link "Sitemap" [ref=e149] [cursor=pointer]:
+            - /url: /sitemap
+      - generic [ref=e150]:
+        - generic [ref=e151]: © 2026 Valentisys. All rights reserved.
+        - generic [ref=e152]:
+          - link "Privacy" [ref=e153] [cursor=pointer]:
+            - /url: /privacy
+          - link "Terms" [ref=e154] [cursor=pointer]:
+            - /url: /terms
+          - link "Cookie preferences" [ref=e155] [cursor=pointer]:
+            - /url: /cookies#preferences
+  - dialog [ref=e156]:
+    - generic [ref=e157]:
+      - generic [ref=e158]:
+        - heading "Cookies on this site" [level=2] [ref=e159]
+        - paragraph [ref=e160]:
+          - text: We use cookies that are needed to make the site work. We'd also like to set optional analytics cookies to understand how the site is used. Nothing optional is stored until you choose.
+          - link "Read our cookie policy" [ref=e161] [cursor=pointer]:
+            - /url: /cookies
+          - text: .
+      - generic [ref=e162]:
+        - button "Accept all" [ref=e163] [cursor=pointer]
+        - button "Reject optional" [ref=e164] [cursor=pointer]
+        - link "Manage preferences" [ref=e165] [cursor=pointer]:
+          - /url: /cookies#preferences
+  - button "Open Next.js Dev Tools" [ref=e171] [cursor=pointer]

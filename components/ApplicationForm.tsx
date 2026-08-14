@@ -23,7 +23,7 @@ const teams = [
 
 const CV_ACCEPT = ".pdf,application/pdf";
 
-/* `accept` only filters the picker — the OS dialog still lets you switch to
+/* `accept` only filters the picker. The OS dialog still lets you switch to
    "All files", so this is the check that actually holds. The extension is the
    reliable half: some browsers report an empty `type` for a file they cannot
    sniff, and older ones use application/x-pdf rather than application/pdf. */
@@ -34,7 +34,7 @@ const INVALID_TYPE_MESSAGE = "That file isn't a PDF. Please attach your resume a
 
 /* Netlify caps a whole form request at 8 MiB (8,388,608 bytes) and rejects anything
    larger with a 400 read straight off Content-Length, before the body finishes
-   uploading — which surfaced here as the generic "something went wrong". Verified
+   uploading, which surfaced here as the generic "something went wrong". Verified
    against the live endpoint: 8,300,000 bytes posts fine, 8,388,608 returns 400.
    Cap the resume under that so the other fields and multipart boundaries still fit. */
 const MAX_CV_BYTES = 8_000_000;
@@ -42,7 +42,7 @@ const MAX_CV_BYTES = 8_000_000;
 const formatSize = (bytes: number) => `${(bytes / 1_000_000).toFixed(1)} MB`;
 
 const OVERSIZE_MESSAGE = (bytes: number) =>
-  `That resume is ${formatSize(bytes)}. The limit is 8 MB — please attach a smaller file.`;
+  `That resume is ${formatSize(bytes)}. The limit is 8 MB, so please attach a smaller file.`;
 
 /** Must match the <form name> declared in public/__forms.html. */
 const FORM_NAME = "careers";
@@ -91,7 +91,7 @@ export default function ApplicationForm() {
   const cvInputRef = useRef<HTMLInputElement>(null);
   const errorRef = useRef<HTMLParagraphElement>(null);
 
-  /* see the note in ContactForm — an announced error still needs focus moved */
+  /* see the note in ContactForm. An announced error still needs focus moved */
   useEffect(() => {
     if (error) errorRef.current?.focus();
   }, [error]);
@@ -102,7 +102,7 @@ export default function ApplicationForm() {
     if (!form.reportValidity()) return;
 
     /* onChange clears anything that isn't a PDF, so this only catches a file that
-       reached the input another way — cheaper than letting it upload and fail */
+       reached the input another way. Cheaper than letting it upload and fail */
     const cv = cvInputRef.current?.files?.[0];
     if (cv && !isPdf(cv)) {
       if (cvInputRef.current) cvInputRef.current.value = "";
@@ -117,12 +117,12 @@ export default function ApplicationForm() {
     setError("");
 
     try {
-      /* the resume is a real file, so this posts multipart — no Content-Type header,
+      /* the resume is a real file, so this posts multipart. No Content-Type header,
          the browser has to set its own multipart boundary */
       const res = await fetch(FORM_ENDPOINT, { method: "POST", body: fd });
 
       if (!res.ok) {
-        /* surfaced in devtools so a failed deploy config is diagnosable — see ContactForm */
+        /* surfaced in devtools so a failed deploy config is diagnosable. See ContactForm */
         const detail = await res.text().catch(() => "");
         console.error(
           `[careers] ${FORM_ENDPOINT} returned ${res.status} ${res.statusText}`,
@@ -137,7 +137,7 @@ export default function ApplicationForm() {
       setTeam("");
       setCvName("");
       setStatus("sent");
-      /* see ContactForm — a linkable confirmation, trackable as a conversion */
+      /* see ContactForm. A linkable confirmation, trackable as a conversion */
       router.push("/thank-you/application");
     } catch {
       setError("We couldn't reach the server. Please check your connection and try again.");
@@ -155,7 +155,7 @@ export default function ApplicationForm() {
         </p>
         <div style={{ marginTop: 28 }}>
           <button className="btn btn-magenta" type="button" onClick={() => setStatus("idle")}>
-            Submit another application
+            Submit Another Application
           </button>
         </div>
       </div>
@@ -180,7 +180,7 @@ export default function ApplicationForm() {
       >
         <input type="hidden" name="form-name" value={FORM_NAME} />
 
-        {/* every .app-field holds exactly two children — label, then control — so the
+        {/* every .app-field holds exactly two children (label, then control), so the
             subgrid in globals.css can line the rows up across both columns */}
         <div className="app-grid">
           <div className="app-field">
@@ -227,7 +227,7 @@ export default function ApplicationForm() {
               Resume
             </FieldLabel>
             {/* The field is named `cv` on the wire because that is what
-                public/__forms.html declares and Netlify matches on — renaming it
+                public/__forms.html declares and Netlify matches on. Renaming it
                 would silently drop the upload. Only the visible copy is US-EN
                 ("resume"); the identifiers stay aligned with the wire name. */}
             {/* the native control is layered invisibly over the zone so validation can
@@ -249,7 +249,7 @@ export default function ApplicationForm() {
                     return;
                   }
                   if (!isPdf(file)) {
-                    /* cleared for the same reason as an oversize file — a resume we
+                    /* cleared for the same reason as an oversize file. A resume we
                        will not send must not look attached */
                     e.target.value = "";
                     setCvName("");
@@ -257,7 +257,7 @@ export default function ApplicationForm() {
                     return;
                   }
                   if (file.size > MAX_CV_BYTES) {
-                    /* clear the input so the `required` check stays honest — a file
+                    /* clear the input so the `required` check stays honest. A file
                        Netlify would reject must not look selected */
                     e.target.value = "";
                     setCvName("");
@@ -269,7 +269,7 @@ export default function ApplicationForm() {
                 }}
               />
               {/* the native input is tabIndex -1, so this button is the only
-                  keyboard route in — it has to carry the label, the format
+                  keyboard route in. It has to carry the label, the format
                   hint, and the current selection itself */}
               <button
                 className="app-file-btn"
@@ -287,7 +287,7 @@ export default function ApplicationForm() {
           </div>
         </div>
 
-        {/* honeypot — hidden from people, named to match netlify-honeypot above */}
+        {/* honeypot. Hidden from people, named to match netlify-honeypot above */}
         <div className="app-honeypot" aria-hidden="true">
           <label htmlFor="app-bot">Leave this field empty</label>
           <input id="app-bot" name="bot-field" type="text" tabIndex={-1} autoComplete="off" />

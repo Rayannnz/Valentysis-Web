@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 /* ============================================================
-   VALENTISYS — design tokens
+   VALENTISYS: Design tokens
    ============================================================ */
 :root{
   --primary:      #6D28D9;
   --primary-deep: #5B21B6;
   --primary-dark: #4C1D95;
   /* --primary is only 2.4:1 on --ink and --footer, so it fails AA as text on
-     every dark section. This is the same hue lifted until it clears — 6.4:1 on
+     every dark section. This is the same hue, lifted until it clears 6.4:1 on
      --ink. Use it for any text or icon that sits on a dark ground. */
   --primary-lift: #A78BFA;
   --magenta:     #FF3DD9;
@@ -32,7 +32,7 @@
   --gutter: clamp(18px, 4vw, 56px);
   --header-h: 72px;
 }
-/* shorter bar on phones — buys back vertical room above the fold */
+/* shorter bar on phones. Buys back vertical room above the fold */
 @media (max-width:640px){:root{--header-h:64px}}
 
 *{margin:0;padding:0;box-sizing:border-box}
@@ -90,7 +90,7 @@ h1,h2,h3,h4{font-family:var(--font-head);font-weight:600;line-height:1.04;letter
 .js .line-mask.in-view .line{transform:none}
 
 /* ============================================================
-   Nav glass veil — frosted blur over the page while a
+   Nav glass veil. Frosted blur over the page while a
    navbar category (with menu) is hovered
    ============================================================ */
 #nav-veil{
@@ -185,7 +185,7 @@ body.nav-blur #nav-veil{
 .mega-promo::before{top:-60px;right:-10px}
 .mega-promo::after{content:"÷";bottom:-70px;right:130px;font-size:190px;animation-delay:-3.5s}
 @keyframes floatKey{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-16px) rotate(6deg)}}
-/* a <p>, not a heading — the header precedes the page h1 (see Header.tsx) */
+/* a <p>, not a heading. The header precedes the page h1 (see Header.tsx) */
 .mega-promo .mega-promo-title{
   font-family:var(--font-head);font-size:clamp(24px,2vw,32px);font-weight:600;
   line-height:1.04;letter-spacing:-.02em;opacity:1;
@@ -247,7 +247,7 @@ body.menu-open #mobile-menu{
 #mobile-menu a small{font-family:var(--font-body);font-size:14px;color:var(--primary);font-weight:600;flex:none}
 @media (hover:hover){#mobile-menu a:hover{color:var(--primary)}}
 
-/* close button — fixed, so it stays put when a long list scrolls underneath it */
+/* close button. Fixed, so it stays put when a long list scrolls underneath it */
 .menu-close{
   position:fixed;z-index:2;
   top:calc((var(--header-h) - 44px) / 2);right:clamp(14px,3vw,40px);
@@ -262,14 +262,14 @@ body.menu-open .menu-close{opacity:1;transform:none;transition-delay:.22s}
   .menu-close:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
 }
 
-/* short viewports (small phones, landscape) — tighten so the whole list stays usable */
+/* short viewports (small phones, landscape). Tighten so the whole list stays usable */
 @media (max-height:700px){
   #mobile-menu{padding-top:calc(var(--header-h) + 18px);padding-bottom:28px}
   #mobile-menu a{font-size:clamp(24px,6.5vw,34px);padding:3px 0}
   #mobile-menu a.mobile-sub{font-size:clamp(15px,3.8vw,19px);padding:2px 0 2px 12px}
 }
 body.menu-open #mobile-menu a{opacity:1;transform:none}
-/* of-type, not nth-child — the close button is the panel's first child */
+/* of-type, not nth-child. The close button is the panel's first child */
 body.menu-open #mobile-menu a:nth-of-type(1){transition-delay:.2s}
 body.menu-open #mobile-menu a:nth-of-type(2){transition-delay:.25s}
 body.menu-open #mobile-menu a:nth-of-type(3){transition-delay:.3s}
@@ -296,7 +296,7 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
   padding:16px clamp(22px,4vw,34px);position:relative;overflow:hidden;cursor:pointer;
   min-height:48px;max-width:100%;text-align:center;
   transition:color .35s var(--ease-out);
-  /* own stacking context so ::before can sit below the label — see note below */
+  /* own stacking context so ::before can sit below the label. See note below */
   isolation:isolate;
 }
 .btn .arr{transition:transform .35s var(--ease-out);flex:none}
@@ -316,7 +316,7 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
 .btn-ghost::before{background:var(--ink)}
 .btn-white{background:#fff;color:var(--ink)}
 .btn-white::before{background:var(--magenta)}
-/* pointer-gated to match .btn:hover .arr above — on touch the sweep latches after
+/* pointer-gated to match .btn:hover .arr above. On touch the sweep latches after
    a tap and the button sits in its hover colors until the next repaint */
 @media (hover:hover){
   .btn-primary:hover::before{transform:none}
@@ -394,7 +394,7 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
 @media (max-width:960px){.hero-chip{display:none}}
 
 /* ============================================================
-   Marquee — trusted by
+   Marquee: Trusted by
    ============================================================ */
 #clients{padding:64px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--paper)}
 .clients-label{
@@ -416,7 +416,7 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
 .sec-note{max-width:380px;font-size:clamp(15px,1.2vw,16px);opacity:.75}
 
 /* ============================================================
-   Services — light purple block
+   Services: Light purple block
    ============================================================ */
 #services{background:#EDE8FA;color:var(--ink);position:relative;overflow:hidden}
 #services::before{
@@ -449,7 +449,7 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
   .svc-row:hover .svc-arrow{background:var(--primary);color:#fff;transform:rotate(45deg);border-color:var(--primary)}
 }
 @media (max-width:860px){
-  /* every item is placed explicitly — auto-placement puts the arrow (definite row,
+  /* every item is placed explicitly. Auto-placement puts the arrow (definite row,
      auto column) in column 1 first, which squeezes the title into the arrow column */
   .svc-row{
     grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto;
@@ -462,7 +462,7 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
 }
 
 /* ============================================================
-   Industries — dark accordion
+   Industries: Dark accordion
    ============================================================ */
 #industries{background:var(--ink);color:#fff;position:relative;overflow:hidden}
 #industries .sec-eyebrow{color:var(--primary-lift)}
@@ -516,7 +516,7 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
 }
 
 /* ============================================================
-   Service detail — dark accordion on service pages
+   Service detail: Dark accordion on service pages
    ============================================================ */
 #service-detail{background:var(--ink);color:#fff;position:relative;overflow:hidden}
 #service-detail .sec-eyebrow{color:var(--primary-lift)}
@@ -528,7 +528,7 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
   background:radial-gradient(circle,rgba(124,58,237,.2),transparent 65%);pointer-events:none;
 }
 
-/* compact rows — these lists run longer, so the row type scales down */
+/* compact rows. These lists run longer, so the row type scales down */
 .acc-compact .acc-btn{padding:clamp(18px,2.6vw,22px) 4px;align-items:start}
 .acc-compact .acc-btn h3{font-size:clamp(18px,4.4vw,29px)}
 .acc-compact .acc-num{padding-top:6px}
@@ -596,7 +596,7 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
   .stat:nth-child(3){border-left:none}
   .stat:nth-child(1),.stat:nth-child(2){border-bottom:1px solid var(--line)}
 }
-/* two columns squeeze the phrase headings onto three lines — go single file */
+/* two columns squeeze the phrase headings onto three lines. Go single file */
 @media (max-width:600px){
   .stats-grid{grid-template-columns:minmax(0,1fr)}
   .stat{border-left:none;border-bottom:1px solid var(--line)}
@@ -636,7 +636,7 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
 @media (max-width:600px){.approach-grid{grid-template-columns:minmax(0,1fr);gap:16px}}
 
 /* ============================================================
-   Process — how we work
+   Process: How we work
    ============================================================ */
 #process{background:var(--bg-2)}
 .process-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:clamp(32px,6vw,100px);align-items:start}
@@ -709,7 +709,7 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
 .contact-info h2{font-size:clamp(29px,6.6vw,58px);letter-spacing:-.03em}
 .contact-info p{margin-top:20px;color:var(--ink-soft);max-width:44ch}
 
-/* the inquiry form on /contact — sits in the right column of .contact-layout */
+/* the inquiry form on /contact. Sits in the right column of .contact-layout */
 .contact-form-card{
   background:#fff;border:1px solid var(--line);border-radius:20px;
   padding:clamp(24px,3.4vw,44px);min-width:0;
@@ -723,7 +723,7 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
   padding:14px 16px;border-radius:8px;background:rgba(225,29,72,.08);
   border:1px solid rgba(225,29,72,.35);color:#b91c40;font-weight:500;font-size:14.5px;
 }
-/* honeypot — off-screen rather than display:none, which some bots skip */
+/* honeypot. Off-screen rather than display:none, which some bots skip */
 .app-honeypot{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .app-submit[disabled]{opacity:.6;pointer-events:none}
 @media (max-width:860px){.contact-layout{grid-template-columns:minmax(0,1fr)}}
@@ -733,14 +733,14 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
    Footer
    ============================================================ */
 footer{background:var(--footer);color:#fff;padding:clamp(56px,8vw,110px) 0 0;overflow:hidden}
-/* four link columns since Legal was added — at 1.4fr the brand crowded them */
+/* four link columns since Legal was added. At 1.4fr the brand crowded them */
 .footer-top{
   display:grid;grid-template-columns:1.5fr repeat(4,minmax(0,1fr));
   gap:clamp(28px,4vw,40px);padding-bottom:clamp(44px,6vw,70px);
 }
 .footer-brand p{color:rgba(255,255,255,.6);font-size:15px;max-width:34ch;margin-top:18px}
 .footer-col{min-width:0}
-/* h2, not h4 — see Footer.tsx. Color lifted from .45 to .62 white: the old
+/* h2, not h4. See Footer.tsx. Color lifted from .45 to .62 white: the old
    value measured 4.5:1 on --footer with no margin, and this is 13px uppercase. */
 .footer-col h2{
   font-size:13px;letter-spacing:.2em;text-transform:uppercase;line-height:1.4;
@@ -812,7 +812,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .page-hero .lead{max-width:580px;margin-top:clamp(18px,3.5vw,26px);font-size:clamp(15.5px,1.4vw,19px);color:var(--ink-soft)}
 
 /* ============================================================
-   Careers — perks + open roles
+   Careers: Perks + open roles
    ============================================================ */
 /* Careers application form */
 .application-section{
@@ -853,7 +853,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
   font-family:var(--font-body);
 }
 .app-label-main .req{color:#e11d48;margin-left:3px;font-weight:700}
-/* #615E75, not the old #8a869c — that was 3.5:1 on the white card and failed AA */
+/* #615E75, not the old #8a869c. That was 3.5:1 on the white card and failed AA */
 .app-label-main .app-opt{color:#615E75;margin-left:6px;font-weight:500;font-size:13px}
 .app-label-soft{font-weight:500;color:var(--ink-soft);font-size:13.5px}
 .app-hint{font-size:12.5px;line-height:1.45;color:#615E75;font-weight:400}
@@ -882,7 +882,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .app-select-wrap select{padding-right:40px;cursor:pointer}
 .app-field-wide{grid-column:1/-1}
 
-/* Resume upload — the native input is layered invisibly across the zone (not display:none,
+/* Resume upload. The native input is layered invisibly across the zone (not display:none,
    which would make it unfocusable and break reportValidity) while a real button carries
    the prompt text, since ::file-selector-button's label can't be changed from CSS */
 .app-file-zone{
@@ -925,7 +925,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 }
 
 /* ============================================================
-   About — story, timeline, team
+   About: Story, timeline, team
    ============================================================ */
 .about-story{
   display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(32px,6vw,90px);align-items:center;
@@ -934,8 +934,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .story-copy p:last-child{margin-bottom:0}
 .story-panel{
   position:relative;overflow:hidden;color:#fff;
-  /* final stop was #8B5CF6, against which the white body copy measured 4.23:1
-     — under the 4.5 AA floor at the light end of the sweep. #7C3AED keeps the
+  /* final stop was #8B5CF6, against which the white body copy measured 4.23:1,
+     under the 4.5 AA floor at the light end of the sweep. #7C3AED keeps the
      same lift in the gradient and takes it to 5.7:1. */
   background:linear-gradient(135deg,var(--primary-dark),var(--primary) 55%,#7C3AED);
   padding:clamp(28px,5vw,64px);min-height:clamp(260px,52vw,420px);
@@ -973,7 +973,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .tl-item p{color:var(--ink-soft);max-width:60ch;font-size:clamp(15px,1.2vw,16px)}
 
 /* ============================================================
-   Skip link — first tab stop on every page
+   Skip link: First tab stop on every page
    ============================================================ */
 .skip-link{
   position:fixed;top:0;left:0;z-index:300;
@@ -984,12 +984,12 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
   transform:translateY(-130%);
   transition:transform .22s var(--ease-out);
 }
-/* :focus, not :focus-visible — a skip link is only ever reached by keyboard */
+/* :focus, not :focus-visible. A skip link is only ever reached by keyboard */
 .skip-link:focus{transform:none;outline:3px solid var(--magenta);outline-offset:-3px}
 
 
 /* ============================================================
-   Contact — hours and FAQ
+   Contact: Hours and FAQ
    ============================================================ */
 .contact-hours{margin-top:18px;font-size:14px;color:var(--ink-soft);max-width:40ch}
 
@@ -1003,7 +1003,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 @media (max-width:820px){.faq-grid{grid-template-columns:minmax(0,1fr)}}
 
 /* ============================================================
-   Legal pages — privacy, terms, cookies, accessibility
+   Legal pages: Privacy, terms, cookies, accessibility
    ============================================================ */
 .legal-section{padding-top:0}
 .legal-layout{display:grid;grid-template-columns:minmax(0,240px) minmax(0,1fr);gap:clamp(32px,5vw,72px);align-items:start}
@@ -1067,7 +1067,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 }
 
 /* ============================================================
-   Cookie consent — banner and preference center
+   Cookie consent: Banner and preference center
    ============================================================ */
 .cookie-bar{
   position:fixed;z-index:110;
@@ -1075,8 +1075,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
   background:var(--ink);color:#fff;border-radius:16px;
   box-shadow:0 26px 70px rgba(11,8,26,.42);
   /* The .75s delay is the point of this. Without it the bar animates during
-     first paint, while the hero is still resolving, so nobody sees it move —
-     it just looks like it was always there. Holding it off-screen (the `both`
+     first paint, while the hero is still resolving, so nobody sees it move.
+     It just looks like it was always there. Holding it off-screen (the `both`
      fill keeps the from-state through the delay) until the page has settled
      is what makes the entrance read as an entrance. */
   animation:cookieIn .6s var(--ease-out) .75s both;
@@ -1101,7 +1101,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .cookie-bar-copy p{font-size:14px;line-height:1.6;color:rgba(255,255,255,.76);max-width:70ch}
 .cookie-bar-copy a{color:#fff;text-decoration:underline;text-underline-offset:3px}
 .cookie-bar-actions{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;flex:none}
-/* the two choices are the same size and weight on purpose — a de-emphasized
+/* the two choices are the same size and weight on purpose. A de-emphasized
    reject button is the pattern regulators treat as invalid consent */
 .cookie-bar .cookie-btn{padding:13px 22px;font-size:14.5px}
 .cookie-bar .btn-ghost{border-color:rgba(255,255,255,.55);color:#fff}

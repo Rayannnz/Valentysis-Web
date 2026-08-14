@@ -17,7 +17,7 @@ import {
  * The stored choice is external browser state, so it is read through
  * useSyncExternalStore rather than an effect. The server snapshot is "no
  * record", which means the banner is absent from the static HTML and appears
- * on hydration only for visitors who have not answered — nobody who already
+ * on hydration only for visitors who have not answered. Nobody who already
  * chose sees it flash.
  *
  * Accept and Reject carry equal visual weight. A prominent "Accept all" beside
@@ -32,7 +32,7 @@ export default function CookieConsent() {
   );
 
   /* The choice is saved the instant it is made, but the bar stays mounted for
-     the length of its exit animation — without this it would vanish the same
+     the length of its exit animation. Without this it would vanish the same
      frame it was clicked, which reads as a glitch after a deliberate entrance. */
   const [exiting, setExiting] = useState(false);
   const decided = stored !== SERVER_SNAPSHOT;

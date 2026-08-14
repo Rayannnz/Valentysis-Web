@@ -7,7 +7,7 @@ import { site } from "@/lib/site";
 type FooterLink = {
   label: string;
   href: string;
-  /* native anchor instead of <Link> — see the note in Header.tsx. Per link, not
+  /* native anchor instead of <Link>. See the note in Header.tsx. Per link, not
      per column: /industries is a real route and has to stay a <Link>, while the
      #anchors under it must not be. */
   plain?: boolean;
@@ -24,7 +24,7 @@ type FooterColumn = {
 const columns: FooterColumn[] = [
   {
     heading: "Services",
-    /* mapped, not hardcoded — a service added to lib/services.ts used to need a
+    /* mapped, not hardcoded. A service added to lib/services.ts used to need a
        second edit here, and the two lists drifted */
     links: [
       { label: "All services", href: "/services" },
@@ -68,7 +68,7 @@ const columns: FooterColumn[] = [
 ];
 
 /* Only real profiles are rendered. Add a URL to `social` in lib/site.ts and the
-   icon appears here and in the Organization `sameAs` at the same time — the
+   icon appears here and in the Organization `sameAs` at the same time. The
    previous four icons all pointed at "#". */
 const SOCIAL_ICONS: Record<string, React.ReactNode> = {
   LinkedIn: (
@@ -126,7 +126,7 @@ export default function Footer() {
               work like your own.
             </p>
 
-            {/* No contact details rendered here — the emails and the postal
+            {/* No contact details rendered here. The emails and the postal
                 address stay in the Organization schema only. */}
 
             {site.social.length > 0 && (
@@ -148,7 +148,7 @@ export default function Footer() {
 
           {columns.map(({ heading, links }) => (
             <nav className="footer-col" key={heading} aria-labelledby={`footer-${heading}`}>
-              {/* h2, not h4 — the page above ends on h2/h3, and a jump to h4
+              {/* h2, not h4. The page above ends on h2/h3, and a jump to h4
                   breaks heading-order for anyone navigating by headings */}
               <h2 id={`footer-${heading}`}>{heading}</h2>
               {links.map(({ label, href, plain }) =>

@@ -12,7 +12,7 @@ import { services } from "@/lib/services";
 
 const TITLE = "Services: Outsourcing, Support & Growth | Valentisys";
 const DESCRIPTION =
-  "The service lines Valentisys delivers — outsourcing, customer support, digital marketing, app and web development, AI and more — and who each one is for.";
+  "Outsourcing, customer support, digital marketing, app and web development, AI and more. Every service line Valentisys delivers, and who each one is for.";
 
 export const metadata: Metadata = buildMetadata({
   title: TITLE,
@@ -26,7 +26,7 @@ const trail: Crumb[] = [
 ];
 
 /* every service is linked from this page, so the whole catalog belongs in its
-   graph — it is the strongest entity signal the site can send, and it moved here
+   graph. It is the strongest entity signal the site can send, and it moved here
    with the listing when Services stopped being a home-page section. Mapped from
    `services`, never a hardcoded list or count. */
 const servicesGraph = graph(
@@ -74,7 +74,7 @@ export default function ServicesPage() {
                 <p data-reveal>
                   We keep it under one roof: staffing and support that carry the day-to-day, and
                   the marketing, app, web and AI work that grows it. Each service below stands on
-                  its own — pick one, or combine them and pay for one relationship rather than
+                  its own. Pick one, or combine them and pay for one relationship rather than
                   many.
                 </p>
               </div>

@@ -13,7 +13,7 @@ import { absoluteUrl } from "@/lib/site";
 
 const TITLE = "Industries: Health, Legal, Finance & More | Valentisys";
 const DESCRIPTION =
-  "The five sectors Valentisys staffs in depth — health, legal, engineering, finance and hospitality — and what each expects of the people doing the work.";
+  "The five sectors Valentisys staffs in depth: health, legal, engineering, finance and hospitality, and what each expects of the people doing the work.";
 
 export const metadata: Metadata = buildMetadata({
   title: TITLE,

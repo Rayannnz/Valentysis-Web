@@ -8,7 +8,7 @@ import { services } from "@/lib/services";
 import { contactEmail } from "@/lib/site";
 
 export const metadata: Metadata = {
-  /* absolute — a bare string picks up the layout's "%s | Valentisys" template
+  /* absolute. A bare string picks up the layout's "%s | Valentisys" template
      and renders the brand twice */
   title: { absolute: "Page Not Found (404) | Valentisys Outsourcing & Support" },
   description:
@@ -50,7 +50,7 @@ export default function NotFound() {
             </p>
             <div className="error-ctas">
               <Link className="btn btn-primary" href="/" data-magnetic>
-                Back to home
+                Back to Home
                 <svg
                   className="arr"
                   width="17"
@@ -64,7 +64,7 @@ export default function NotFound() {
                 </svg>
               </Link>
               <Link className="btn btn-ghost" href="/contact" data-magnetic>
-                Tell us what you needed
+                Tell Us What You Needed
               </Link>
             </div>
           </div>
@@ -122,7 +122,7 @@ export default function NotFound() {
                 <ul>
                   {industries.map(({ id, name, desc }) => (
                     <li key={id}>
-                      {/* plain anchor — see the note in Header.tsx */}
+                      {/* plain anchor. See the note in Header.tsx */}
                       <a href={`/industries#${id}`}>{name}</a>
                       <span>{desc.split(".")[0]}.</span>
                     </li>

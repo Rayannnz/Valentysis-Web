@@ -5,7 +5,7 @@ import { site } from "./site";
 
 export const OG_SIZE = { width: 1200, height: 630 };
 export const OG_CONTENT_TYPE = "image/png";
-export const OG_ALT = `${site.name} — outsourcing, customer support, and digital growth`;
+export const OG_ALT = `${site.name}: outsourcing, customer support, and digital growth`;
 
 /**
  * The renderer runs inside satori, which cannot reach the filesystem or the
@@ -21,7 +21,7 @@ function markDataUri(): string | null {
   }
 }
 
-/* Every node carries an explicit display — satori has no block layout and
+/* Every node carries an explicit display. Satori has no block layout and
    throws on any element with multiple children that isn't flex. */
 export function renderOgImage() {
   const mark = markDataUri();
@@ -41,7 +41,7 @@ export function renderOgImage() {
           position: "relative",
         }}
       >
-        {/* magenta bloom, bottom-right — echoes --magenta in the site palette */}
+        {/* magenta bloom, bottom-right. Echoes --magenta in the site palette */}
         <div
           style={{
             position: "absolute",
@@ -56,7 +56,7 @@ export function renderOgImage() {
         />
 
         <div style={{ display: "flex", alignItems: "center", gap: 22 }}>
-          {/* satori renders this, not the browser — next/image has no meaning
+          {/* satori renders this, not the browser. Next/image has no meaning
               here and the source is already an inlined data URI */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           {mark && <img src={mark} width={86} height={86} alt="" />}

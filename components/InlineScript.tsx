@@ -1,6 +1,6 @@
 /**
- * An inline script that has to run while the HTML is still parsing — before
- * React hydrates — without tripping React's "Encountered a script tag while
+ * An inline script that has to run while the HTML is still parsing, before
+ * React hydrates, without tripping React's "Encountered a script tag while
  * rendering React component" warning.
  *
  * The type attribute is the whole trick, and it is the pattern Next documents

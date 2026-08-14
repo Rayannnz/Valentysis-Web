@@ -16,7 +16,7 @@ export default function PageEffects() {
     /* ---------- Hero heading lines ----------
        This delay sits directly on the critical path: the h1 is the LCP element
        on every page and stays masked until revealHeroLines runs, so the total
-       is window.load + this. Kept short deliberately — the earlier 350/500ms
+       is window.load + this. Kept short deliberately: the earlier 350/500ms
        pair pushed LCP roughly half a second past load for no visual gain. */
     const revealHeroLines = () => {
       setTimeout(() => {
@@ -61,12 +61,12 @@ export default function PageEffects() {
     /* ---------- Links to the page you are already on ----------
        A real navigation scrolls itself: Next takes you to the top of a new route,
        and to the anchor when the href carries one. A link pointing at the URL you
-       are already on is the gap — nothing navigates, so clicking "Home" from
+       are already on is the gap: nothing navigates, so clicking "Home" from
        halfway down the home page left you exactly where you were.
 
        Delegated on the document rather than wired per link, so the header, the
        mega-menus, the mobile menu, the footer, and every in-page CTA are covered
-       at once. Nothing is prevented here — <Link> still pushes the URL, and the
+       at once. Nothing is prevented here. <Link> still pushes the URL, and the
        native industry anchors still fire their own hash handling; this only moves
        the viewport afterward. */
     const scrollToHref = (hash: string) => {
@@ -79,7 +79,7 @@ export default function PageEffects() {
       try {
         target = document.querySelector(hash);
       } catch {
-        /* an id that isn't a valid selector — treat it as not found */
+        /* an id that isn't a valid selector. Treat it as not found */
       }
       /* scroll-padding-top on <html> keeps the sticky header off the section */
       if (target) target.scrollIntoView({ behavior, block: "start" });
@@ -87,7 +87,7 @@ export default function PageEffects() {
 
     const onDocumentClick = (ev: MouseEvent) => {
       if (ev.button !== 0) return;
-      /* modified clicks open a new tab — leave this one alone */
+      /* modified clicks open a new tab. Leave this one alone */
       if (ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey) return;
 
       const link = (ev.target as Element | null)?.closest?.("a[href]") as HTMLAnchorElement | null;
@@ -102,7 +102,7 @@ export default function PageEffects() {
       }
       /* mailto:, tel:, and offsite links all fail this */
       if (url.origin !== location.origin) return;
-      /* a different page is a real navigation — let the router place it */
+      /* a different page is a real navigation. Let the router place it */
       if (url.pathname !== location.pathname || url.search !== location.search) return;
 
       /* a frame late on purpose: the mobile menu releases its scroll lock in an
@@ -110,7 +110,7 @@ export default function PageEffects() {
       requestAnimationFrame(() => scrollToHref(url.hash));
     };
     /* capture, not bubble: <Link> calls preventDefault to route on the client, so
-       by the bubble phase every internal link looks canceled — and capture also
+       by the bubble phase every internal link looks canceled. And capture also
        survives a handler that stops propagation on the way up */
     document.addEventListener("click", onDocumentClick, true);
     cleanups.push(() => document.removeEventListener("click", onDocumentClick, true));

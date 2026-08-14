@@ -15,7 +15,7 @@ const servicesSplit = Math.ceil(serviceNav.length / 2);
 const servicesLeft = serviceNav.slice(0, servicesSplit);
 const servicesRight = serviceNav.slice(servicesSplit);
 
-/* rendered as native anchors, not <Link> — Link pushState's same-page hash links
+/* rendered as native anchors, not <Link>. Link pushState's same-page hash links
    without firing hashchange, so the accordion wouldn't open from /industries itself */
 const industryNav = industries.map(({ id, name }) => ({
   label: name,
@@ -60,7 +60,7 @@ export default function Header() {
     };
   }, [menuOpen]);
 
-  /* close the mobile menu on route change — adjusted during render so React
+  /* close the mobile menu on route change. Adjusted during render so React
      re-renders before committing, instead of flashing the open menu for a frame */
   const [prevPathname, setPrevPathname] = useState(pathname);
   if (pathname !== prevPathname) {
@@ -89,7 +89,7 @@ export default function Header() {
     veilOff();
     closeMenu();
     /* A mouse click leaves focus sitting on the link, and the mega panel is held
-       open by .nav-item:focus-within as well as :hover — so once the pointer left,
+       open by .nav-item:focus-within as well as :hover, so once the pointer left,
        the panel stayed up until something else took focus. The pathname effect
        above blurs it on a route change; clicking a link to the page you are
        already on never changes pathname, which is the case that got stuck.
@@ -150,12 +150,12 @@ export default function Header() {
                     ))}
                   </div>
                   <div className="mega-promo">
-                    {/* not a heading — the header renders before the page's h1,
+                    {/* not a heading. The header renders before the page's h1,
                         so an h4 here breaks heading order on every page */}
                     <p className="mega-promo-title">Need the right fit?</p>
                     <p>Tell us the problem. We&apos;ll recommend a service mix, timeline, and a clear price.</p>
                     <Link className="btn btn-magenta" href="/contact" style={{ marginTop: 10 }} onClick={go}>
-                      Get an estimate
+                      Request a Quote
                       <svg className="arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
                         <path d="M7 17L17 7M9 7h8v8" />
                       </svg>
@@ -194,7 +194,7 @@ export default function Header() {
                     <p className="mega-promo-title">Not sure where to start?</p>
                     <p>Send us the problem. We&apos;ll come back with scope, timeline, and a price.</p>
                     <Link className="btn btn-magenta" href="/contact" style={{ marginTop: 10 }} onClick={go}>
-                      Get an estimate
+                      Request a Quote
                       <svg className="arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
                         <path d="M7 17L17 7M9 7h8v8" />
                       </svg>

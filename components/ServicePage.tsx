@@ -60,7 +60,7 @@ export default function ServicePage({ service }: { service: Service }) {
                 </p>
                 <div data-reveal style={{ marginTop: 28 }}>
                   <a className="btn btn-primary" href="/contact" data-magnetic>
-                    Talk to us
+                    Request a Consultation
                     <svg
                       className="arr"
                       width="17"

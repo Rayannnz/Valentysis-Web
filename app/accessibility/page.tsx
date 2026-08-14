@@ -138,8 +138,8 @@ const sections: LegalSection[] = [
     body: (
       <>
         <p>
-          If any part of this site stops you doing what you came to do, we want to hear about it
-          — including anything not listed above.
+          If any part of this site stops you from doing what you came to do, we want to hear
+          about it, including anything not listed above.
         </p>
         <p>
           Email <a href={`mailto:${contactEmail}`}>{contactEmail}</a> with the page address, what

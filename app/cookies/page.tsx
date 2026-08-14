@@ -87,15 +87,15 @@ const sections: LegalSection[] = [
         </p>
         <ul className="legal-list">
           <li>
-            <strong>Strictly necessary</strong> — makes the site work and remembers this choice.
+            <strong>Strictly necessary:</strong> makes the site work and remembers this choice.
             Always on; no consent needed under the applicable rules.
           </li>
           <li>
-            <strong>Analytics</strong> — anonymous statistics on which pages get read and how
+            <strong>Analytics:</strong> anonymous statistics on which pages get read and how
             people arrive. Off unless you turn it on.
           </li>
           <li>
-            <strong>Marketing</strong> — measuring whether an ad led to an inquiry. Off unless
+            <strong>Marketing:</strong> measuring whether an ad led to an inquiry. Off unless
             you turn it on.
           </li>
         </ul>

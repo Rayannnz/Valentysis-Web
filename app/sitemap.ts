@@ -5,7 +5,7 @@ import { absoluteUrl } from "@/lib/site";
 export const dynamic = "force-static";
 
 /* Stamped once per build. Faking per-page dates would be worse than one honest
-   one — a lastModified that never matches the content is ignored by crawlers. */
+   one. A lastModified that never matches the content is ignored by crawlers. */
 const lastModified = new Date();
 
 type Entry = {

@@ -10,7 +10,7 @@ export const metadata: Metadata = buildMetadata({
   description:
     "Your application has reached us. Here is what happens next, how soon we reply, and who to email if you want to add a portfolio or anything else to it.",
   path: "/thank-you/application",
-  /* same reasoning as /thank-you — a conversion destination, not a landing page.
+  /* same reasoning as /thank-you. A conversion destination, not a landing page.
      robots.txt disallows /thank-you, which prefix-matches this too. */
   noIndex: true,
 });

@@ -11,23 +11,23 @@ npm run lint     # ESLint flat config (bare `eslint`, lints the whole repo)
 npm start        # serve the production build
 ```
 
-There is no test framework in this project — no runner, no test files. `npm run build` is the type-check
+There is no test framework in this project. No runner, no test files. `npm run build` is the type-check
 (`tsconfig` is `noEmit`), so build + lint is the full verification loop. Don't invent a test command.
 
 There is no API route and no SMTP config. Both forms post to Netlify Forms (see below), so locally they
-will fail against the dev server — that is expected, and the failure is logged with a `[contact]` or
+will fail against the dev server. That is expected, and the failure is logged with a `[contact]` or
 `[careers]` prefix. Test form submission on a Netlify deploy preview, not on localhost.
 
 `scripts/generate-icons.cjs` regenerates the whole icon set (favicon, apple-icon, PWA icons) from
 `public/logo/logo-mark.png`. Run `node scripts/generate-icons.cjs` after changing the logo. Its `.ico`
-frames must stay RGBA — Next decodes `app/favicon.ico` at build time and a paletted PNG frame fails
+frames must stay RGBA. Next decodes `app/favicon.ico` at build time and a paletted PNG frame fails
 every route with "The PNG is not in RGBA format".
 
-## Dev server: there is exactly one, on port 3000 — reuse it
+## Dev server: there is exactly one, on port 3000. Reuse it
 
 **The user keeps a `next dev` server running on `http://localhost:3000` across sessions. Never kill it and
 never start a second one.** Do not `taskkill`, `Stop-Process`, or `kill` a node process to free the port,
-and do not restart the server "to pick up changes" — see below, it already picks them up.
+and do not restart the server "to pick up changes". See below, it already picks them up.
 
 **Always probe before doing anything with the server.** Prints `200` when it's up:
 
@@ -51,7 +51,7 @@ Then:
 - **Port held but no HTTP response** → say so and ask; don't assume it's dead and kill it.
 
 The probe is the whole mechanism. A background shell from an earlier session isn't visible in a new one, so
-without checking you'd start a duplicate — and because `npm run dev` silently falls back to the next free
+without checking you'd start a duplicate. And because `npm run dev` silently falls back to the next free
 port (3001, 3002, …) when 3000 is taken, the duplicate *appears* to work while you and the user are looking
 at two different servers.
 
@@ -62,7 +62,7 @@ at two different servers.
 - `.env.local` / any env var
 - installing or removing a dependency
 
-When a restart is genuinely required, tell the user what changed and let them decide — they own that
+When a restart is genuinely required, tell the user what changed and let them decide. They own that
 process. If they hand it to you, stop and restart on 3000, not on a new port.
 
 ### Never hard-kill a process while Turbopack is compiling
@@ -71,7 +71,7 @@ process. If they hand it to you, stop and restart on 3000, not on a new port.
 compiling.** Specifically: no `kill -9`, no `taskkill /F`, no `Stop-Process -Force`, and no aborting an
 in-flight `npm run dev` / `npm run build` command. This holds even when something looks hung.
 
-This is not a style preference — it corrupts the project. Turbopack keeps a persistent on-disk cache under
+This is not a style preference. It corrupts the project. Turbopack keeps a persistent on-disk cache under
 `.next/dev/cache/turbopack/` that behaves like an LSM store: `.meta` files reference `.sst` segment files.
 Killing the process mid-persist leaves `.meta` pointing at segments that were never flushed, and the dev
 server then panics on every task lookup:
@@ -84,7 +84,7 @@ thread 'tokio-runtime-worker' panicked at turbo-tasks-backend ... Failed to rest
 ⨯ Error: ENOENT ... .next\dev\server\app\page\build-manifest.json
 ```
 
-**Restarting does not fix this** — the inconsistent files are on disk and get re-read on boot. Recovery
+**Restarting does not fix this**. The inconsistent files are on disk and get re-read on boot. Recovery
 requires deleting the cache (below). If a process genuinely must stop, use a graceful stop only, after
 compilation has settled, and ask the user first.
 
@@ -94,7 +94,7 @@ Turbopack rebuilds on every write. Editing files while a compile is in flight st
 onto the same cache writer, which is how you reach `Another write batch or compaction is already active`.
 
 - **Batch related edits into one message**, then stop and let it compile. One rebuild, not one per file.
-- **Never write a file during a `○ Compiling …` window.** Wait for the run to close out — `✓ Compiled in …`
+- **Never write a file during a `○ Compiling …` window.** Wait for the run to close out: `✓ Compiled in …`
   or a `GET … 200` line.
 - If you started the server backgrounded, read its output and wait for that line before the next batch.
 - If the server is in the user's own terminal and you can't see its logs, don't fire
@@ -110,7 +110,7 @@ Symptoms, roughly in the order they show up:
 - `panicked at turbo-tasks-backend` with `Unable to open static sorted file NNNN.sst`
 - `ENOENT ... .next\dev\server\app\page\build-manifest.json`
 
-Confirm it's real corruption rather than noise — take a filename from the panic and check whether it exists:
+Confirm it's real corruption rather than noise. Take a filename from the panic and check whether it exists:
 
 ```bash
 ls .next/dev/cache/turbopack/*/00004258.sst
@@ -119,11 +119,11 @@ ls .next/dev/cache/turbopack/*/00004258.sst
 If it's missing while the `.meta` still references it, the cache is corrupt. Fix, **with the user's
 go-ahead**, since it means stopping their server:
 
-1. Stop the dev server gracefully (Ctrl-C in the terminal that owns it — the user's job, not a force-kill).
-2. Delete the cache: `rm -rf .next/dev/cache` (or all of `.next` — it's gitignored and fully regenerated).
+1. Stop the dev server gracefully (Ctrl-C in the terminal that owns it; the user's job, not a force-kill).
+2. Delete the cache: `rm -rf .next/dev/cache` (or all of `.next`; it's gitignored and fully regenerated).
 3. Start the dev server again on 3000. The first compile is slow; that's the cache rebuilding.
 
-Never delete `.next` while the server is still running — that reintroduces the same mid-write corruption.
+Never delete `.next` while the server is still running. That reintroduces the same mid-write corruption.
 
 ## What this is
 
@@ -135,7 +135,20 @@ React 19, TypeScript strict, `@/*` maps to the repo root. Every route is statica
 
 **This project is US English only.** That covers page copy, headings, form labels, button text, error and
 `aria-label` strings, `alt` text, JSON-LD values, code comments, and this file. British or other-variant
-spelling is a defect here, not a style preference — fix it rather than leaving it as written.
+spelling is a defect here, not a style preference. Fix it rather than leaving it as written.
+
+**No em dashes.** The em dash (U+2014) does not appear anywhere in this repo: not in copy, not in comments,
+not in this file. That is why this paragraph names it by codepoint instead of printing it. Use the punctuation the dash was standing in for. A colon when the second half explains
+the first, a period when both halves are full sentences, commas or parentheses around an aside, or a
+semicolon between linked clauses. A pair of dashes bracketing an aside becomes parentheses, and the comma
+that followed the closing dash goes with it. En dashes in numeric ranges (`50–60`, `140–160`) are correct
+US typography and stay. Verify with a plain scan for the character; it should return zero hits outside
+`node_modules`.
+
+**Buttons and links use Title Case**, and the CTA wording is the vocabulary US B2B buyers expect: Discuss
+Your Project, Request a Quote, Request a Consultation, Get Started. Match the label to the intent (a quote
+where price is the promise, a consultation where a conversation is) rather than reusing one phrase
+everywhere. Consent controls in `CookieConsent` are UI, not marketing, and stay in sentence case.
 
 The swaps that actually come up in this repo:
 
@@ -158,15 +171,15 @@ feeds a `<time datetime>` attribute, which is locale-independent by spec.
 
 Three things are **not** copy and keep their spelling:
 
-- **`name="cv"`** on the careers upload and the `cv*` identifiers around it — a wire contract with Netlify,
+- **`name="cv"`** on the careers upload and the `cv*` identifiers around it. A wire contract with Netlify,
   see the forms section below.
 - **DOM and HTML API names**, above all `aria-labelledby`. Spec spelling, not prose.
-- **Third-party package names and API strings** — `@img/colour` in the lockfile is a package, and anything
+- **Third-party package names and API strings**. `@img/colour` in the lockfile is a package, and anything
   a library only accepts in the British form stays as the library wants it. Check before assuming: `sharp`
   defines `gravity.center` and `gravity.centre` as the same constant, so that one is spelled US here.
 
-To re-audit after a copy change, sweep the source for the usual forms — the `-ise`/`-isation`, `-our`,
-`-re`, and doubled-`l` families — and read the hits rather than replacing blind: `specialist`, `flat`, and
+To re-audit after a copy change, sweep the source for the usual forms: the `-ise`/`-isation`, `-our`,
+`-re`, and doubled-`l` families. Read the hits rather than replacing blind: `specialist`, `flat`, and
 `aria-labelledby` are all correct and all match a naive pattern.
 
 ## Content lives in `lib/`, not in pages
@@ -185,11 +198,11 @@ that section. `lib/industries.ts` works the same way for the five sectors and th
 Each service also carries `seoTitle` / `seoDescription`, kept separate from `title` and `lead` because
 those are written for the page and these are written for the SERP.
 
-Adding a service means editing `lib/services.ts` and nothing else — the footer now maps over `services`
+Adding a service means editing `lib/services.ts` and nothing else. The footer now maps over `services`
 rather than hardcoding its column. Changing a slug means adding a redirect in `next.config.ts`.
 
 **Never state how many services there are.** No "six capabilities", no "six service lines", no "one
-relationship rather than six" — not in page copy, headings, meta descriptions, or the stat panel. It reads
+relationship rather than six". None of it belongs in page copy, headings, meta descriptions, or the stat panel. It reads
 as a cap on what the business will take on, and it goes stale the moment a service is added or dropped.
 Write open-ended instead: "Everything under one roof", "Every service line", "One partner". The same goes
 for comments and docs: describe the list, don't count it. Anything that genuinely needs the number should
@@ -204,7 +217,7 @@ PageHero → an `.about-story` overview section (`.section-after-hero`) → the 
 component (<Services /> / <Industries />) → <Cta />
 ```
 
-`components/Services.tsx` and `components/Industries.tsx` are *listing sections*, not pages — each renders
+`components/Services.tsx` and `components/Industries.tsx` are *listing sections*, not pages. Each renders
 its own `.sec-head` and keeps its `id` (`#services`, `#industries`) because `app/globals.css` styles the
 section by that id (the light-purple block and the dark accordion). Render either one on a page and it
 brings its own heading and background with it.
@@ -215,22 +228,22 @@ used to live there at `/#services` and moved out, which is why nothing links to 
 ## Page composition
 
 Every route renders the same shell: `<PageEffects /> <Header /> <main id="main">…</main> <Footer />`
-followed by a `<JsonLd>` graph. **`id="main"` is not optional** — it is the target of the skip link in
+followed by a `<JsonLd>` graph. **`id="main"` is not optional**. It is the target of the skip link in
 `app/layout.tsx`. Sub-pages open with `<PageHero eyebrow lines lead>` (`lines` is an array of ReactNode,
 one per masked heading line), then go straight into their first section. The home page uses the bespoke
 `<Hero />`. `<Cta />` closes most pages.
 
-**There is no visible breadcrumb nav** — it was removed site-wide. What survives is the `trail: Crumb[]`
+**There is no visible breadcrumb nav**. It was removed site-wide. What survives is the `trail: Crumb[]`
 array each page still declares, which exists *only* to feed `breadcrumbSchema()` for the BreadcrumbList
 JSON-LD; `Crumb` now lives in `lib/schema.ts`, not in a component. Don't reintroduce a `<Breadcrumbs>`
-render, and keep `trail` matching the real URL hierarchy — it is the sole description of where a page sits.
+render, and keep `trail` matching the real URL hierarchy. It is the sole description of where a page sits.
 
 That removal is also why the first section after a `.page-hero` carries **`.section-after-hero`** instead of
 the old `style={{ paddingTop: 0 }}`: the breadcrumb nav used to supply the gap under the hero, and without
 it the seam collapsed. `/careers` and the legal pages skip the class because their first section already
-runs full `.section` padding. Later `paddingTop: 0` sections on a page are unrelated — they collapse the gap
+runs full `.section` padding. Later `paddingTop: 0` sections on a page are unrelated. They collapse the gap
 between two adjacent sections and should stay as they are. Section markup follows a fixed
-vocabulary — `.section > .container > .sec-head` with `.sec-eyebrow` / `.sec-title` / `.sec-note` — mirror
+vocabulary (`.section > .container > .sec-head` with `.sec-eyebrow` / `.sec-title` / `.sec-note`); mirror
 an existing page rather than inventing structure.
 
 ## Styling: one hand-written stylesheet
@@ -240,7 +253,7 @@ All ~1050 lines of CSS live in `app/globals.css`, split by banner comments that 
 matching banner.
 
 Tailwind v4 is imported at the top of that file but **no utility classes are used anywhere** in the
-components — every `className` is a semantic name defined in globals.css. Don't start mixing utilities in.
+components. Every `className` is a semantic name defined in globals.css. Don't start mixing utilities in.
 
 Design tokens are CSS custom properties on `:root` (`--primary`, `--magenta`, `--ink`, `--bg`, `--line`,
 `--ease-out`, `--container`, `--header-h`, …). Fonts are wired in `app/layout.tsx` via `next/font/google`
@@ -258,12 +271,12 @@ document on mount and wires everything:
 | `data-parallax="<px>"` | element follows the pointer inside `#hero` |
 | `data-magnetic` | button pulls toward the cursor |
 
-To animate new markup, add the attribute — there is nothing to register. But the wiring runs in a single
+To animate new markup, add the attribute. There is nothing to register. But the wiring runs in a single
 `useEffect([])`, so elements mounted later (conditional renders, list growth) are never observed.
 
 The same effect also owns **scroll-on-click for links pointing at the current URL**, delegated on the
 document so every link is covered without an `onClick`. Next already scrolls a real navigation, but a link
-to the page you are on doesn't navigate at all — clicking "Home" from halfway down `/` used to leave you
+to the page you are on doesn't navigate at all. Clicking "Home" from halfway down `/` used to leave you
 there. The listener is on the **capture** phase deliberately: `<Link>` calls `preventDefault()` to route on
 the client, so by the bubble phase every internal link looks canceled. It never prevents anything itself,
 which is what keeps the native industry anchors and their `hashchange` working.
@@ -303,10 +316,10 @@ a React form must exist in `__forms.html`** or Netlify silently drops it from th
 **`/contact`** → `ContactForm` posts url-encoded (Netlify rejects JSON). Five fields, in this order:
 `fullName`, `company` (the only optional one), `email`, `phone`, `message`.
 
-**`/careers`** → `ApplicationForm` posts multipart, because the resume is a real file upload — it sets no
+**`/careers`** → `ApplicationForm` posts multipart, because the resume is a real file upload. It sets no
 `Content-Type` header so the browser can supply its own boundary. It is capped at 8 MB client-side:
 Netlify rejects a request over 8 MiB with a 400 read straight off `Content-Length`. **The field is
-`name="cv"` on the wire** and must stay that way — `public/__forms.html` declares it and Netlify matches on
+`name="cv"` on the wire** and must stay that way. `public/__forms.html` declares it and Netlify matches on
 it, so renaming it to `resume` silently drops the upload. Only the visible copy says "Resume"; the `cv*`
 identifiers in the component are deliberately aligned with the wire name, not the label.
 
@@ -324,14 +337,14 @@ are logged with a `[contact]` / `[careers]` prefix so a broken deploy config is 
   `app/favicon.ico`, `app/icon.png`, and `app/apple-icon.png` are picked up automatically.
 - **A page that exports its own `openGraph` block loses the inherited `opengraph-image`.** That is why
   `lib/seo.ts` names `/opengraph-image` and `/twitter-image` explicitly instead of relying on the file
-  convention to cascade — without it, `og:image` appears on `/` and nowhere else.
+  convention to cascade. Without it, `og:image` appears on `/` and nowhere else.
 - **Page titles go through `buildMetadata`, which sets `title.absolute`.** A bare `title` string picks up
   the layout's `"%s | Valentisys"` template and renders the brand twice.
 - **`/services` is a real route, not an anchor.** It was `/#services` (a home-page section plus a temporary
   `/services → /#services` redirect) until the listing got its own page. Both are gone. Link to `/services`;
   don't reintroduce the redirect, and don't point a nav item, CTA, or breadcrumb at `/#services`. The
   section keeps `id="services"` purely because `globals.css` styles `#services`. Anything that renders a
-  route link needs `<Link>` — `no-html-link-for-pages` fails the lint on a bare `<a href="/services">`,
+  route link needs `<Link>`. `no-html-link-for-pages` fails the lint on a bare `<a href="/services">`,
   which is exactly how the old Hero anchor was caught.
 - Commit messages in this repo are terse and untyped ("fixed", "content audited"). No convention to follow.
 
@@ -339,19 +352,19 @@ are logged with a `[contact]` / `[careers]` prefix so a broken deploy config is 
 
 Four `lib/` modules carry everything a page asserts about the business:
 
-- **`lib/site.ts`** — the single source of truth for name, canonical URL, emails, postal address, service
+- **`lib/site.ts`**: the single source of truth for name, canonical URL, emails, postal address, service
   area, and opening hours. Blank fields are deliberate: `lib/schema.ts` drops empty values rather than
   emitting a placeholder, so an unverified detail never ships as structured data. `site.social` is empty,
-  which is why the footer renders no social icons — add a real URL and the icon and the Organization
+  which is why the footer renders no social icons. Add a real URL and the icon and the Organization
   `sameAs` entry both appear.
-- **`lib/seo.ts`** — `buildMetadata({title, description, path})` builds canonical + Open Graph + Twitter from
+- **`lib/seo.ts`**: `buildMetadata({title, description, path})` builds canonical + Open Graph + Twitter from
   one pair. Titles are held to 50–60 characters and descriptions to 140–160.
-- **`lib/schema.ts`** — JSON-LD builders. The root layout emits Organization + WebSite + ProfessionalService
+- **`lib/schema.ts`**: JSON-LD builders. The root layout emits Organization + WebSite + ProfessionalService
   once, with stable `@id`s; each page adds WebPage/Breadcrumb/Service/FAQ nodes that reference those by
   `@id` instead of restating the company.
-- **`lib/consent.ts`** — cookie consent, stored in localStorage and read through `useSyncExternalStore`.
+- **`lib/consent.ts`**: cookie consent, stored in localStorage and read through `useSyncExternalStore`.
 
-The **service catalog** — a `serviceSchema` node per service — is emitted by `app/services/page.tsx`
+The **service catalog** (a `serviceSchema` node per service) is emitted by `app/services/page.tsx`
 alongside its `CollectionPage` node, because that is the page that links them all. It sat on the home page
 until the listing moved, and moved with it; home now carries only its `WebPage` node. Each
 `/services/[slug]` page still emits its own copy under the same stable `@id`, so they read as one entity
@@ -359,13 +372,13 @@ described consistently rather than several competing ones.
 
 `robots.txt`, `sitemap.xml`, and the web manifest are generated by `app/robots.ts`, `app/sitemap.ts`, and
 `app/manifest.ts`. Adding a route means adding it in **three** places: `app/sitemap.ts`, the grouped list in
-`app/sitemap/page.tsx` (the human-readable sitemap), and — for anything meant to rank — a real internal link
+`app/sitemap/page.tsx` (the human-readable sitemap), and, for anything meant to rank, a real internal link
 from the footer or nav, since a URL that only appears in `sitemap.xml` gets crawled but reads as
 unimportant. In `app/sitemap.ts` the order is deliberate: home, `/services`, the service pages, then
 everything else. The four policy pages share `components/LegalPage.tsx` and all read their "last updated"
 date from `site.legalUpdated`.
 
-Verifying the SEO surface is a loop worth rerunning after any metadata change — fetch each route off the
+Verifying the SEO surface is a loop worth rerunning after any metadata change. Fetch each route off the
 dev server and check `<title>` (50–60), `meta description` (140–160), the canonical, and that there is
 exactly one `<h1>`. Decode HTML entities first: `&amp;` is four characters in the markup and one in the
 title, which is enough to make a compliant title look over-length.

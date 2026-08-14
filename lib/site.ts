@@ -29,12 +29,12 @@ export const site = {
     careers: "careers@valentisys.com",
   },
 
-  /** Blank until confirmed — see the note at the top of this file. */
+  /** Blank until confirmed. See the note at the top of this file. */
   telephone: "",
 
   /**
    * Structured data only. The postal address is deliberately not rendered on
-   * any page — it feeds the Organization / ProfessionalService JSON-LD so local
+   * any page. It feeds the Organization / ProfessionalService JSON-LD so local
    * search still has it, and nothing else reads these fields.
    */
   address: {
@@ -65,7 +65,7 @@ export const site = {
   /**
    * Shown on all four policy pages, so they can only be revised together.
    * `label` is US format (month first, comma before the year) to match the rest
-   * of the copy — see the US-EN rule in CLAUDE.md.
+   * of the copy. See the US-EN rule in CLAUDE.md.
    */
   legalUpdated: { iso: "2026-08-08", label: "August 8, 2026" },
 
@@ -78,5 +78,5 @@ export const site = {
 export const contactEmail = site.email.sales;
 export const careersEmail = site.email.careers;
 
-/** Absolute URL for a site-relative path — canonicals, sitemap, and JSON-LD. */
+/** Absolute URL for a site-relative path. Canonicals, sitemap, and JSON-LD. */
 export const absoluteUrl = (path: string) => `${site.url}${path.startsWith("/") ? path : `/${path}`}`;
