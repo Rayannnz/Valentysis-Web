@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Breadcrumbs, { type Crumb } from "@/components/Breadcrumbs";
 import Cta from "@/components/Cta";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
@@ -7,7 +6,7 @@ import JsonLd from "@/components/JsonLd";
 import PageEffects from "@/components/PageEffects";
 import PageHero from "@/components/PageHero";
 import Services from "@/components/Services";
-import { breadcrumbSchema, graph, serviceSchema, webPageSchema } from "@/lib/schema";
+import { breadcrumbSchema, type Crumb, graph, serviceSchema, webPageSchema } from "@/lib/schema";
 import { buildMetadata } from "@/lib/seo";
 import { services } from "@/lib/services";
 
@@ -58,9 +57,7 @@ export default function ServicesPage() {
           lead="Every service line is staffed by the same trained teams and runs under one contract. Start with the one you need most; add the rest when it earns its place."
         />
 
-        <Breadcrumbs trail={trail} />
-
-        <section className="section" style={{ paddingTop: 0 }}>
+        <section className="section section-after-hero">
           <div className="container">
             <div className="about-story">
               <div className="story-copy">

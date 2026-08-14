@@ -176,7 +176,7 @@ export default function ContactForm() {
           disabled={sending}
           aria-busy={sending}
         >
-          {sending ? "Sending…" : "Send inquiry"}
+          {sending ? "Sending…" : "Get Started"}
           <svg
             className="arr"
             width="17"

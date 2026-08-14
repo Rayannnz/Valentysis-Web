@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
-import Breadcrumbs, { type Crumb } from "@/components/Breadcrumbs";
 import Cta from "@/components/Cta";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import JsonLd from "@/components/JsonLd";
 import PageEffects from "@/components/PageEffects";
 import PageHero from "@/components/PageHero";
-import { breadcrumbSchema, graph, webPageSchema } from "@/lib/schema";
+import { breadcrumbSchema, type Crumb, graph, webPageSchema } from "@/lib/schema";
 import { buildMetadata } from "@/lib/seo";
 
 const TITLE = "About Us: Your Outsourcing & Support Partner | Valentisys";
@@ -107,9 +106,7 @@ export default function AboutPage() {
           lead="We place trained people inside the businesses that need them: answering the calls, clearing the paperwork, and keeping the back office current. Then we help those businesses grow with social, apps, and web."
         />
 
-        <Breadcrumbs trail={trail} />
-
-        <section className="section" style={{ paddingTop: 0 }}>
+        <section className="section section-after-hero">
           <div className="container">
             <div className="about-story">
               <div className="story-copy">

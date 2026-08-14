@@ -124,7 +124,14 @@ export function localBusinessSchema(): Json {
   });
 }
 
-export function breadcrumbSchema(trail: { name: string; path: string }[]): Json {
+/**
+ * One step in a page's trail. There is no visible breadcrumb nav on the site —
+ * the trail exists only to build the BreadcrumbList below, so a page's `trail`
+ * array is now purely a description of where the URL sits in the hierarchy.
+ */
+export type Crumb = { name: string; path: string };
+
+export function breadcrumbSchema(trail: Crumb[]): Json {
   return {
     "@type": "BreadcrumbList",
     itemListElement: trail.map((crumb, i) => ({

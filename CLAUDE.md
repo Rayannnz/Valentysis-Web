@@ -200,7 +200,7 @@ derive it from `services.length` rather than spelling it out.
 Both are index routes with the same shape, and they are the pattern to copy for any future hub:
 
 ```
-PageHero → Breadcrumbs → an `.about-story` overview section (`paddingTop: 0`) → the listing
+PageHero → an `.about-story` overview section (`.section-after-hero`) → the listing
 component (<Services /> / <Industries />) → <Cta />
 ```
 
@@ -217,9 +217,19 @@ used to live there at `/#services` and moved out, which is why nothing links to 
 Every route renders the same shell: `<PageEffects /> <Header /> <main id="main">…</main> <Footer />`
 followed by a `<JsonLd>` graph. **`id="main"` is not optional** — it is the target of the skip link in
 `app/layout.tsx`. Sub-pages open with `<PageHero eyebrow lines lead>` (`lines` is an array of ReactNode,
-one per masked heading line) and then `<Breadcrumbs trail={trail} />`, where the same `trail` array also
-feeds `breadcrumbSchema()`; the two must come from one source or Google discards the graph. The home page
-uses the bespoke `<Hero />`. `<Cta />` closes most pages. Section markup follows a fixed
+one per masked heading line), then go straight into their first section. The home page uses the bespoke
+`<Hero />`. `<Cta />` closes most pages.
+
+**There is no visible breadcrumb nav** — it was removed site-wide. What survives is the `trail: Crumb[]`
+array each page still declares, which exists *only* to feed `breadcrumbSchema()` for the BreadcrumbList
+JSON-LD; `Crumb` now lives in `lib/schema.ts`, not in a component. Don't reintroduce a `<Breadcrumbs>`
+render, and keep `trail` matching the real URL hierarchy — it is the sole description of where a page sits.
+
+That removal is also why the first section after a `.page-hero` carries **`.section-after-hero`** instead of
+the old `style={{ paddingTop: 0 }}`: the breadcrumb nav used to supply the gap under the hero, and without
+it the seam collapsed. `/careers` and the legal pages skip the class because their first section already
+runs full `.section` padding. Later `paddingTop: 0` sections on a page are unrelated — they collapse the gap
+between two adjacent sections and should stay as they are. Section markup follows a fixed
 vocabulary — `.section > .container > .sec-head` with `.sec-eyebrow` / `.sec-title` / `.sec-note` — mirror
 an existing page rather than inventing structure.
 

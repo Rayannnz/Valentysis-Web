@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 export default function PageEffects() {
@@ -14,12 +13,11 @@ export default function PageEffects() {
     reduceMotionRef.current = reduceMotion;
     const cleanups: (() => void)[] = [];
 
-    /* ---------- Loader + hero heading lines ----------
-       These delays sit directly on the critical path: the h1 is the LCP element
+    /* ---------- Hero heading lines ----------
+       This delay sits directly on the critical path: the h1 is the LCP element
        on every page and stays masked until revealHeroLines runs, so the total
        is window.load + this. Kept short deliberately — the earlier 350/500ms
        pair pushed LCP roughly half a second past load for no visual gain. */
-    const markLoaded = () => document.body.classList.add("loaded");
     const revealHeroLines = () => {
       setTimeout(() => {
         document.querySelectorAll("[data-hero-lines] .line-mask").forEach((m, i) => {
@@ -29,25 +27,17 @@ export default function PageEffects() {
         });
       }, reduceMotion ? 0 : 200);
     };
-    const onLoad = () => {
-      setTimeout(markLoaded, reduceMotion ? 0 : 140);
-      revealHeroLines();
-    };
     if (document.readyState === "complete") {
-      onLoad();
+      revealHeroLines();
     } else {
-      window.addEventListener("load", onLoad);
-      cleanups.push(() => window.removeEventListener("load", onLoad));
+      window.addEventListener("load", revealHeroLines);
+      cleanups.push(() => window.removeEventListener("load", revealHeroLines));
     }
-    /* fallbacks if load never settles quickly */
-    const tLoad = setTimeout(markLoaded, 2500);
+    /* fallback if load never settles quickly */
     const tLines = setTimeout(() => {
       document.querySelectorAll("[data-hero-lines] .line-mask").forEach((m) => m.classList.add("in-view"));
     }, 2600);
-    cleanups.push(() => {
-      clearTimeout(tLoad);
-      clearTimeout(tLines);
-    });
+    cleanups.push(() => clearTimeout(tLines));
 
     /* ---------- Scroll progress + back-to-top ---------- */
     let ticking = false;
@@ -197,22 +187,6 @@ export default function PageEffects() {
 
   return (
     <>
-      <div id="loader" aria-hidden="true">
-        <div className="loader-mark">
-          <span>
-            {/* rendered at most 96px square — see the sizes note in Header.tsx */}
-            <Image
-              src="/logo/logo-mark.png"
-              alt="Valentisys"
-              width={256}
-              height={256}
-              sizes="96px"
-              priority
-            />
-          </span>
-        </div>
-      </div>
-
       <div id="progress" ref={progressRef} aria-hidden="true" />
       <div id="nav-veil" aria-hidden="true" />
 

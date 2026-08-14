@@ -1,0 +1,152 @@
+- generic [active] [ref=f1e1]:
+  - link "Skip to main content" [ref=f1e2] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=f1e3]:
+    - generic [ref=f1e4]:
+      - link "Valentisys home" [ref=f1e5] [cursor=pointer]:
+        - /url: /
+        - img "Valentisys" [ref=f1e6]
+      - button "Open menu" [ref=f1e7] [cursor=pointer]
+  - main [ref=f1e11]:
+    - generic [ref=f1e13]:
+      - paragraph [ref=f1e14]: Contact us
+      - heading "Tell us what you need covered." [level=1] [ref=f1e15]:
+        - generic [ref=f1e16]: Tell us what you
+        - generic [ref=f1e18]: need covered.
+      - paragraph [ref=f1e20]: Share a few details and someone who actually runs the work, not a sales rep, will get back to you within one business day.
+    - generic [ref=f1e23]:
+      - generic [ref=f1e24]:
+        - paragraph [ref=f1e25]: Talk to us
+        - heading "Start with the problem, not the paperwork." [level=2] [ref=f1e26]
+        - paragraph [ref=f1e27]: Outsourcing, customer support, digital marketing, apps, web, or AI. Tell us what's slowing you down and we'll come back with scope, timeline, and a clear price before any work starts.
+        - paragraph [ref=f1e28]: Teams are scheduled around your time zone, not ours.
+      - generic [ref=f1e30]:
+        - generic [ref=f1e31]:
+          - generic [ref=f1e32]: Your name*
+          - textbox "Your name" [ref=f1e34]
+        - generic [ref=f1e35]:
+          - generic [ref=f1e36]: Company(optional)
+          - textbox "Company(optional)" [ref=f1e38]
+        - generic [ref=f1e39]:
+          - generic [ref=f1e40]: Email*
+          - textbox "Email" [ref=f1e42]
+        - generic [ref=f1e43]:
+          - generic [ref=f1e44]: Phone number*
+          - textbox "Phone number" [ref=f1e46]
+        - generic [ref=f1e47]:
+          - generic [ref=f1e48]: Message*
+          - textbox "Message" [ref=f1e50]
+        - generic [ref=f1e51]:
+          - text: Leave this field empty
+          - textbox [ref=f1e52]
+        - button "Get Started" [ref=f1e53] [cursor=pointer]
+    - generic [ref=f1e57]:
+      - generic [ref=f1e58]:
+        - generic [ref=f1e59]:
+          - paragraph [ref=f1e60]: Before you write
+          - heading "Questions we get asked first" [level=2] [ref=f1e61]
+        - paragraph [ref=f1e62]: The answers we would give you on a first call, written down so you can decide whether it is worth having one.
+      - generic [ref=f1e63]:
+        - article [ref=f1e64]:
+          - heading "How quickly can you have someone working?" [level=3] [ref=f1e65]
+          - paragraph [ref=f1e66]: For roles we staff regularly — front desk, paralegal support, bookkeeping, customer support — a shortlist usually reaches you within a week, and a trained person is on live work inside two to three weeks. Specialist or unusual briefs take longer, and we will say so at the scoping call rather than after you have signed.
+        - article [ref=f1e67]:
+          - heading "How is the work priced?" [level=3] [ref=f1e68]
+          - paragraph [ref=f1e69]: Scope, hours, and cost are agreed in writing before anyone starts, so the first invoice holds no surprises. Ongoing staffing is priced monthly per person or per agreed capacity; project work such as an app or a website is quoted as a fixed price against a defined scope.
+        - article [ref=f1e70]:
+          - heading "Do we have to sign a long contract?" [level=3] [ref=f1e71]
+          - paragraph [ref=f1e72]: No. There is no minimum term and no lock-in. You can scale down or stop with clear notice. We would rather keep the account by doing the work well than by holding you to a contract you have outgrown.
+        - article [ref=f1e73]:
+          - heading "Where is your team based, and which hours do you cover?" [level=3] [ref=f1e74]
+          - paragraph [ref=f1e75]: Our office is in Lahore, Pakistan, and our teams are scheduled around your time zone and your customers' hours rather than ours. Cover for UK, European, US, and Gulf business hours is routine; tell us the window you need and we will confirm it in the scope.
+        - article [ref=f1e76]:
+          - heading "How do you protect our data and our clients' records?" [level=3] [ref=f1e77]
+          - paragraph [ref=f1e78]: "Everyone signs an NDA before starting. Access is least-privilege: people are given only the systems their role requires, and access is revoked when they roll off. We are used to the handling standards that legal, medical, and financial records carry, and we will work inside your systems and policies rather than copying data into ours."
+        - article [ref=f1e79]:
+          - heading "Can we meet the people before they start?" [level=3] [ref=f1e80]
+          - paragraph [ref=f1e81]: Yes, and we prefer it. We shortlist against your brief and you meet and approve candidates before anyone touches live work. You are not handed an anonymous pool of seats.
+  - contentinfo [ref=f1e82]:
+    - generic [ref=f1e83]:
+      - generic [ref=f1e84]:
+        - generic [ref=f1e85]:
+          - link "Valentisys" [ref=f1e86] [cursor=pointer]:
+            - /url: /
+          - paragraph [ref=f1e87]: Outsourcing, customer support, and digital growth, staffed by trained teams that work like your own.
+        - navigation [ref=f1e88]:
+          - heading "Services" [level=2] [ref=f1e89]
+          - link "All services" [ref=f1e90] [cursor=pointer]:
+            - /url: /services
+          - link "Outsourcing" [ref=f1e91] [cursor=pointer]:
+            - /url: /services/outsourcing
+          - link "Real Customer Support" [ref=f1e92] [cursor=pointer]:
+            - /url: /services/real-customer-support
+          - link "Digital Marketing" [ref=f1e93] [cursor=pointer]:
+            - /url: /services/digital-marketing
+          - link "App Development" [ref=f1e94] [cursor=pointer]:
+            - /url: /services/app-development
+          - link "Web Development" [ref=f1e95] [cursor=pointer]:
+            - /url: /services/web-development
+          - link "AI Solutions" [ref=f1e96] [cursor=pointer]:
+            - /url: /services/ai-solutions
+        - navigation [ref=f1e97]:
+          - heading "Industries" [level=2] [ref=f1e98]
+          - link "All industries" [ref=f1e99] [cursor=pointer]:
+            - /url: /industries
+          - link "Health" [ref=f1e100] [cursor=pointer]:
+            - /url: /industries#health
+          - link "Legal" [ref=f1e101] [cursor=pointer]:
+            - /url: /industries#legal
+          - link "Engineering" [ref=f1e102] [cursor=pointer]:
+            - /url: /industries#engineering
+          - link "Finance" [ref=f1e103] [cursor=pointer]:
+            - /url: /industries#finance
+          - link "Hospitality" [ref=f1e104] [cursor=pointer]:
+            - /url: /industries#hospitality
+        - navigation [ref=f1e105]:
+          - heading "Company" [level=2] [ref=f1e106]
+          - link "About us" [ref=f1e107] [cursor=pointer]:
+            - /url: /about
+          - link "Careers" [ref=f1e108] [cursor=pointer]:
+            - /url: /careers
+          - link "Our approach" [ref=f1e109] [cursor=pointer]:
+            - /url: /#approach
+          - link "How we work" [ref=f1e110] [cursor=pointer]:
+            - /url: /#process
+          - link "Contact" [ref=f1e111] [cursor=pointer]:
+            - /url: /contact
+        - navigation [ref=f1e112]:
+          - heading "Legal" [level=2] [ref=f1e113]
+          - link "Privacy policy" [ref=f1e114] [cursor=pointer]:
+            - /url: /privacy
+          - link "Terms & conditions" [ref=f1e115] [cursor=pointer]:
+            - /url: /terms
+          - link "Cookie policy" [ref=f1e116] [cursor=pointer]:
+            - /url: /cookies
+          - link "Accessibility" [ref=f1e117] [cursor=pointer]:
+            - /url: /accessibility
+          - link "Sitemap" [ref=f1e118] [cursor=pointer]:
+            - /url: /sitemap
+      - generic [ref=f1e119]:
+        - generic [ref=f1e120]: © 2026 Valentisys. All rights reserved.
+        - generic [ref=f1e121]:
+          - link "Privacy" [ref=f1e122] [cursor=pointer]:
+            - /url: /privacy
+          - link "Terms" [ref=f1e123] [cursor=pointer]:
+            - /url: /terms
+          - link "Cookie preferences" [ref=f1e124] [cursor=pointer]:
+            - /url: /cookies#preferences
+  - dialog [ref=f1e125]:
+    - generic [ref=f1e126]:
+      - generic [ref=f1e127]:
+        - heading "Cookies on this site" [level=2] [ref=f1e128]
+        - paragraph [ref=f1e129]:
+          - text: We use cookies that are needed to make the site work. We'd also like to set optional analytics cookies to understand how the site is used. Nothing optional is stored until you choose.
+          - link "Read our cookie policy" [ref=f1e130] [cursor=pointer]:
+            - /url: /cookies
+          - text: .
+      - generic [ref=f1e131]:
+        - button "Accept all" [ref=f1e132] [cursor=pointer]
+        - button "Reject optional" [ref=f1e133] [cursor=pointer]
+        - link "Manage preferences" [ref=f1e134] [cursor=pointer]:
+          - /url: /cookies#preferences
+  - button "Open Next.js Dev Tools" [ref=f1e140] [cursor=pointer]

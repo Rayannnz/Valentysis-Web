@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
-import Breadcrumbs, { type Crumb } from "@/components/Breadcrumbs";
 import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import JsonLd from "@/components/JsonLd";
 import PageEffects from "@/components/PageEffects";
 import PageHero from "@/components/PageHero";
-import { breadcrumbSchema, faqSchema, graph, webPageSchema } from "@/lib/schema";
+import { breadcrumbSchema, type Crumb, faqSchema, graph, webPageSchema } from "@/lib/schema";
 import { buildMetadata } from "@/lib/seo";
 
 const TITLE = "Contact Us: Scope, Timeline & Price Upfront | Valentisys";
@@ -70,9 +69,7 @@ export default function ContactPage() {
           lead="Share a few details and someone who actually runs the work, not a sales rep, will get back to you within one business day."
         />
 
-        <Breadcrumbs trail={trail} />
-
-        <section id="contact" className="section" style={{ paddingTop: 0 }}>
+        <section id="contact" className="section section-after-hero">
           <div className="container">
             <div className="contact-layout">
               <div className="contact-info">
@@ -88,8 +85,7 @@ export default function ContactPage() {
                 {/* no email or postal address here by design — both are published
                     in the Organization schema only, never on the page */}
                 <p className="contact-hours" data-reveal>
-                  Office hours 9:00–18:00, Monday to Friday (PKT). Teams are scheduled around your
-                  time zone, not ours.
+                  Teams are scheduled around your time zone, not ours.
                 </p>
               </div>
 

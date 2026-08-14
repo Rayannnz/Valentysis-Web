@@ -65,29 +65,6 @@ h1,h2,h3,h4{font-family:var(--font-head);font-weight:600;line-height:1.04;letter
 .container{max-width:var(--container);margin:0 auto;padding:0 var(--gutter)}
 
 /* ============================================================
-   Loader
-   ============================================================ */
-#loader{
-  position:fixed;inset:0;z-index:200;background:var(--ink);
-  display:flex;align-items:center;justify-content:center;
-  transition:transform .9s var(--ease-io) .15s;
-}
-html:not(.js) #loader{display:none}
-#loader .loader-mark{
-  font-family:var(--font-head);font-size:clamp(28px,5vw,54px);font-weight:700;color:#fff;
-  overflow:hidden;
-}
-#loader .loader-mark span{
-  display:inline-block;transform:translateY(120%);
-  animation:loaderUp .7s var(--ease-out) .1s forwards;
-}
-#loader .loader-mark img{display:block;height:clamp(64px,10vw,96px);width:auto}
-@keyframes loaderUp{to{transform:none}}
-body.loaded #loader{transform:translateY(-100%)}
-body.loaded #loader .loader-mark span{animation:loaderDown .45s var(--ease-io) forwards}
-@keyframes loaderDown{to{transform:translateY(-120%)}}
-
-/* ============================================================
    Scroll progress
    ============================================================ */
 #progress{
@@ -824,6 +801,11 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
   position:relative;overflow:hidden;
   padding:calc(var(--header-h) + clamp(48px,11vw,118px)) 0 clamp(56px,9vw,90px);
 }
+/* The first content section on a sub-page. It used to sit at padding-top:0 because
+   the breadcrumb nav supplied the gap under the hero; with that removed, this is
+   what keeps the seam from collapsing. Pages whose first section already carries
+   full .section padding (careers, the legal pages) don't use it. */
+.section-after-hero{padding-top:clamp(28px,5vw,48px)}
 .page-hero .container{position:relative;z-index:2}
 .page-hero h1{font-size:clamp(36px,9vw,92px);letter-spacing:-.035em;max-width:14ch}
 .page-hero h1 .accent{color:var(--primary)}
@@ -1005,18 +987,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 /* :focus, not :focus-visible — a skip link is only ever reached by keyboard */
 .skip-link:focus{transform:none;outline:3px solid var(--magenta);outline-offset:-3px}
 
-/* ============================================================
-   Breadcrumbs
-   ============================================================ */
-.breadcrumbs{padding-bottom:clamp(18px,3vw,32px)}
-.breadcrumbs ol{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;font-size:13.5px}
-.breadcrumbs li{display:flex;align-items:center;gap:4px 8px;min-width:0}
-.breadcrumbs a{color:var(--ink-soft);padding:4px 0;border-bottom:1px solid transparent;transition:color .25s,border-color .25s}
-@media (hover:hover){.breadcrumbs a:hover{color:var(--primary-deep);border-bottom-color:currentColor}}
-.breadcrumbs [aria-current="page"]{color:var(--ink);font-weight:600}
-.breadcrumbs .crumb-sep{color:var(--ink-soft);opacity:.45;flex:none}
-/* on the dark careers hero the trail sits on --bg like everywhere else, so no
-   variant is needed — only the industries accordion is dark, and it has no trail */
 
 /* ============================================================
    Contact — hours and FAQ

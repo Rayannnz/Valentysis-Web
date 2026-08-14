@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Breadcrumbs, { type Crumb } from "@/components/Breadcrumbs";
 import Cta from "@/components/Cta";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
@@ -7,7 +6,7 @@ import JsonLd from "@/components/JsonLd";
 import PageEffects from "@/components/PageEffects";
 import PageHero from "@/components/PageHero";
 import ServiceDetail from "@/components/ServiceDetail";
-import { breadcrumbSchema, graph, serviceSchema, webPageSchema } from "@/lib/schema";
+import { breadcrumbSchema, type Crumb, graph, serviceSchema, webPageSchema } from "@/lib/schema";
 import type { Service } from "@/lib/services";
 import { services } from "@/lib/services";
 
@@ -44,9 +43,7 @@ export default function ServicePage({ service }: { service: Service }) {
           lead={service.lead}
         />
 
-        <Breadcrumbs trail={trail} />
-
-        <section className="section" style={{ paddingTop: 0 }}>
+        <section className="section section-after-hero">
           <div className="container">
             <div className="about-story">
               <div className="story-copy">

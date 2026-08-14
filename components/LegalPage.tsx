@@ -1,11 +1,10 @@
 import type { ReactNode } from "react";
-import Breadcrumbs, { type Crumb } from "@/components/Breadcrumbs";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import JsonLd from "@/components/JsonLd";
 import PageEffects from "@/components/PageEffects";
 import PageHero from "@/components/PageHero";
-import { breadcrumbSchema, graph, webPageSchema } from "@/lib/schema";
+import { breadcrumbSchema, type Crumb, graph, webPageSchema } from "@/lib/schema";
 
 export type LegalSection = {
   /** Anchor target — also the contents-list link, so keep it stable. */
@@ -65,8 +64,6 @@ export default function LegalPage({
           ]}
           lead={lead}
         />
-
-        <Breadcrumbs trail={trail} />
 
         <section className="section legal-section">
           <div className="container">

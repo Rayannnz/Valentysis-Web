@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import ApplicationForm from "@/components/ApplicationForm";
-import Breadcrumbs, { type Crumb } from "@/components/Breadcrumbs";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import JsonLd from "@/components/JsonLd";
 import PageEffects from "@/components/PageEffects";
 import PageHero from "@/components/PageHero";
-import { breadcrumbSchema, graph, webPageSchema } from "@/lib/schema";
+import { breadcrumbSchema, type Crumb, graph, webPageSchema } from "@/lib/schema";
 import { buildMetadata } from "@/lib/seo";
 
 const TITLE = "Careers: Remote Roles Across Eight Teams | Valentisys";
@@ -40,8 +39,6 @@ export default function CareersPage() {
           ]}
           lead="We're building teams across real customer support, digital marketing, app and web development, SEO, paid ads, graphic design, and video editing. If you like clear ownership, short feedback loops, and small egos, you'll fit right in."
         />
-
-        <Breadcrumbs trail={trail} />
 
         <section id="apply" className="section application-section">
           <div className="container">

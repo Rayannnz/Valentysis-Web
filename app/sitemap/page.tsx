@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Breadcrumbs, { type Crumb } from "@/components/Breadcrumbs";
 import Cta from "@/components/Cta";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
@@ -8,7 +7,7 @@ import JsonLd from "@/components/JsonLd";
 import PageEffects from "@/components/PageEffects";
 import PageHero from "@/components/PageHero";
 import { industries } from "@/lib/industries";
-import { breadcrumbSchema, graph, webPageSchema } from "@/lib/schema";
+import { breadcrumbSchema, type Crumb, graph, webPageSchema } from "@/lib/schema";
 import { buildMetadata } from "@/lib/seo";
 import { services } from "@/lib/services";
 
@@ -96,9 +95,7 @@ export default function SitemapPage() {
           lead="If you are looking for something specific, it is on this page. Search engines get the machine-readable version at /sitemap.xml."
         />
 
-        <Breadcrumbs trail={trail} />
-
-        <section className="section" style={{ paddingTop: 0 }}>
+        <section className="section section-after-hero">
           <div className="container">
             <div className="sitemap-grid">
               {groups.map(({ heading, note, links, plain }) => (
