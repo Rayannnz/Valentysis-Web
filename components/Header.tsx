@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { type MouseEvent, useEffect, useState } from "react";
 import { industries } from "@/lib/industries";
 import { services } from "@/lib/services";
 
@@ -85,9 +85,17 @@ export default function Header() {
   const veilOn = () => document.body.classList.add("nav-blur");
   const veilOff = () => document.body.classList.remove("nav-blur");
   const closeMenu = () => setMenuOpen(false);
-  const go = () => {
+  const go = (e: MouseEvent<HTMLAnchorElement>) => {
     veilOff();
     closeMenu();
+    /* A mouse click leaves focus sitting on the link, and the mega panel is held
+       open by .nav-item:focus-within as well as :hover — so once the pointer left,
+       the panel stayed up until something else took focus. The pathname effect
+       above blurs it on a route change; clicking a link to the page you are
+       already on never changes pathname, which is the case that got stuck.
+       detail === 0 means the click came from the keyboard: that focus is real
+       navigation state and has to stay where it is. */
+    if (e.detail > 0) e.currentTarget.blur();
   };
 
   return (
@@ -109,8 +117,11 @@ export default function Header() {
           </Link>
 
           <nav className="nav" aria-label="Main navigation">
+            {/* onClick={go} on the panel-less items too: :focus-within also drives
+                the nav underline, so a click on the page you are already on left
+                that lit as well */}
             <div className="nav-item">
-              <Link className="nav-link" href="/">Home</Link>
+              <Link className="nav-link" href="/" onClick={go}>Home</Link>
             </div>
 
             <div
@@ -194,10 +205,10 @@ export default function Header() {
             </div>
 
             <div className="nav-item">
-              <Link className="nav-link" href="/careers">Careers</Link>
+              <Link className="nav-link" href="/careers" onClick={go}>Careers</Link>
             </div>
             <div className="nav-item">
-              <Link className="nav-link" href="/about">About Us</Link>
+              <Link className="nav-link" href="/about" onClick={go}>About Us</Link>
             </div>
           </nav>
 
