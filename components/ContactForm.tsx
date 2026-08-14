@@ -2,11 +2,6 @@
 
 import { useRouter } from "next/navigation";
 import { FormEvent, type ReactNode, useEffect, useRef, useState } from "react";
-import { industries } from "@/lib/industries";
-import { services } from "@/lib/services";
-
-/** Unselected dropdowns are reported as this rather than arriving blank. */
-const FALLBACK = "Others";
 
 /** Must match the <form name> declared in public/__forms.html. */
 const FORM_NAME = "contact";
@@ -14,9 +9,6 @@ const FORM_NAME = "contact";
 /* Netlify parses static HTML at deploy time, so the form is declared in
    public/__forms.html and submissions are posted back to that same file. */
 const FORM_ENDPOINT = "/__forms.html";
-
-const industryOptions = [...industries.map(({ name }) => name), FALLBACK];
-const serviceOptions = [...services.map(({ shortTitle }) => shortTitle), FALLBACK];
 
 function FieldLabel({
   htmlFor,
@@ -46,8 +38,6 @@ function FieldLabel({
 
 export default function ContactForm() {
   const router = useRouter();
-  const [industry, setIndustry] = useState("");
-  const [service, setService] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
   const [error, setError] = useState("");
   const errorRef = useRef<HTMLParagraphElement>(null);
@@ -64,9 +54,6 @@ export default function ContactForm() {
     if (!form.reportValidity()) return;
 
     const fd = new FormData(form);
-    /* required in the UI, but keep the fallback so nothing reaches sales blank */
-    if (!fd.get("industry")) fd.set("industry", FALLBACK);
-    if (!fd.get("service")) fd.set("service", FALLBACK);
 
     setStatus("sending");
     setError("");
@@ -94,8 +81,6 @@ export default function ContactForm() {
       }
 
       form.reset();
-      setIndustry("");
-      setService("");
       setStatus("sent");
       /* a real destination, so the confirmation is linkable and can be set as a
          conversion goal — the inline state below only shows if navigation stalls */
@@ -146,14 +131,14 @@ export default function ContactForm() {
 
         <div className="app-field">
           <FieldLabel htmlFor="c-company" optional>
-            Company name
+            Company
           </FieldLabel>
           <input id="c-company" name="company" type="text" autoComplete="organization" />
         </div>
 
         <div className="app-field">
           <FieldLabel htmlFor="c-email" required>
-            Work email
+            Email
           </FieldLabel>
           <input id="c-email" name="email" type="email" autoComplete="email" required />
         </div>
@@ -166,58 +151,10 @@ export default function ContactForm() {
         </div>
 
         <div className="app-field">
-          <FieldLabel htmlFor="c-industry" required>
-            Choose industry
+          <FieldLabel htmlFor="c-message" required>
+            Message
           </FieldLabel>
-          <div className="app-select-wrap">
-            <select
-              id="c-industry"
-              name="industry"
-              required
-              value={industry}
-              onChange={(e) => setIndustry(e.target.value)}
-            >
-              <option value="" disabled>
-                Select an industry
-              </option>
-              {industryOptions.map((name) => (
-                <option key={name} value={name}>
-                  {name}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-
-        <div className="app-field">
-          <FieldLabel htmlFor="c-service" required>
-            Choose service
-          </FieldLabel>
-          <div className="app-select-wrap">
-            <select
-              id="c-service"
-              name="service"
-              required
-              value={service}
-              onChange={(e) => setService(e.target.value)}
-            >
-              <option value="" disabled>
-                Select a service
-              </option>
-              {serviceOptions.map((name) => (
-                <option key={name} value={name}>
-                  {name}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-
-        <div className="app-field">
-          <FieldLabel htmlFor="c-idea" optional>
-            Tell us about your idea
-          </FieldLabel>
-          <textarea id="c-idea" name="idea" rows={5} />
+          <textarea id="c-message" name="message" rows={5} required />
         </div>
 
         {/* honeypot — hidden from people, named to match netlify-honeypot above */}

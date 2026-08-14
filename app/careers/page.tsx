@@ -8,7 +8,6 @@ import PageEffects from "@/components/PageEffects";
 import PageHero from "@/components/PageHero";
 import { breadcrumbSchema, graph, webPageSchema } from "@/lib/schema";
 import { buildMetadata } from "@/lib/seo";
-import { careersEmail } from "@/lib/site";
 
 const TITLE = "Careers: Remote Roles Across Eight Teams | Valentisys";
 const DESCRIPTION =
@@ -56,10 +55,7 @@ export default function CareersPage() {
                 </h2>
               </div>
               <p className="sec-note" data-reveal>
-                Pick the team you want to join. No separate posts to hunt through. Questions?{" "}
-                <a href={`mailto:${careersEmail}`} className="sec-note-link">
-                  {careersEmail}
-                </a>
+                Pick the team you want to join. No separate posts to hunt through.
               </p>
             </div>
 

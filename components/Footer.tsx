@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { industries } from "@/lib/industries";
 import { services } from "@/lib/services";
-import { careersEmail, contactEmail, site } from "@/lib/site";
+import { site } from "@/lib/site";
 
 type FooterColumn = {
   heading: string;
@@ -107,24 +107,8 @@ export default function Footer() {
               work like your own.
             </p>
 
-            {/* Contact block — email only. The postal address is deliberately not
-                rendered anywhere on the site; it stays in the Organization schema. */}
-            <address className="footer-nap">
-              <a className="footer-nap-line" href={`mailto:${contactEmail}`}>
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                  <rect x="2" y="4" width="20" height="16" rx="2" />
-                  <path d="m2 7 10 6L22 7" />
-                </svg>
-                {contactEmail}
-              </a>
-              <a className="footer-nap-line" href={`mailto:${careersEmail}`}>
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                  <circle cx="9" cy="7" r="4" />
-                </svg>
-                {careersEmail}
-              </a>
-            </address>
+            {/* No contact details rendered here — the emails and the postal
+                address stay in the Organization schema only. */}
 
             {site.social.length > 0 && (
               <div className="socials">
@@ -161,10 +145,6 @@ export default function Footer() {
               )}
             </nav>
           ))}
-        </div>
-
-        <div className="footer-mark" aria-hidden="true">
-          Valentisys
         </div>
 
         <div className="footer-bottom">

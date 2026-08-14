@@ -731,17 +731,6 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
 .contact-info .sec-eyebrow{color:var(--primary-deep)}
 .contact-info h2{font-size:clamp(29px,6.6vw,58px);letter-spacing:-.03em}
 .contact-info p{margin-top:20px;color:var(--ink-soft);max-width:44ch}
-.contact-rows{margin-top:clamp(28px,5vw,44px);display:flex;flex-direction:column;gap:4px;align-items:flex-start}
-.contact-rows a{
-  display:flex;align-items:center;gap:12px;padding:12px 0;font-family:var(--font-head);
-  font-weight:600;font-size:clamp(15px,4.4vw,24px);max-width:100%;position:relative;
-}
-.contact-rows a::after{
-  content:"";position:absolute;left:0;bottom:6px;height:2px;width:100%;background:var(--primary);
-  transform:scaleX(0);transform-origin:0 50%;transition:transform .35s var(--ease-out);
-}
-@media (hover:hover){.contact-rows a:hover::after{transform:scaleX(1)}}
-.contact-rows svg{color:var(--primary-deep);flex:none}
 
 /* the enquiry form on /contact — sits in the right column of .contact-layout */
 .contact-form-card{
@@ -792,17 +781,9 @@ footer{background:var(--footer);color:#fff;padding:clamp(56px,8vw,110px) 0 0;ove
   transition:background .3s,border-color .3s,transform .3s var(--ease-out);
 }
 @media (hover:hover){.socials a:hover{background:var(--primary);border-color:var(--primary);transform:translateY(-4px)}}
-.footer-mark{
-  font-family:var(--font-head);font-weight:700;letter-spacing:-.04em;line-height:.85;
-  /* no px floor — a fixed minimum clipped the wordmark on narrow phones */
-  font-size:clamp(34px,13.5vw,208px);text-align:center;user-select:none;
-  color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.25);
-  transition:color .6s var(--ease-out),-webkit-text-stroke-color .6s;cursor:default;
-}
-@media (hover:hover){.footer-mark:hover{color:var(--primary);-webkit-text-stroke-color:var(--primary)}}
 .footer-bottom{
   display:flex;flex-wrap:wrap;gap:10px 14px;justify-content:space-between;align-items:center;
-  border-top:1px solid rgba(255,255,255,.12);padding:20px 0;margin-top:clamp(28px,5vw,50px);
+  border-top:1px solid rgba(255,255,255,.12);padding:20px 0;
   font-size:13.5px;color:rgba(255,255,255,.5);
 }
 .footer-legal{display:flex;flex-wrap:wrap;gap:8px 22px}
@@ -1041,7 +1022,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
    Contact — hours and FAQ
    ============================================================ */
 .contact-hours{margin-top:18px;font-size:14px;color:var(--ink-soft);max-width:40ch}
-.sec-note-link{text-decoration:underline;text-underline-offset:3px}
 
 .faq-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(20px,3vw,34px)}
 .faq-item{
@@ -1271,18 +1251,6 @@ body:has(.cookie-bar) #toTop{bottom:calc(clamp(14px,4vw,26px) + 132px)}
 @media (hover:hover){.sitemap-group a:hover{color:var(--primary-deep);border-bottom-color:currentColor}}
 .sitemap-group span{font-size:14px;color:var(--ink-soft);line-height:1.6;max-width:52ch}
 @media (max-width:760px){.sitemap-grid{grid-template-columns:minmax(0,1fr)}}
-
-/* ============================================================
-   Footer — NAP block
-   ============================================================ */
-.footer-nap{margin-top:22px;display:flex;flex-direction:column;gap:2px;font-style:normal}
-.footer-nap-line{
-  display:flex;align-items:flex-start;gap:10px;padding:7px 0;
-  font-size:14.5px;color:rgba(255,255,255,.72);line-height:1.5;
-  transition:color .25s;
-}
-.footer-nap-line svg{flex:none;margin-top:3px;color:var(--magenta)}
-@media (hover:hover){a.footer-nap-line:hover{color:#fff}}
 
 /* reduced motion */
 @media (prefers-reduced-motion:reduce){

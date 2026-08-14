@@ -138,7 +138,6 @@ React 19, TypeScript strict, `@/*` maps to the repo root. Every route is statica
 - the `/services/[slug]` route (via `generateStaticParams`) and its metadata
 - the home page service list (`components/Services.tsx`) and the "more services" list on every service page
 - the header mega-menu and the mobile menu (`components/Header.tsx`)
-- the service dropdown on `/contact` (`components/ContactForm.tsx`)
 - the team dropdown on `/careers` (`components/ApplicationForm.tsx`, which excludes `outsourcing` and
   `ai-solutions` by slug and appends roles the site doesn't sell as services)
 
@@ -190,6 +189,13 @@ document on mount and wires everything:
 To animate new markup, add the attribute — there is nothing to register. But the wiring runs in a single
 `useEffect([])`, so elements mounted later (conditional renders, list growth) are never observed.
 
+The same effect also owns **scroll-on-click for links pointing at the current URL**, delegated on the
+document so every link is covered without an `onClick`. Next already scrolls a real navigation, but a link
+to the page you are on doesn't navigate at all — clicking "Home" from halfway down `/` used to leave you
+there. The listener is on the **capture** phase deliberately: `<Link>` calls `preventDefault()` to route on
+the client, so by the bubble phase every internal link looks cancelled. It never prevents anything itself,
+which is what keeps the native industry anchors and their `hashchange` working.
+
 Two constraints to preserve:
 
 - **Progressive enhancement.** `app/layout.tsx` injects an inline script that adds `.js` to `<html>`, and all
@@ -220,8 +226,8 @@ Netlify detects forms by parsing static HTML at deploy time, and these forms are
 So both are *declared* in `public/__forms.html` and both POST back to that same path. **Every field name in
 a React form must exist in `__forms.html`** or Netlify silently drops it from the submission.
 
-**`/contact`** → `ContactForm` posts url-encoded (Netlify rejects JSON). Unselected dropdowns fall back to
-`"Others"` rather than arriving blank.
+**`/contact`** → `ContactForm` posts url-encoded (Netlify rejects JSON). Five fields, in this order:
+`fullName`, `company` (the only optional one), `email`, `phone`, `message`.
 
 **`/careers`** → `ApplicationForm` posts multipart, because the CV is a real file upload — it sets no
 `Content-Type` header so the browser can supply its own boundary. The CV is capped at 8 MB client-side:

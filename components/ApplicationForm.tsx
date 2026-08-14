@@ -21,7 +21,16 @@ const teams = [
   ...extraRoles,
 ];
 
-const CV_ACCEPT = ".pdf,.png,.jpg,.jpeg,.webp,application/pdf,image/*";
+const CV_ACCEPT = ".pdf,application/pdf";
+
+/* `accept` only filters the picker — the OS dialog still lets you switch to
+   "All files", so this is the check that actually holds. The extension is the
+   reliable half: some browsers report an empty `type` for a file they cannot
+   sniff, and older ones use application/x-pdf rather than application/pdf. */
+const isPdf = (file: File) =>
+  /\.pdf$/i.test(file.name) && (!file.type || file.type.toLowerCase().includes("pdf"));
+
+const INVALID_TYPE_MESSAGE = "That file isn't a PDF. Please attach your CV as a PDF.";
 
 /* Netlify caps a whole form request at 8 MiB (8,388,608 bytes) and rejects anything
    larger with a 400 read straight off Content-Length, before the body finishes
@@ -91,6 +100,16 @@ export default function ApplicationForm() {
     e.preventDefault();
     const form = e.currentTarget;
     if (!form.reportValidity()) return;
+
+    /* onChange clears anything that isn't a PDF, so this only catches a file that
+       reached the input another way — cheaper than letting it upload and fail */
+    const cv = cvInputRef.current?.files?.[0];
+    if (cv && !isPdf(cv)) {
+      if (cvInputRef.current) cvInputRef.current.value = "";
+      setCvName("");
+      setError(INVALID_TYPE_MESSAGE);
+      return;
+    }
 
     const fd = new FormData(form);
 
@@ -204,7 +223,7 @@ export default function ApplicationForm() {
           </div>
 
           <div className="app-field app-field-wide">
-            <FieldLabel htmlFor="app-cv" hint="PDF or image (PNG, JPG), max 8 MB." hintId="app-cv-hint">
+            <FieldLabel htmlFor="app-cv" hint="PDF only, max 8 MB." hintId="app-cv-hint">
               CV
             </FieldLabel>
             {/* the native control is layered invisibly over the zone so validation can
@@ -223,6 +242,14 @@ export default function ApplicationForm() {
                   const file = e.target.files?.[0];
                   if (!file) {
                     setCvName("");
+                    return;
+                  }
+                  if (!isPdf(file)) {
+                    /* cleared for the same reason as an oversize file — a CV we
+                       will not send must not look attached */
+                    e.target.value = "";
+                    setCvName("");
+                    setError(INVALID_TYPE_MESSAGE);
                     return;
                   }
                   if (file.size > MAX_CV_BYTES) {
