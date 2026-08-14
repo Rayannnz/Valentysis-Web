@@ -10,7 +10,7 @@ export const metadata: Metadata = buildMetadata({
   description:
     "Your message has reached us. Here is what happens next, how quickly you will hear back, and who to email if you need to add something to it.",
   path: "/thank-you",
-  /* a confirmation page has nothing to rank for and would only cannibalise
+  /* a confirmation page has nothing to rank for and would only cannibalize
      /contact; it exists as a conversion destination, not a landing page */
   noIndex: true,
 });

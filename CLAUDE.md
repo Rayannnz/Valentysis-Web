@@ -131,9 +131,47 @@ Marketing site for Valentisys (outsourcing / customer support / digital agency).
 React 19, TypeScript strict, `@/*` maps to the repo root. Every route is statically prerendered except
 `app/api/contact/route.ts`.
 
+## Copy is US English, everywhere
+
+**This project is US English only.** That covers page copy, headings, form labels, button text, error and
+`aria-label` strings, `alt` text, JSON-LD values, code comments, and this file. British or other-variant
+spelling is a defect here, not a style preference — fix it rather than leaving it as written.
+
+The swaps that actually come up in this repo:
+
+| Not this | This | Where it turned up |
+| --- | --- | --- |
+| enquiry / enquiries | inquiry / inquiries | contact form, thank-you page, privacy, terms, cookies |
+| organisation, recognises, cannibalise, quantisation | organization, recognizes, cannibalize, quantization | schema + script comments |
+| colour, behaviour | color, behavior | CSS comments, accessibility page |
+| centre | center | cookie "preference center", icon script |
+| catalogue | catalog | the service catalog in `lib/schema.ts` |
+| cancelled, greyed-out, de-emphasised | canceled, grayed-out, de-emphasized | effect and consent comments |
+| advert | ad | cookie category descriptions |
+| unauthorised | unauthorized | terms |
+| CV | resume | careers form, privacy, accessibility |
+| afterwards | afterward | privacy, `PageEffects` |
+| 8 August 2026 | August 8, 2026 | `site.legalUpdated.label` |
+
+Date format is part of this: US order is `August 8, 2026`. `legalUpdated.iso` stays ISO-8601 because it
+feeds a `<time datetime>` attribute, which is locale-independent by spec.
+
+Three things are **not** copy and keep their spelling:
+
+- **`name="cv"`** on the careers upload and the `cv*` identifiers around it — a wire contract with Netlify,
+  see the forms section below.
+- **DOM and HTML API names**, above all `aria-labelledby`. Spec spelling, not prose.
+- **Third-party package names and API strings** — `@img/colour` in the lockfile is a package, and anything
+  a library only accepts in the British form stays as the library wants it. Check before assuming: `sharp`
+  defines `gravity.center` and `gravity.centre` as the same constant, so that one is spelled US here.
+
+To re-audit after a copy change, sweep the source for the usual forms — the `-ise`/`-isation`, `-our`,
+`-re`, and doubled-`l` families — and read the hits rather than replacing blind: `specialist`, `flat`, and
+`aria-labelledby` are all correct and all match a naive pattern.
+
 ## Content lives in `lib/`, not in pages
 
-`lib/services.ts` is the single source of truth for the six service lines. One entry drives, at minimum:
+`lib/services.ts` is the single source of truth for the service lines. One entry drives, at minimum:
 
 - the `/services/[slug]` route (via `generateStaticParams`) and its metadata
 - the `/services` index listing (`components/Services.tsx`) and the "more services" list on every service page
@@ -149,6 +187,13 @@ those are written for the page and these are written for the SERP.
 
 Adding a service means editing `lib/services.ts` and nothing else — the footer now maps over `services`
 rather than hardcoding its column. Changing a slug means adding a redirect in `next.config.ts`.
+
+**Never state how many services there are.** No "six capabilities", no "six service lines", no "one
+relationship rather than six" — not in page copy, headings, meta descriptions, or the stat panel. It reads
+as a cap on what the business will take on, and it goes stale the moment a service is added or dropped.
+Write open-ended instead: "Everything under one roof", "Every service line", "One partner". The same goes
+for comments and docs: describe the list, don't count it. Anything that genuinely needs the number should
+derive it from `services.length` rather than spelling it out.
 
 ## The two hub pages: `/services` and `/industries`
 
@@ -210,7 +255,7 @@ The same effect also owns **scroll-on-click for links pointing at the current UR
 document so every link is covered without an `onClick`. Next already scrolls a real navigation, but a link
 to the page you are on doesn't navigate at all — clicking "Home" from halfway down `/` used to leave you
 there. The listener is on the **capture** phase deliberately: `<Link>` calls `preventDefault()` to route on
-the client, so by the bubble phase every internal link looks cancelled. It never prevents anything itself,
+the client, so by the bubble phase every internal link looks canceled. It never prevents anything itself,
 which is what keeps the native industry anchors and their `hashchange` working.
 
 Two constraints to preserve:
@@ -248,9 +293,12 @@ a React form must exist in `__forms.html`** or Netlify silently drops it from th
 **`/contact`** → `ContactForm` posts url-encoded (Netlify rejects JSON). Five fields, in this order:
 `fullName`, `company` (the only optional one), `email`, `phone`, `message`.
 
-**`/careers`** → `ApplicationForm` posts multipart, because the CV is a real file upload — it sets no
-`Content-Type` header so the browser can supply its own boundary. The CV is capped at 8 MB client-side:
-Netlify rejects a request over 8 MiB with a 400 read straight off `Content-Length`.
+**`/careers`** → `ApplicationForm` posts multipart, because the resume is a real file upload — it sets no
+`Content-Type` header so the browser can supply its own boundary. It is capped at 8 MB client-side:
+Netlify rejects a request over 8 MiB with a 400 read straight off `Content-Length`. **The field is
+`name="cv"` on the wire** and must stay that way — `public/__forms.html` declares it and Netlify matches on
+it, so renaming it to `resume` silently drops the upload. Only the visible copy says "Resume"; the `cv*`
+identifiers in the component are deliberately aligned with the wire name, not the label.
 
 Both redirect to `/thank-you?ref=contact|careers` on success, which is the conversion destination. Failures
 are logged with a `[contact]` / `[careers]` prefix so a broken deploy config is diagnosable from devtools.
@@ -293,17 +341,17 @@ Four `lib/` modules carry everything a page asserts about the business:
   `@id` instead of restating the company.
 - **`lib/consent.ts`** — cookie consent, stored in localStorage and read through `useSyncExternalStore`.
 
-The **service catalogue** — `serviceSchema` for all six services — is emitted by `app/services/page.tsx`
+The **service catalog** — a `serviceSchema` node per service — is emitted by `app/services/page.tsx`
 alongside its `CollectionPage` node, because that is the page that links them all. It sat on the home page
 until the listing moved, and moved with it; home now carries only its `WebPage` node. Each
-`/services/[slug]` page still emits its own copy under the same stable `@id`, so the six read as one entity
-described consistently rather than six competing ones.
+`/services/[slug]` page still emits its own copy under the same stable `@id`, so they read as one entity
+described consistently rather than several competing ones.
 
 `robots.txt`, `sitemap.xml`, and the web manifest are generated by `app/robots.ts`, `app/sitemap.ts`, and
 `app/manifest.ts`. Adding a route means adding it in **three** places: `app/sitemap.ts`, the grouped list in
 `app/sitemap/page.tsx` (the human-readable sitemap), and — for anything meant to rank — a real internal link
 from the footer or nav, since a URL that only appears in `sitemap.xml` gets crawled but reads as
-unimportant. In `app/sitemap.ts` the order is deliberate: home, `/services`, the six service pages, then
+unimportant. In `app/sitemap.ts` the order is deliberate: home, `/services`, the service pages, then
 everything else. The four policy pages share `components/LegalPage.tsx` and all read their "last updated"
 date from `site.legalUpdated`.
 

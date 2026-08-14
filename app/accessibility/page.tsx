@@ -69,7 +69,7 @@ const sections: LegalSection[] = [
           only to read.
         </li>
         <li>
-          <strong>Contrast.</strong> Text and interface colours are checked against the 4.5:1 AA
+          <strong>Contrast.</strong> Text and interface colors are checked against the 4.5:1 AA
           threshold, and large text against 3:1.
         </li>
         <li>
@@ -78,7 +78,7 @@ const sections: LegalSection[] = [
         </li>
         <li>
           <strong>Forms.</strong> Every field has a visible, permanently associated label. Errors
-          are announced, described in words rather than by colour alone, and never rely on a
+          are announced, described in words rather than by color alone, and never rely on a
           timeout.
         </li>
         <li>
@@ -105,9 +105,10 @@ const sections: LegalSection[] = [
             source. Some screen readers may read it before you expand the panel.
           </li>
           <li>
-            <strong>File upload on the careers form.</strong> The CV field uses a custom control
-            layered over the native one. It is keyboard operable, but the announcement is less
-            clear than a plain file input. If it gets in your way, email your CV to us directly.
+            <strong>File upload on the careers form.</strong> The resume field uses a custom
+            control layered over the native one. It is keyboard operable, but the announcement is
+            less clear than a plain file input. If it gets in your way, email your resume to us
+            directly.
           </li>
           <li>
             <strong>No third-party audit.</strong> Our testing is internal, using keyboard

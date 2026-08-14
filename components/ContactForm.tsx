@@ -95,12 +95,12 @@ export default function ContactForm() {
     return (
       <div className="contact-form-card" data-reveal>
         <p className="form-success" style={{ display: "block" }} role="status">
-          Thanks, your enquiry is in. Someone who actually runs the work, not a sales rep, will
+          Thanks, your inquiry is in. Someone who actually runs the work, not a sales rep, will
           get back to you within one business day.
         </p>
         <div style={{ marginTop: 28 }}>
           <button className="btn btn-magenta" type="button" onClick={() => setStatus("idle")}>
-            Send another enquiry
+            Send another inquiry
           </button>
         </div>
       </div>
@@ -176,7 +176,7 @@ export default function ContactForm() {
           disabled={sending}
           aria-busy={sending}
         >
-          {sending ? "Sending…" : "Send enquiry"}
+          {sending ? "Sending…" : "Send inquiry"}
           <svg
             className="arr"
             width="17"

@@ -21,7 +21,7 @@ import {
  * chose sees it flash.
  *
  * Accept and Reject carry equal visual weight. A prominent "Accept all" beside
- * a greyed-out refusal is the dark pattern regulators single out, and it is the
+ * a grayed-out refusal is the dark pattern regulators single out, and it is the
  * one thing that makes a consent banner worse than none at all.
  */
 export default function CookieConsent() {
@@ -37,7 +37,7 @@ export default function CookieConsent() {
   const [exiting, setExiting] = useState(false);
   const decided = stored !== SERVER_SNAPSHOT;
 
-  /* the preference centre on /cookies writes through the same helpers, so
+  /* the preference center on /cookies writes through the same helpers, so
      withdrawing consent there brings this back without a reload */
   if (decided && !exiting) return null;
 

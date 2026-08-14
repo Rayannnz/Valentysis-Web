@@ -62,8 +62,12 @@ export const site = {
    */
   social: [] as { label: string; href: string }[],
 
-  /** Shown on all four policy pages, so they can only be revised together. */
-  legalUpdated: { iso: "2026-08-08", label: "8 August 2026" },
+  /**
+   * Shown on all four policy pages, so they can only be revised together.
+   * `label` is US format (month first, comma before the year) to match the rest
+   * of the copy — see the US-EN rule in CLAUDE.md.
+   */
+  legalUpdated: { iso: "2026-08-08", label: "August 8, 2026" },
 
   /** Named in the policies as the processor for hosting and form delivery. */
   processors: [

@@ -15,7 +15,7 @@ const BRAND = "#6D28D9";
 const trimmed = () => sharp(SRC).trim({ threshold: 10 });
 
 /**
- * Mark centred on `bg`, inset so it never touches the edge.
+ * Mark centered on `bg`, inset so it never touches the edge.
  *
  * `palette` must stay false for anything destined for the .ico: Next decodes
  * app/favicon.ico at build time to read its dimensions and rejects non-RGBA
@@ -30,8 +30,10 @@ async function badge(size, bg, insetRatio, palette = true) {
   return sharp({
     create: { width: size, height: size, channels: 4, background: bg },
   })
-    .composite([{ input: mark, gravity: "centre" }])
-    /* palette quantisation — a flat two-tone mark loses nothing and drops ~80% */
+    /* "center" and "centre" are the same constant in sharp (both 0) — US spelling
+       here to match the rest of the project */
+    .composite([{ input: mark, gravity: "center" }])
+    /* palette quantization — a flat two-tone mark loses nothing and drops ~80% */
     .png({ compressionLevel: 9, palette, quality: 90 })
     .toBuffer();
 }
@@ -59,7 +61,7 @@ function buildIco(pngs) {
     e.writeUInt8(size >= 256 ? 0 : size, 1);
     e.writeUInt8(0, 2); // palette size
     e.writeUInt8(0, 3); // reserved
-    e.writeUInt16LE(1, 4); // colour planes
+    e.writeUInt16LE(1, 4); // color planes
     e.writeUInt16LE(32, 6); // bits per pixel
     e.writeUInt32LE(data.length, 8);
     e.writeUInt32LE(offset, 12);

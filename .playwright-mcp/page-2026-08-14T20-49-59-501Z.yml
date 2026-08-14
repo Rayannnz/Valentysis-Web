@@ -1,0 +1,166 @@
+- generic [active] [ref=e1]:
+  - link "Skip to main content" [ref=e2] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=e7]:
+    - generic [ref=e8]:
+      - link "Valentisys home" [ref=e9] [cursor=pointer]:
+        - /url: /
+        - img "Valentisys" [ref=e10]
+      - button "Open menu" [ref=e11] [cursor=pointer]
+  - main [ref=e15]:
+    - generic [ref=e17]:
+      - paragraph [ref=e18]: Services
+      - heading "Everything we do, in one place." [level=1] [ref=e19]:
+        - generic [ref=e20]: Everything we
+        - generic [ref=e22]: do, in one place.
+      - paragraph [ref=e24]: Every service line is staffed by the same trained teams and runs under one contract. Start with the one you need most; add the rest when it earns its place.
+    - navigation "Breadcrumb" [ref=e25]:
+      - list [ref=e27]:
+        - listitem [ref=e28]:
+          - link "Home" [ref=e29] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=e32]:
+          - generic [ref=e33]: Services
+    - generic [ref=e36]:
+      - generic [ref=e37]:
+        - paragraph [ref=e38]: Overview
+        - heading "One partner instead of a stack of vendors" [level=2] [ref=e39]
+        - paragraph [ref=e40]: Most of the work companies outsource is connected. The team answering your customers hears the same complaints your site causes. The people running your back office know which process is the one worth automating. Split that across a stack of suppliers and nobody sees the whole picture.
+        - paragraph [ref=e41]: "We keep it under one roof: staffing and support that carry the day-to-day, and the marketing, app, web and AI work that grows it. Each service below stands on its own — pick one, or combine them and pay for one relationship rather than many."
+      - generic [ref=e42]:
+        - text: +
+        - generic [ref=e43]: One partner
+        - paragraph [ref=e44]: one contract, one account lead, and a price agreed before anything starts.
+    - generic [ref=e46]:
+      - generic [ref=e47]:
+        - generic [ref=e48]:
+          - paragraph [ref=e49]: What we do
+          - heading "Services we provide" [level=2] [ref=e50]
+        - paragraph [ref=e51]: "Everything under one roof: staff your operation, support your customers, and grow with social, apps, web, and AI."
+      - generic [ref=e52]:
+        - link "/01 Outsourcing Dedicated teams and flexible capacity for operations, delivery, and specialized roles, without full-time hiring overhead." [ref=e53] [cursor=pointer]:
+          - /url: /services/outsourcing
+          - generic [ref=e54]: /01
+          - heading "Outsourcing" [level=3] [ref=e55]
+          - paragraph [ref=e56]: Dedicated teams and flexible capacity for operations, delivery, and specialized roles, without full-time hiring overhead.
+        - 'link "/02 Real Customer Support Trained remote staff for real estate, legal, medical, accounting, and ecommerce teams: paralegal work, front desk, scheduling, books, and buyer care." [ref=e60] [cursor=pointer]':
+          - /url: /services/real-customer-support
+          - generic [ref=e61]: /02
+          - heading "Real Customer Support" [level=3] [ref=e62]
+          - paragraph [ref=e63]: "Trained remote staff for real estate, legal, medical, accounting, and ecommerce teams: paralegal work, front desk, scheduling, books, and buyer care."
+        - link "/03 Digital Marketing Social media, content, paid ads, and lead generation, run as one program with reporting tied to sales." [ref=e67] [cursor=pointer]:
+          - /url: /services/digital-marketing
+          - generic [ref=e68]: /03
+          - heading "Digital Marketing" [level=3] [ref=e69]
+          - paragraph [ref=e70]: Social media, content, paid ads, and lead generation, run as one program with reporting tied to sales.
+        - link "/04 App Development iOS, Android, and cross-platform apps, built around one job, submitted to the stores, and supported after launch." [ref=e74] [cursor=pointer]:
+          - /url: /services/app-development
+          - generic [ref=e75]: /04
+          - heading "App Development" [level=3] [ref=e76]
+          - paragraph [ref=e77]: iOS, Android, and cross-platform apps, built around one job, submitted to the stores, and supported after launch.
+        - link "/05 Web Development Custom websites, portals, and web platforms, designed around your business, not a template." [ref=e81] [cursor=pointer]:
+          - /url: /services/web-development
+          - generic [ref=e82]: /05
+          - heading "Web Development" [level=3] [ref=e83]
+          - paragraph [ref=e84]: Custom websites, portals, and web platforms, designed around your business, not a template.
+        - link "/06 AI Solutions Assistants, automations, and document workflows built around a real task, with a person in the loop and results you can measure." [ref=e88] [cursor=pointer]:
+          - /url: /services/ai-solutions
+          - generic [ref=e89]: /06
+          - heading "AI Solutions" [level=3] [ref=e90]
+          - paragraph [ref=e91]: Assistants, automations, and document workflows built around a real task, with a person in the loop and results you can measure.
+    - generic [ref=e95]:
+      - generic: +
+      - generic: ×
+      - generic: ÷
+      - generic [ref=e96]:
+        - heading "Looking for a services partner you can trust?" [level=2] [ref=e97]:
+          - generic [ref=e98]: Looking for a services
+          - generic [ref=e100]: partner you can trust?
+        - paragraph [ref=e102]: "Tell us what you need: outsourcing, customer support, social, apps, or web. We'll scope it, price it, and staff it in days, not months."
+        - link "Get my free estimate" [ref=e103] [cursor=pointer]:
+          - /url: /contact
+  - contentinfo [ref=e106]:
+    - generic [ref=e107]:
+      - generic [ref=e108]:
+        - generic [ref=e109]:
+          - link "Valentisys" [ref=e110] [cursor=pointer]:
+            - /url: /
+          - paragraph [ref=e111]: Outsourcing, customer support, and digital growth, staffed by trained teams that work like your own.
+        - navigation [ref=e112]:
+          - heading "Services" [level=2] [ref=e113]
+          - link "All services" [ref=e114] [cursor=pointer]:
+            - /url: /services
+          - link "Outsourcing" [ref=e115] [cursor=pointer]:
+            - /url: /services/outsourcing
+          - link "Real Customer Support" [ref=e116] [cursor=pointer]:
+            - /url: /services/real-customer-support
+          - link "Digital Marketing" [ref=e117] [cursor=pointer]:
+            - /url: /services/digital-marketing
+          - link "App Development" [ref=e118] [cursor=pointer]:
+            - /url: /services/app-development
+          - link "Web Development" [ref=e119] [cursor=pointer]:
+            - /url: /services/web-development
+          - link "AI Solutions" [ref=e120] [cursor=pointer]:
+            - /url: /services/ai-solutions
+        - navigation [ref=e121]:
+          - heading "Industries" [level=2] [ref=e122]
+          - link "All industries" [ref=e123] [cursor=pointer]:
+            - /url: /industries
+          - link "Health" [ref=e124] [cursor=pointer]:
+            - /url: /industries#health
+          - link "Legal" [ref=e125] [cursor=pointer]:
+            - /url: /industries#legal
+          - link "Engineering" [ref=e126] [cursor=pointer]:
+            - /url: /industries#engineering
+          - link "Finance" [ref=e127] [cursor=pointer]:
+            - /url: /industries#finance
+          - link "Hospitality" [ref=e128] [cursor=pointer]:
+            - /url: /industries#hospitality
+        - navigation [ref=e129]:
+          - heading "Company" [level=2] [ref=e130]
+          - link "About us" [ref=e131] [cursor=pointer]:
+            - /url: /about
+          - link "Careers" [ref=e132] [cursor=pointer]:
+            - /url: /careers
+          - link "Our approach" [ref=e133] [cursor=pointer]:
+            - /url: /#approach
+          - link "How we work" [ref=e134] [cursor=pointer]:
+            - /url: /#process
+          - link "Contact" [ref=e135] [cursor=pointer]:
+            - /url: /contact
+        - navigation [ref=e136]:
+          - heading "Legal" [level=2] [ref=e137]
+          - link "Privacy policy" [ref=e138] [cursor=pointer]:
+            - /url: /privacy
+          - link "Terms & conditions" [ref=e139] [cursor=pointer]:
+            - /url: /terms
+          - link "Cookie policy" [ref=e140] [cursor=pointer]:
+            - /url: /cookies
+          - link "Accessibility" [ref=e141] [cursor=pointer]:
+            - /url: /accessibility
+          - link "Sitemap" [ref=e142] [cursor=pointer]:
+            - /url: /sitemap
+      - generic [ref=e143]:
+        - generic [ref=e144]: © 2026 Valentisys. All rights reserved.
+        - generic [ref=e145]:
+          - link "Privacy" [ref=e146] [cursor=pointer]:
+            - /url: /privacy
+          - link "Terms" [ref=e147] [cursor=pointer]:
+            - /url: /terms
+          - link "Cookie preferences" [ref=e148] [cursor=pointer]:
+            - /url: /cookies#preferences
+  - dialog [ref=e149]:
+    - generic [ref=e150]:
+      - generic [ref=e151]:
+        - heading "Cookies on this site" [level=2] [ref=e152]
+        - paragraph [ref=e153]:
+          - text: We use cookies that are needed to make the site work. We'd also like to set optional analytics cookies to understand how the site is used. Nothing optional is stored until you choose.
+          - link "Read our cookie policy" [ref=e154] [cursor=pointer]:
+            - /url: /cookies
+          - text: .
+      - generic [ref=e155]:
+        - button "Accept all" [ref=e156] [cursor=pointer]
+        - button "Reject optional" [ref=e157] [cursor=pointer]
+        - link "Manage preferences" [ref=e158] [cursor=pointer]:
+          - /url: /cookies#preferences
+  - button "Open Next.js Dev Tools" [ref=e164] [cursor=pointer]

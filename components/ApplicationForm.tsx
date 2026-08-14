@@ -30,19 +30,19 @@ const CV_ACCEPT = ".pdf,application/pdf";
 const isPdf = (file: File) =>
   /\.pdf$/i.test(file.name) && (!file.type || file.type.toLowerCase().includes("pdf"));
 
-const INVALID_TYPE_MESSAGE = "That file isn't a PDF. Please attach your CV as a PDF.";
+const INVALID_TYPE_MESSAGE = "That file isn't a PDF. Please attach your resume as a PDF.";
 
 /* Netlify caps a whole form request at 8 MiB (8,388,608 bytes) and rejects anything
    larger with a 400 read straight off Content-Length, before the body finishes
    uploading — which surfaced here as the generic "something went wrong". Verified
    against the live endpoint: 8,300,000 bytes posts fine, 8,388,608 returns 400.
-   Cap the CV under that so the other fields and multipart boundaries still fit. */
+   Cap the resume under that so the other fields and multipart boundaries still fit. */
 const MAX_CV_BYTES = 8_000_000;
 
 const formatSize = (bytes: number) => `${(bytes / 1_000_000).toFixed(1)} MB`;
 
 const OVERSIZE_MESSAGE = (bytes: number) =>
-  `That CV is ${formatSize(bytes)}. The limit is 8 MB — please attach a smaller file.`;
+  `That resume is ${formatSize(bytes)}. The limit is 8 MB — please attach a smaller file.`;
 
 /** Must match the <form name> declared in public/__forms.html. */
 const FORM_NAME = "careers";
@@ -117,7 +117,7 @@ export default function ApplicationForm() {
     setError("");
 
     try {
-      /* the CV is a real file, so this posts multipart — no Content-Type header,
+      /* the resume is a real file, so this posts multipart — no Content-Type header,
          the browser has to set its own multipart boundary */
       const res = await fetch(FORM_ENDPOINT, { method: "POST", body: fd });
 
@@ -150,7 +150,7 @@ export default function ApplicationForm() {
       <div className="application-card" data-reveal>
         <h3 className="application-title">APPLICATION FORM</h3>
         <p className="form-success" style={{ display: "block" }} role="status">
-          Thanks, your application is in. We review every CV that comes through and will be in
+          Thanks, your application is in. We review every resume that comes through and will be in
           touch if there&apos;s a fit.
         </p>
         <div style={{ marginTop: 28 }}>
@@ -224,10 +224,14 @@ export default function ApplicationForm() {
 
           <div className="app-field app-field-wide">
             <FieldLabel htmlFor="app-cv" hint="PDF only, max 8 MB." hintId="app-cv-hint">
-              CV
+              Resume
             </FieldLabel>
+            {/* The field is named `cv` on the wire because that is what
+                public/__forms.html declares and Netlify matches on — renaming it
+                would silently drop the upload. Only the visible copy is US-EN
+                ("resume"); the identifiers stay aligned with the wire name. */}
             {/* the native control is layered invisibly over the zone so validation can
-                still focus it, while the visible prompt reads "Choose CV" in every browser */}
+                still focus it, while the visible prompt reads "Choose resume" in every browser */}
             <div className="app-file-zone">
               <input
                 ref={cvInputRef}
@@ -245,7 +249,7 @@ export default function ApplicationForm() {
                     return;
                   }
                   if (!isPdf(file)) {
-                    /* cleared for the same reason as an oversize file — a CV we
+                    /* cleared for the same reason as an oversize file — a resume we
                        will not send must not look attached */
                     e.target.value = "";
                     setCvName("");
@@ -270,14 +274,14 @@ export default function ApplicationForm() {
               <button
                 className="app-file-btn"
                 type="button"
-                aria-label="Choose CV file"
+                aria-label="Choose resume file"
                 aria-describedby="app-cv-hint app-cv-name"
                 onClick={() => cvInputRef.current?.click()}
               >
-                Choose CV
+                Choose resume
               </button>
               <span className="app-file-name" id="app-cv-name" aria-live="polite">
-                {cvName || "No CV selected"}
+                {cvName || "No resume selected"}
               </span>
             </div>
           </div>

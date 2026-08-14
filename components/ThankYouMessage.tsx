@@ -26,14 +26,14 @@ const VARIANTS: Record<
   }
 > = {
   contact: {
-    eyebrow: "Enquiry received",
+    eyebrow: "Inquiry received",
     heading: "Thanks — that's",
     accent: "with us.",
     lead: "Someone who actually runs the work, not a sales rep, will read it and reply within one business day.",
     steps: [
       {
         title: "We read it properly",
-        desc: "Your enquiry goes to the person who runs the service you asked about, not into a shared inbox.",
+        desc: "Your inquiry goes to the person who runs the service you asked about, not into a shared inbox.",
       },
       {
         title: "We come back with questions",
@@ -50,12 +50,12 @@ const VARIANTS: Record<
   careers: {
     eyebrow: "Application received",
     heading: "Thanks — your",
-    accent: "CV is in.",
+    accent: "resume is in.",
     lead: "We read every application that comes through. If there is a fit, you will hear from a person, not an autoresponder.",
     steps: [
       {
         title: "A person reviews it",
-        desc: "Someone from the team you applied to reads your CV. No keyword filter decides this.",
+        desc: "Someone from the team you applied to reads your resume. No keyword filter decides this.",
       },
       {
         title: "We reply either way",

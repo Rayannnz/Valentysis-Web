@@ -340,7 +340,7 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
 .btn-white{background:#fff;color:var(--ink)}
 .btn-white::before{background:var(--magenta)}
 /* pointer-gated to match .btn:hover .arr above — on touch the sweep latches after
-   a tap and the button sits in its hover colours until the next repaint */
+   a tap and the button sits in its hover colors until the next repaint */
 @media (hover:hover){
   .btn-primary:hover::before{transform:none}
   .btn-magenta:hover::before{transform:none}
@@ -732,7 +732,7 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
 .contact-info h2{font-size:clamp(29px,6.6vw,58px);letter-spacing:-.03em}
 .contact-info p{margin-top:20px;color:var(--ink-soft);max-width:44ch}
 
-/* the enquiry form on /contact — sits in the right column of .contact-layout */
+/* the inquiry form on /contact — sits in the right column of .contact-layout */
 .contact-form-card{
   background:#fff;border:1px solid var(--line);border-radius:20px;
   padding:clamp(24px,3.4vw,44px);min-width:0;
@@ -763,7 +763,7 @@ footer{background:var(--footer);color:#fff;padding:clamp(56px,8vw,110px) 0 0;ove
 }
 .footer-brand p{color:rgba(255,255,255,.6);font-size:15px;max-width:34ch;margin-top:18px}
 .footer-col{min-width:0}
-/* h2, not h4 — see Footer.tsx. Colour lifted from .45 to .62 white: the old
+/* h2, not h4 — see Footer.tsx. Color lifted from .45 to .62 white: the old
    value measured 4.5:1 on --footer with no margin, and this is 13px uppercase. */
 .footer-col h2{
   font-size:13px;letter-spacing:.2em;text-transform:uppercase;line-height:1.4;
@@ -900,7 +900,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .app-select-wrap select{padding-right:40px;cursor:pointer}
 .app-field-wide{grid-column:1/-1}
 
-/* CV upload — the native input is layered invisibly across the zone (not display:none,
+/* Resume upload — the native input is layered invisibly across the zone (not display:none,
    which would make it unfocusable and break reportValidity) while a real button carries
    the prompt text, since ::file-selector-button's label can't be changed from CSS */
 .app-file-zone{
@@ -1097,7 +1097,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 }
 
 /* ============================================================
-   Cookie consent — banner and preference centre
+   Cookie consent — banner and preference center
    ============================================================ */
 .cookie-bar{
   position:fixed;z-index:110;
@@ -1131,7 +1131,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .cookie-bar-copy p{font-size:14px;line-height:1.6;color:rgba(255,255,255,.76);max-width:70ch}
 .cookie-bar-copy a{color:#fff;text-decoration:underline;text-underline-offset:3px}
 .cookie-bar-actions{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;flex:none}
-/* the two choices are the same size and weight on purpose — a de-emphasised
+/* the two choices are the same size and weight on purpose — a de-emphasized
    reject button is the pattern regulators treat as invalid consent */
 .cookie-bar .cookie-btn{padding:13px 22px;font-size:14.5px}
 .cookie-bar .btn-ghost{border-color:rgba(255,255,255,.55);color:#fff}

@@ -38,7 +38,7 @@ app/            routes; also robots.ts, sitemap.ts, manifest.ts, opengraph-image
 components/     shared UI; only Header, PageEffects, the two forms, ServiceDetail,
                 Industries, Process, and the cookie components are client components
 lib/
-  services.ts   the six service lines — drives routes, nav, footer, and both form dropdowns
+  services.ts   the service lines — drives routes, nav, footer, and both form dropdowns
   industries.ts the five sectors and their #id anchors
   site.ts       business facts: URL, emails, address, service area (single source of truth)
   seo.ts        buildMetadata() — canonical, Open Graph, Twitter from one title/description

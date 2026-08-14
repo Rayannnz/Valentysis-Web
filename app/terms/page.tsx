@@ -42,7 +42,7 @@ const sections: LegalSection[] = [
         <ul className="legal-list">
           <li>use the site for anything unlawful, fraudulent, or harmful;</li>
           <li>
-            attempt to gain unauthorised access to the site, its hosting, or any connected
+            attempt to gain unauthorized access to the site, its hosting, or any connected
             system;
           </li>
           <li>
@@ -77,12 +77,12 @@ const sections: LegalSection[] = [
     ),
   },
   {
-    id: "enquiries-and-applications",
-    heading: "4. Enquiries and job applications",
+    id: "inquiries-and-applications",
+    heading: "4. Inquiries and job applications",
     body: (
       <>
         <p>
-          Submitting an enquiry does not create a contract and does not oblige either of us to
+          Submitting an inquiry does not create a contract and does not oblige either of us to
           proceed. Nothing on this site is an offer capable of acceptance; scope, timeline, and
           price become binding only once set out in a signed document.
         </p>
@@ -123,7 +123,7 @@ const sections: LegalSection[] = [
     heading: "7. Third-party links",
     body: (
       <p>
-        Where we link to another organisation&apos;s site, it is for information only. We do not
+        Where we link to another organization&apos;s site, it is for information only. We do not
         control those sites, we do not endorse their content, and we are not responsible for what
         happens when you visit them. Their terms and privacy policies apply, not ours.
       </p>

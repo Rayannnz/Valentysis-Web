@@ -78,7 +78,7 @@ export default function NotFound() {
                 <h2 className="sec-title">Our services</h2>
               </div>
               <p className="sec-note">
-                Six capabilities under one roof. If you arrived from an old link, the page you
+                Everything under one roof. If you arrived from an old link, the page you
                 wanted is most likely one of these.
               </p>
             </div>

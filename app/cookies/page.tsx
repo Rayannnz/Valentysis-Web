@@ -95,7 +95,7 @@ const sections: LegalSection[] = [
             people arrive. Off unless you turn it on.
           </li>
           <li>
-            <strong>Marketing</strong> — measuring whether an advert led to an enquiry. Off unless
+            <strong>Marketing</strong> — measuring whether an ad led to an inquiry. Off unless
             you turn it on.
           </li>
         </ul>

@@ -21,7 +21,7 @@ export const metadata: Metadata = buildMetadata({
   path: "/",
 });
 
-/* the service catalogue moved to /services with the listing — the Service nodes
+/* the service catalog moved to /services with the listing — the Service nodes
    belong on the page that actually links them, not here */
 const homeGraph = graph(webPageSchema({ name: TITLE, description: DESCRIPTION, path: "/" }));
 

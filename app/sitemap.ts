@@ -35,8 +35,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }));
 
-  /* the services index and the six service pages sit directly after the home
-     page: they are the commercial entry points, and the order is the crawl hint */
+  /* the services index and the service pages sit directly after the home page:
+     they are the commercial entry points, and the order is the crawl hint */
   const [home, servicesIndex, ...rest] = pages;
 
   return [home, servicesIndex, ...servicePages, ...rest].map(

@@ -42,7 +42,7 @@ export default function LegalPage({
   updated: string;
   updatedIso: string;
   sections: LegalSection[];
-  /** Rendered after the sections — used by /cookies for the preference centre. */
+  /** Rendered after the sections — used by /cookies for the preference center. */
   children?: ReactNode;
 }) {
   const trail: Crumb[] = [

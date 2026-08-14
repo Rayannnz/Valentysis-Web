@@ -43,7 +43,7 @@ const sections: LegalSection[] = [
     body: (
       <>
         <p>We only collect information you choose to give us, plus the technical records any website generates.</p>
-        <h3>Enquiries</h3>
+        <h3>Inquiries</h3>
         <p>
           When you submit the form on our <Link href="/contact">contact page</Link> we collect
           your name, work email address, contact number, the industry and service you selected,
@@ -52,8 +52,8 @@ const sections: LegalSection[] = [
         <h3>Job applications</h3>
         <p>
           When you apply through our <Link href="/careers">careers page</Link> we collect your
-          name, email address, contact number, the team you applied to, and the CV file you
-          attach. Your CV may contain further personal information; we only use what is relevant
+          name, email address, contact number, the team you applied to, and the resume file you
+          attach. Your resume may contain further personal information; we only use what is relevant
           to assessing your application.
         </p>
         <h3>Technical records</h3>
@@ -77,7 +77,7 @@ const sections: LegalSection[] = [
       <>
         <ul className="legal-list">
           <li>
-            <strong>To answer your enquiry and quote for work.</strong> Our lawful basis is the
+            <strong>To answer your inquiry and quote for work.</strong> Our lawful basis is the
             steps taken at your request before entering a contract, and our legitimate interest
             in responding to people who approach us.
           </li>
@@ -155,16 +155,16 @@ const sections: LegalSection[] = [
     body: (
       <ul className="legal-list">
         <li>
-          <strong>Enquiries that do not become work:</strong> up to 24 months, so we can pick up
+          <strong>Inquiries that do not become work:</strong> up to 24 months, so we can pick up
           a conversation you return to, then deleted.
         </li>
         <li>
-          <strong>Enquiries that become work:</strong> kept for the life of the engagement and
-          for as long afterwards as tax and contract law requires.
+          <strong>Inquiries that become work:</strong> kept for the life of the engagement and
+          for as long afterward as tax and contract law requires.
         </li>
         <li>
           <strong>Unsuccessful applications:</strong> up to 12 months, so we can approach you
-          about a later opening. Tell us and we will delete your CV sooner.
+          about a later opening. Tell us and we will delete your resume sooner.
         </li>
         <li>
           <strong>Server logs:</strong> retained by our host on its own rolling schedule,
@@ -237,7 +237,7 @@ const sections: LegalSection[] = [
           Privacy questions and rights requests:{" "}
           <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
           <br />
-          Recruitment and CV questions:{" "}
+          Recruitment and resume questions:{" "}
           <a href={`mailto:${careersEmail}`}>{careersEmail}</a>
         </p>
         <p className="legal-address">{site.legalName}</p>

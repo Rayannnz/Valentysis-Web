@@ -17,7 +17,7 @@ export const CONSENT_KEY = "valentisys.consent.v1";
 export const CONSENT_EVENT = "valentisys:consent";
 
 export type Consent = {
-  /** Always true. Listed so the preference centre can show it as locked. */
+  /** Always true. Listed so the preference center can show it as locked. */
   necessary: true;
   analytics: boolean;
   marketing: boolean;

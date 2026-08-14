@@ -56,7 +56,7 @@ const nextConfig: NextConfig = {
       },
       /* No rule for /_next/static — those files are content-hashed and Next
          already serves them immutable for a year. Overriding it makes the
-         build warn that it can break dev behaviour. */
+         build warn that it can break dev behavior. */
       {
         /* logos and icons are stable but not hashed — a day of cache with a
            week of stale-while-revalidate keeps them fast without pinning a

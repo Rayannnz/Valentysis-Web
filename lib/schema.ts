@@ -1,7 +1,7 @@
 /**
  * JSON-LD builders. Every graph node is given a stable `@id` so pages can
- * reference the organisation and site instead of restating them, which is what
- * keeps a crawler from reading six service pages as six different companies.
+ * reference the organization and site instead of restating them, which is what
+ * keeps a crawler from reading the service pages as different companies.
  *
  * Blank fields in lib/site.ts are dropped rather than emitted empty — an
  * `address` missing its postal code validates; one containing "" does not.
@@ -94,7 +94,7 @@ export function websiteSchema(): Json {
 
 /**
  * ProfessionalService rather than plain LocalBusiness: it is the narrower type
- * Google recognises for a services firm, and it inherits every LocalBusiness
+ * Google recognizes for a services firm, and it inherits every LocalBusiness
  * property, so nothing is lost by being specific.
  */
 export function localBusinessSchema(): Json {
@@ -139,9 +139,9 @@ export function breadcrumbSchema(trail: { name: string; path: string }[]): Json 
 export function serviceSchema(service: Service): Json {
   const url = absoluteUrl(`/services/${service.slug}`);
 
-  /* the accordion groups are the real catalogue where a service has one;
+  /* the accordion groups are the real catalog where a service has one;
      otherwise the "How we deliver" cards are the closest equivalent */
-  const catalogueItems = service.detail
+  const catalogItems = service.detail
     ? service.detail.groups.flatMap((group) =>
         group.items.map((item) => ({ name: item.title, description: item.desc, group: group.name }))
       )
@@ -159,7 +159,7 @@ export function serviceSchema(service: Service): Json {
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: `${service.shortTitle} services`,
-      itemListElement: catalogueItems.map((item) => ({
+      itemListElement: catalogItems.map((item) => ({
         "@type": "Offer",
         itemOffered: compact({
           "@type": "Service",

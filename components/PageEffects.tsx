@@ -78,7 +78,7 @@ export default function PageEffects() {
        mega-menus, the mobile menu, the footer, and every in-page CTA are covered
        at once. Nothing is prevented here — <Link> still pushes the URL, and the
        native industry anchors still fire their own hash handling; this only moves
-       the viewport afterwards. */
+       the viewport afterward. */
     const scrollToHref = (hash: string) => {
       const behavior: ScrollBehavior = reduceMotion ? "auto" : "smooth";
       if (!hash) {
@@ -120,7 +120,7 @@ export default function PageEffects() {
       requestAnimationFrame(() => scrollToHref(url.hash));
     };
     /* capture, not bubble: <Link> calls preventDefault to route on the client, so
-       by the bubble phase every internal link looks cancelled — and capture also
+       by the bubble phase every internal link looks canceled — and capture also
        survives a handler that stops propagation on the way up */
     document.addEventListener("click", onDocumentClick, true);
     cleanups.push(() => document.removeEventListener("click", onDocumentClick, true));

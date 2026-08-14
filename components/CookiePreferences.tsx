@@ -28,7 +28,7 @@ const CATEGORIES = [
   {
     key: "marketing" as const,
     name: "Marketing",
-    desc: "Lets us measure whether an advert led to an enquiry, and avoid showing you the same one repeatedly.",
+    desc: "Lets us measure whether an ad led to an inquiry, and avoid showing you the same one repeatedly.",
     locked: false,
   },
 ];

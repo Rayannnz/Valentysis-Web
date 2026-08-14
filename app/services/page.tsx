@@ -13,7 +13,7 @@ import { services } from "@/lib/services";
 
 const TITLE = "Services: Outsourcing, Support & Growth | Valentisys";
 const DESCRIPTION =
-  "The six service lines Valentisys delivers — outsourcing, customer support, digital marketing, app and web development, and AI — and who each one is for.";
+  "The service lines Valentisys delivers — outsourcing, customer support, digital marketing, app and web development, AI and more — and who each one is for.";
 
 export const metadata: Metadata = buildMetadata({
   title: TITLE,
@@ -26,9 +26,10 @@ const trail: Crumb[] = [
   { name: "Services", path: "/services" },
 ];
 
-/* every service is linked from this page, so the whole catalogue belongs in its
+/* every service is linked from this page, so the whole catalog belongs in its
    graph — it is the strongest entity signal the site can send, and it moved here
-   with the listing when Services stopped being a home-page section */
+   with the listing when Services stopped being a home-page section. Mapped from
+   `services`, never a hardcoded list or count. */
 const servicesGraph = graph(
   webPageSchema({
     name: TITLE,
@@ -54,7 +55,7 @@ export default function ServicesPage() {
               do, <span className="accent">in one place</span>.
             </>,
           ]}
-          lead="Six service lines, staffed by the same trained teams and run under one contract. Start with the one you need most; add the rest when it earns its place."
+          lead="Every service line is staffed by the same trained teams and runs under one contract. Start with the one you need most; add the rest when it earns its place."
         />
 
         <Breadcrumbs trail={trail} />
@@ -65,23 +66,23 @@ export default function ServicesPage() {
               <div className="story-copy">
                 <p className="sec-eyebrow" data-reveal>Overview</p>
                 <h2 className="sec-title" data-reveal style={{ marginBottom: 26 }}>
-                  One partner instead of six vendors
+                  One partner instead of a stack of vendors
                 </h2>
                 <p data-reveal>
                   Most of the work companies outsource is connected. The team answering your
                   customers hears the same complaints your site causes. The people running your
                   back office know which process is the one worth automating. Split that across
-                  six suppliers and nobody sees the whole picture.
+                  a stack of suppliers and nobody sees the whole picture.
                 </p>
                 <p data-reveal>
                   We keep it under one roof: staffing and support that carry the day-to-day, and
                   the marketing, app, web and AI work that grows it. Each service below stands on
                   its own — pick one, or combine them and pay for one relationship rather than
-                  six.
+                  many.
                 </p>
               </div>
               <div className="story-panel" data-reveal="scale">
-                <span className="big">Six services</span>
+                <span className="big">One partner</span>
                 <p>one contract, one account lead, and a price agreed before anything starts.</p>
               </div>
             </div>
