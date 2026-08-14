@@ -27,12 +27,9 @@ export default function ServicePage({ service }: { service: Service }) {
   const others = services.filter((s) => s.slug !== service.slug);
   const path = `/services/${service.slug}`;
 
-  /* Services is a listing section on the home page rather than its own route,
-     so the middle crumb points at that anchor — a crumb to a 404 is worse than
-     a shallower trail */
   const trail: Crumb[] = [
     { name: "Home", path: "/" },
-    { name: "Services", path: "/#services" },
+    { name: "Services", path: "/services" },
     { name: service.shortTitle, path },
   ];
 

@@ -16,6 +16,7 @@ type Entry = {
 
 const pages: Entry[] = [
   { path: "/", changeFrequency: "weekly", priority: 1 },
+  { path: "/services", changeFrequency: "monthly", priority: 0.9 },
   { path: "/industries", changeFrequency: "monthly", priority: 0.8 },
   { path: "/about", changeFrequency: "monthly", priority: 0.7 },
   { path: "/contact", changeFrequency: "monthly", priority: 0.9 },
@@ -34,9 +35,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }));
 
-  /* service pages sit directly after the home page: they are the commercial
-     entry points, and the order is the crawl hint */
-  return [pages[0], ...servicePages, ...pages.slice(1)].map(
+  /* the services index and the six service pages sit directly after the home
+     page: they are the commercial entry points, and the order is the crawl hint */
+  const [home, servicesIndex, ...rest] = pages;
+
+  return [home, servicesIndex, ...servicePages, ...rest].map(
     ({ path, changeFrequency, priority }) => ({
       url: absoluteUrl(path),
       lastModified,

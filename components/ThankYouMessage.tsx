@@ -138,7 +138,7 @@ export default function ThankYouMessage({ variant }: { variant: ThankYouVariant 
                 <path d="M7 17L17 7M9 7h8v8" />
               </svg>
             </Link>
-            <Link className="btn btn-ghost" href="/#services" data-magnetic>
+            <Link className="btn btn-ghost" href="/services" data-magnetic>
               Explore our services
             </Link>
           </div>

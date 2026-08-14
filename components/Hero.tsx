@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Hero() {
   return (
     <section id="hero">
@@ -42,9 +44,11 @@ export default function Hero() {
               <path d="M7 17L17 7M9 7h8v8" />
             </svg>
           </a>
-          <a className="btn btn-ghost" href="#services" data-magnetic>
+          {/* a real route now, not the old #services anchor — so <Link>, which
+              is also what no-html-link-for-pages requires */}
+          <Link className="btn btn-ghost" href="/services" data-magnetic>
             Explore services
-          </a>
+          </Link>
         </div>
       </div>
     </section>

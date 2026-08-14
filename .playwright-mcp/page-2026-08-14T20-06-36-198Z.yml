@@ -1,0 +1,174 @@
+- generic [active] [ref=e1]:
+  - link "Skip to main content" [ref=e2] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=e7]:
+    - generic [ref=e8]:
+      - link "Valentisys home" [ref=e9] [cursor=pointer]:
+        - /url: /
+        - img "Valentisys" [ref=e10]
+      - navigation "Main navigation" [ref=e11]:
+        - link "Home" [ref=e13] [cursor=pointer]:
+          - /url: /
+        - link "Services" [ref=e15] [cursor=pointer]:
+          - /url: /services
+        - link "Industries" [ref=e19] [cursor=pointer]:
+          - /url: /industries
+        - link "Careers" [ref=e23] [cursor=pointer]:
+          - /url: /careers
+        - link "About Us" [ref=e25] [cursor=pointer]:
+          - /url: /about
+      - link "Contact" [ref=e26] [cursor=pointer]:
+        - /url: /contact
+  - main [ref=e28]:
+    - generic [ref=e30]:
+      - paragraph [ref=e31]: Services
+      - heading "Everything we do, in one place." [level=1] [ref=e32]:
+        - generic [ref=e33]: Everything we
+        - generic [ref=e35]: do, in one place.
+      - paragraph [ref=e37]: Six service lines, staffed by the same trained teams and run under one contract. Start with the one you need most; add the rest when it earns its place.
+    - navigation "Breadcrumb" [ref=e38]:
+      - list [ref=e40]:
+        - listitem [ref=e41]:
+          - link "Home" [ref=e42] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=e45]:
+          - generic [ref=e46]: Services
+    - generic [ref=e49]:
+      - generic [ref=e50]:
+        - paragraph [ref=e51]: Overview
+        - heading "One partner instead of six vendors" [level=2] [ref=e52]
+        - paragraph [ref=e53]: Most of the work companies outsource is connected. The team answering your customers hears the same complaints your site causes. The people running your back office know which process is the one worth automating. Split that across six suppliers and nobody sees the whole picture.
+        - paragraph [ref=e54]: "We keep it under one roof: staffing and support that carry the day-to-day, and the marketing, app, web and AI work that grows it. Each service below stands on its own — pick one, or combine them and pay for one relationship rather than six."
+      - generic [ref=e55]:
+        - text: +
+        - generic [ref=e56]: Six services
+        - paragraph [ref=e57]: one contract, one account lead, and a price agreed before anything starts.
+    - generic [ref=e59]:
+      - generic [ref=e60]:
+        - generic [ref=e61]:
+          - paragraph [ref=e62]: What we do
+          - heading "Services we provide" [level=2] [ref=e63]
+        - paragraph [ref=e64]: "Six capabilities under one roof: staff your operation, support your customers, and grow with social, apps, web, and AI."
+      - generic [ref=e65]:
+        - link "/01 Outsourcing Dedicated teams and flexible capacity for operations, delivery, and specialized roles, without full-time hiring overhead." [ref=e66] [cursor=pointer]:
+          - /url: /services/outsourcing
+          - generic [ref=e67]: /01
+          - heading "Outsourcing" [level=3] [ref=e68]
+          - paragraph [ref=e69]: Dedicated teams and flexible capacity for operations, delivery, and specialized roles, without full-time hiring overhead.
+        - 'link "/02 Real Customer Support Trained remote staff for real estate, legal, medical, accounting, and ecommerce teams: paralegal work, front desk, scheduling, books, and buyer care." [ref=e73] [cursor=pointer]':
+          - /url: /services/real-customer-support
+          - generic [ref=e74]: /02
+          - heading "Real Customer Support" [level=3] [ref=e75]
+          - paragraph [ref=e76]: "Trained remote staff for real estate, legal, medical, accounting, and ecommerce teams: paralegal work, front desk, scheduling, books, and buyer care."
+        - link "/03 Digital Marketing Social media, content, paid ads, and lead generation, run as one program with reporting tied to sales." [ref=e80] [cursor=pointer]:
+          - /url: /services/digital-marketing
+          - generic [ref=e81]: /03
+          - heading "Digital Marketing" [level=3] [ref=e82]
+          - paragraph [ref=e83]: Social media, content, paid ads, and lead generation, run as one program with reporting tied to sales.
+        - link "/04 App Development iOS, Android, and cross-platform apps, built around one job, submitted to the stores, and supported after launch." [ref=e87] [cursor=pointer]:
+          - /url: /services/app-development
+          - generic [ref=e88]: /04
+          - heading "App Development" [level=3] [ref=e89]
+          - paragraph [ref=e90]: iOS, Android, and cross-platform apps, built around one job, submitted to the stores, and supported after launch.
+        - link "/05 Web Development Custom websites, portals, and web platforms, designed around your business, not a template." [ref=e94] [cursor=pointer]:
+          - /url: /services/web-development
+          - generic [ref=e95]: /05
+          - heading "Web Development" [level=3] [ref=e96]
+          - paragraph [ref=e97]: Custom websites, portals, and web platforms, designed around your business, not a template.
+        - link "/06 AI Solutions Assistants, automations, and document workflows built around a real task, with a person in the loop and results you can measure." [ref=e101] [cursor=pointer]:
+          - /url: /services/ai-solutions
+          - generic [ref=e102]: /06
+          - heading "AI Solutions" [level=3] [ref=e103]
+          - paragraph [ref=e104]: Assistants, automations, and document workflows built around a real task, with a person in the loop and results you can measure.
+    - generic [ref=e108]:
+      - generic: +
+      - generic: ×
+      - generic: ÷
+      - generic [ref=e109]:
+        - heading "Looking for a services partner you can trust?" [level=2] [ref=e110]:
+          - generic [ref=e111]: Looking for a services
+          - generic [ref=e113]: partner you can trust?
+        - paragraph [ref=e115]: "Tell us what you need: outsourcing, customer support, social, apps, or web. We'll scope it, price it, and staff it in days, not months."
+        - link "Get my free estimate" [ref=e116] [cursor=pointer]:
+          - /url: /contact
+  - contentinfo [ref=e119]:
+    - generic [ref=e120]:
+      - generic [ref=e121]:
+        - generic [ref=e122]:
+          - link "Valentisys" [ref=e123] [cursor=pointer]:
+            - /url: /
+          - paragraph [ref=e124]: Outsourcing, customer support, and digital growth, staffed by trained teams that work like your own.
+        - navigation [ref=e125]:
+          - heading "Services" [level=2] [ref=e126]
+          - link "Outsourcing" [ref=e127] [cursor=pointer]:
+            - /url: /services/outsourcing
+          - link "Real Customer Support" [ref=e128] [cursor=pointer]:
+            - /url: /services/real-customer-support
+          - link "Digital Marketing" [ref=e129] [cursor=pointer]:
+            - /url: /services/digital-marketing
+          - link "App Development" [ref=e130] [cursor=pointer]:
+            - /url: /services/app-development
+          - link "Web Development" [ref=e131] [cursor=pointer]:
+            - /url: /services/web-development
+          - link "AI Solutions" [ref=e132] [cursor=pointer]:
+            - /url: /services/ai-solutions
+        - navigation [ref=e133]:
+          - heading "Industries" [level=2] [ref=e134]
+          - link "Health" [ref=e135] [cursor=pointer]:
+            - /url: /industries#health
+          - link "Legal" [ref=e136] [cursor=pointer]:
+            - /url: /industries#legal
+          - link "Engineering" [ref=e137] [cursor=pointer]:
+            - /url: /industries#engineering
+          - link "Finance" [ref=e138] [cursor=pointer]:
+            - /url: /industries#finance
+          - link "Hospitality" [ref=e139] [cursor=pointer]:
+            - /url: /industries#hospitality
+        - navigation [ref=e140]:
+          - heading "Company" [level=2] [ref=e141]
+          - link "About us" [ref=e142] [cursor=pointer]:
+            - /url: /about
+          - link "Careers" [ref=e143] [cursor=pointer]:
+            - /url: /careers
+          - link "Our approach" [ref=e144] [cursor=pointer]:
+            - /url: /#approach
+          - link "How we work" [ref=e145] [cursor=pointer]:
+            - /url: /#process
+          - link "Contact" [ref=e146] [cursor=pointer]:
+            - /url: /contact
+        - navigation [ref=e147]:
+          - heading "Legal" [level=2] [ref=e148]
+          - link "Privacy policy" [ref=e149] [cursor=pointer]:
+            - /url: /privacy
+          - link "Terms & conditions" [ref=e150] [cursor=pointer]:
+            - /url: /terms
+          - link "Cookie policy" [ref=e151] [cursor=pointer]:
+            - /url: /cookies
+          - link "Accessibility" [ref=e152] [cursor=pointer]:
+            - /url: /accessibility
+          - link "Sitemap" [ref=e153] [cursor=pointer]:
+            - /url: /sitemap
+      - generic [ref=e154]:
+        - generic [ref=e155]: © 2026 Valentisys. All rights reserved.
+        - generic [ref=e156]:
+          - link "Privacy" [ref=e157] [cursor=pointer]:
+            - /url: /privacy
+          - link "Terms" [ref=e158] [cursor=pointer]:
+            - /url: /terms
+          - link "Cookie preferences" [ref=e159] [cursor=pointer]:
+            - /url: /cookies#preferences
+  - dialog [ref=e160]:
+    - generic [ref=e161]:
+      - generic [ref=e162]:
+        - heading "Cookies on this site" [level=2] [ref=e163]
+        - paragraph [ref=e164]:
+          - text: We use cookies that are needed to make the site work. We'd also like to set optional analytics cookies to understand how the site is used. Nothing optional is stored until you choose.
+          - link "Read our cookie policy" [ref=e165] [cursor=pointer]:
+            - /url: /cookies
+          - text: .
+      - generic [ref=e166]:
+        - button "Accept all" [ref=e167] [cursor=pointer]
+        - button "Reject optional" [ref=e168] [cursor=pointer]
+        - link "Manage preferences" [ref=e169] [cursor=pointer]:
+          - /url: /cookies#preferences
+  - button "Open Next.js Dev Tools" [ref=e175] [cursor=pointer]

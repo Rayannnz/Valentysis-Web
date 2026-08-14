@@ -31,7 +31,6 @@ const nextConfig: NextConfig = {
       { source: "/terms-and-conditions", destination: "/terms", permanent: true },
       { source: "/terms-of-service", destination: "/terms", permanent: true },
       { source: "/cookie-policy", destination: "/cookies", permanent: true },
-      { source: "/services", destination: "/#services", permanent: false },
     ];
   },
 

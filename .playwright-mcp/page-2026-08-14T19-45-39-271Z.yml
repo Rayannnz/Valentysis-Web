@@ -1,0 +1,266 @@
+- generic [active] [ref=e1]:
+  - link "Skip to main content" [ref=e2] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=e7]:
+    - generic [ref=e8]:
+      - link "Valentisys home" [ref=e9] [cursor=pointer]:
+        - /url: /
+        - img "Valentisys" [ref=e10]
+      - navigation "Main navigation" [ref=e11]:
+        - link "Home" [ref=e13] [cursor=pointer]:
+          - /url: /
+        - link "Services" [ref=e15] [cursor=pointer]:
+          - /url: /#services
+        - link "Industries" [ref=e19] [cursor=pointer]:
+          - /url: /industries
+        - link "Careers" [ref=e23] [cursor=pointer]:
+          - /url: /careers
+        - link "About Us" [ref=e25] [cursor=pointer]:
+          - /url: /about
+      - link "Contact" [ref=e26] [cursor=pointer]:
+        - /url: /contact
+  - main [ref=e28]:
+    - generic [ref=e29]:
+      - generic [ref=e30]:
+        - generic [ref=e31]: Staff
+        - generic [ref=e32]: teams that plug straight in
+      - generic [ref=e33]:
+        - generic [ref=e34]: Support
+        - generic [ref=e35]: customers feel heard
+      - generic [ref=e36]:
+        - generic [ref=e37]: Growth
+        - generic [ref=e38]: social that builds reach
+      - generic [ref=e39]:
+        - paragraph [ref=e40]: Outsourcing, support & growth
+        - heading "Staff, support, and grow your business." [level=1] [ref=e41]:
+          - generic [ref=e42]: Staff, support,
+          - generic [ref=e44]: "& grow your"
+          - generic [ref=e46]: business.
+        - paragraph [ref=e48]: Dedicated remote staff and customer support for health, legal, engineering, finance, and hospitality, plus the social, app, and web work that grows what you've built.
+        - generic [ref=e49]:
+          - link "Get in touch" [ref=e50] [cursor=pointer]:
+            - /url: /contact
+          - link "Explore services" [ref=e53] [cursor=pointer]:
+            - /url: "#services"
+    - generic [ref=e55]:
+      - generic [ref=e56]:
+        - generic [ref=e57]:
+          - paragraph [ref=e58]: What we do
+          - heading "Services we provide" [level=2] [ref=e59]
+        - paragraph [ref=e60]: "Six capabilities under one roof: staff your operation, support your customers, and grow with social, apps, web, and AI."
+      - generic [ref=e61]:
+        - link "/01 Outsourcing Dedicated teams and flexible capacity for operations, delivery, and specialized roles, without full-time hiring overhead." [ref=e62] [cursor=pointer]:
+          - /url: /services/outsourcing
+          - generic [ref=e63]: /01
+          - heading "Outsourcing" [level=3] [ref=e64]
+          - paragraph [ref=e65]: Dedicated teams and flexible capacity for operations, delivery, and specialized roles, without full-time hiring overhead.
+        - 'link "/02 Real Customer Support Trained remote staff for real estate, legal, medical, accounting, and ecommerce teams: paralegal work, front desk, scheduling, books, and buyer care." [ref=e69] [cursor=pointer]':
+          - /url: /services/real-customer-support
+          - generic [ref=e70]: /02
+          - heading "Real Customer Support" [level=3] [ref=e71]
+          - paragraph [ref=e72]: "Trained remote staff for real estate, legal, medical, accounting, and ecommerce teams: paralegal work, front desk, scheduling, books, and buyer care."
+        - link "/03 Digital Marketing Social media, content, paid ads, and lead generation, run as one program with reporting tied to sales." [ref=e76] [cursor=pointer]:
+          - /url: /services/digital-marketing
+          - generic [ref=e77]: /03
+          - heading "Digital Marketing" [level=3] [ref=e78]
+          - paragraph [ref=e79]: Social media, content, paid ads, and lead generation, run as one program with reporting tied to sales.
+        - link "/04 App Development iOS, Android, and cross-platform apps, built around one job, submitted to the stores, and supported after launch." [ref=e83] [cursor=pointer]:
+          - /url: /services/app-development
+          - generic [ref=e84]: /04
+          - heading "App Development" [level=3] [ref=e85]
+          - paragraph [ref=e86]: iOS, Android, and cross-platform apps, built around one job, submitted to the stores, and supported after launch.
+        - link "/05 Web Development Custom websites, portals, and web platforms, designed around your business, not a template." [ref=e90] [cursor=pointer]:
+          - /url: /services/web-development
+          - generic [ref=e91]: /05
+          - heading "Web Development" [level=3] [ref=e92]
+          - paragraph [ref=e93]: Custom websites, portals, and web platforms, designed around your business, not a template.
+        - link "/06 AI Solutions Assistants, automations, and document workflows built around a real task, with a person in the loop and results you can measure." [ref=e97] [cursor=pointer]:
+          - /url: /services/ai-solutions
+          - generic [ref=e98]: /06
+          - heading "AI Solutions" [level=3] [ref=e99]
+          - paragraph [ref=e100]: Assistants, automations, and document workflows built around a real task, with a person in the loop and results you can measure.
+    - region "How we work with clients" [ref=e104]:
+      - generic [ref=e105]:
+        - generic [ref=e106]:
+          - generic [ref=e107]: Vetted, then trained
+          - generic [ref=e108]: Everyone we place is screened for your industry and trained on your process before they touch a live file or a real customer.
+        - generic [ref=e109]:
+          - generic [ref=e110]: One point of contact
+          - generic [ref=e111]: A named account lead who knows your business, not a ticket queue and a different name every week.
+        - generic [ref=e112]:
+          - generic [ref=e113]: Priced up front
+          - generic [ref=e114]: Scope, hours, and cost agreed before the work starts, so the invoice never arrives as a surprise.
+        - generic [ref=e115]:
+          - generic [ref=e116]: No lock-in
+          - generic [ref=e117]: Scale down or stop with clear notice. We keep the account by doing the work well, not by holding you to a contract.
+    - generic [ref=e119]:
+      - generic [ref=e120]:
+        - generic [ref=e121]:
+          - paragraph [ref=e122]: Why Valentisys
+          - heading "Our approach" [level=2] [ref=e123]
+        - paragraph [ref=e124]: Four principles behind every engagement. No exceptions, no fine print.
+      - generic [ref=e125]:
+        - article [ref=e126]:
+          - heading "Trained for your sector" [level=3] [ref=e130]
+          - paragraph [ref=e131]: People who already know the paperwork, deadlines, and tone your industry runs on, not a generic pool learning it on your account.
+        - article [ref=e132]:
+          - heading "Cover on your hours" [level=3] [ref=e137]
+          - paragraph [ref=e138]: Teams scheduled around your time zone and your customers' hours, so calls get answered and work lands when you need it, not ours.
+        - article [ref=e139]:
+          - heading "Confidential by default" [level=3] [ref=e144]
+          - paragraph [ref=e145]: Signed NDAs, least-privilege access to your systems, and handling built for the records health, legal, and finance work depends on.
+        - article [ref=e146]:
+          - heading "Measured, not assumed" [level=3] [ref=e152]
+          - paragraph [ref=e153]: Agreed SLAs, weekly numbers, and a named contact who answers. You see the output instead of taking our word for it.
+    - generic [ref=e156]:
+      - generic [ref=e157]:
+        - paragraph [ref=e158]: The playbook
+        - heading "How we work" [level=2] [ref=e159]
+        - generic [ref=e160]: "01"
+      - generic [ref=e161]:
+        - article [ref=e162]:
+          - generic [ref=e163]: "01"
+          - generic [ref=e164]:
+            - heading "Scoping call" [level=3] [ref=e165]
+            - paragraph [ref=e166]: We map the work, the volume, and the hours you need covered, then come back with a scope and a price you can hold us to.
+            - generic [ref=e167]:
+              - generic [ref=e168]: Discovery
+              - generic [ref=e169]: Volume review
+              - generic [ref=e170]: Fixed quote
+        - article [ref=e171]:
+          - generic [ref=e172]: "02"
+          - generic [ref=e173]:
+            - heading "Team match" [level=3] [ref=e174]
+            - paragraph [ref=e175]: "We shortlist people against your brief: sector experience, language, and the tools you already run on. You meet them before anything starts."
+            - generic [ref=e176]:
+              - generic [ref=e177]: Vetting
+              - generic [ref=e178]: Shortlist
+              - generic [ref=e179]: Your sign-off
+        - article [ref=e180]:
+          - generic [ref=e181]: "03"
+          - generic [ref=e182]:
+            - heading "Onboarding" [level=3] [ref=e183]
+            - paragraph [ref=e184]: Access, tools, and your process written into a runbook, so the team works your way from day one instead of guessing at it.
+            - generic [ref=e185]:
+              - generic [ref=e186]: Runbook
+              - generic [ref=e187]: Systems access
+              - generic [ref=e188]: Training
+        - article [ref=e189]:
+          - generic [ref=e190]: "04"
+          - generic [ref=e191]:
+            - heading "Supervised start" [level=3] [ref=e192]
+            - paragraph [ref=e193]: Live work begins under close supervision, with early output reviewed daily until the quality is where you want it.
+            - generic [ref=e194]:
+              - generic [ref=e195]: Daily review
+              - generic [ref=e196]: QA sampling
+              - generic [ref=e197]: Feedback loop
+        - article [ref=e198]:
+          - generic [ref=e199]: "05"
+          - generic [ref=e200]:
+            - heading "Reporting" [level=3] [ref=e201]
+            - paragraph [ref=e202]: Agreed SLAs, weekly numbers, and a named account lead who picks up when something needs escalating.
+            - generic [ref=e203]:
+              - generic [ref=e204]: SLAs
+              - generic [ref=e205]: Weekly reports
+              - generic [ref=e206]: Escalation path
+        - article [ref=e207]:
+          - generic [ref=e208]: "06"
+          - generic [ref=e209]:
+            - heading "Scale or adjust" [level=3] [ref=e210]
+            - paragraph [ref=e211]: Add hours, add people, or wind down as demand shifts. Reviewed every quarter so you never pay for capacity you stopped needing.
+            - generic [ref=e212]:
+              - generic [ref=e213]: Flex capacity
+              - generic [ref=e214]: Quarterly review
+              - generic [ref=e215]: No lock-in
+    - generic [ref=e216]:
+      - generic: +
+      - generic: ×
+      - generic: ÷
+      - generic [ref=e217]:
+        - heading "Looking for a services partner you can trust?" [level=2] [ref=e218]:
+          - generic [ref=e219]: Looking for a services
+          - generic [ref=e221]: partner you can trust?
+        - paragraph [ref=e223]: "Tell us what you need: outsourcing, customer support, social, apps, or web. We'll scope it, price it, and staff it in days, not months."
+        - link "Get my free estimate" [ref=e224] [cursor=pointer]:
+          - /url: /contact
+  - contentinfo [ref=e227]:
+    - generic [ref=e228]:
+      - generic [ref=e229]:
+        - generic [ref=e230]:
+          - link "Valentisys" [ref=e231] [cursor=pointer]:
+            - /url: /
+          - paragraph [ref=e232]: Outsourcing, customer support, and digital growth, staffed by trained teams that work like your own.
+        - navigation [ref=e233]:
+          - heading "Services" [level=2] [ref=e234]
+          - link "Outsourcing" [ref=e235] [cursor=pointer]:
+            - /url: /services/outsourcing
+          - link "Real Customer Support" [ref=e236] [cursor=pointer]:
+            - /url: /services/real-customer-support
+          - link "Digital Marketing" [ref=e237] [cursor=pointer]:
+            - /url: /services/digital-marketing
+          - link "App Development" [ref=e238] [cursor=pointer]:
+            - /url: /services/app-development
+          - link "Web Development" [ref=e239] [cursor=pointer]:
+            - /url: /services/web-development
+          - link "AI Solutions" [ref=e240] [cursor=pointer]:
+            - /url: /services/ai-solutions
+        - navigation [ref=e241]:
+          - heading "Industries" [level=2] [ref=e242]
+          - link "Health" [ref=e243] [cursor=pointer]:
+            - /url: /industries#health
+          - link "Legal" [ref=e244] [cursor=pointer]:
+            - /url: /industries#legal
+          - link "Engineering" [ref=e245] [cursor=pointer]:
+            - /url: /industries#engineering
+          - link "Finance" [ref=e246] [cursor=pointer]:
+            - /url: /industries#finance
+          - link "Hospitality" [ref=e247] [cursor=pointer]:
+            - /url: /industries#hospitality
+        - navigation [ref=e248]:
+          - heading "Company" [level=2] [ref=e249]
+          - link "About us" [ref=e250] [cursor=pointer]:
+            - /url: /about
+          - link "Careers" [ref=e251] [cursor=pointer]:
+            - /url: /careers
+          - link "Our approach" [ref=e252] [cursor=pointer]:
+            - /url: /#approach
+          - link "How we work" [ref=e253] [cursor=pointer]:
+            - /url: /#process
+          - link "Contact" [ref=e254] [cursor=pointer]:
+            - /url: /contact
+        - navigation [ref=e255]:
+          - heading "Legal" [level=2] [ref=e256]
+          - link "Privacy policy" [ref=e257] [cursor=pointer]:
+            - /url: /privacy
+          - link "Terms & conditions" [ref=e258] [cursor=pointer]:
+            - /url: /terms
+          - link "Cookie policy" [ref=e259] [cursor=pointer]:
+            - /url: /cookies
+          - link "Accessibility" [ref=e260] [cursor=pointer]:
+            - /url: /accessibility
+          - link "Sitemap" [ref=e261] [cursor=pointer]:
+            - /url: /sitemap
+      - generic [ref=e262]:
+        - generic [ref=e263]: © 2026 Valentisys. All rights reserved.
+        - generic [ref=e264]:
+          - link "Privacy" [ref=e265] [cursor=pointer]:
+            - /url: /privacy
+          - link "Terms" [ref=e266] [cursor=pointer]:
+            - /url: /terms
+          - link "Cookie preferences" [ref=e267] [cursor=pointer]:
+            - /url: /cookies#preferences
+  - dialog [ref=e268]:
+    - generic [ref=e269]:
+      - generic [ref=e270]:
+        - heading "Cookies on this site" [level=2] [ref=e271]
+        - paragraph [ref=e272]:
+          - text: We use cookies that are needed to make the site work. We'd also like to set optional analytics cookies to understand how the site is used. Nothing optional is stored until you choose.
+          - link "Read our cookie policy" [ref=e273] [cursor=pointer]:
+            - /url: /cookies
+          - text: .
+      - generic [ref=e274]:
+        - button "Accept all" [ref=e275] [cursor=pointer]
+        - button "Reject optional" [ref=e276] [cursor=pointer]
+        - link "Manage preferences" [ref=e277] [cursor=pointer]:
+          - /url: /cookies#preferences
+  - button "Open Next.js Dev Tools" [ref=e283] [cursor=pointer]

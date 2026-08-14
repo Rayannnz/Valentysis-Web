@@ -131,7 +131,7 @@ export default function Header() {
               onFocus={veilOn}
               onBlur={veilOff}
             >
-              <Link className="nav-link" href="/#services" onClick={go}>
+              <Link className="nav-link" href="/services" onClick={go}>
                 Services
                 <svg className="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
                   <path d="M6 9l6 6 6-6" />
@@ -235,7 +235,7 @@ export default function Header() {
           </svg>
         </button>
         <Link href="/" onClick={closeMenu}><small>01</small>Home</Link>
-        <Link href="/#services" onClick={closeMenu}><small>02</small>Services</Link>
+        <Link href="/services" onClick={closeMenu}><small>02</small>Services</Link>
         {serviceNav.map(({ label, href }, i) => (
           <Link key={href} className="mobile-sub" href={href} onClick={closeMenu}>
             <small>02.{i + 1}</small>

@@ -4,27 +4,46 @@ import { industries } from "@/lib/industries";
 import { services } from "@/lib/services";
 import { site } from "@/lib/site";
 
-type FooterColumn = {
-  heading: string;
-  links: { label: string; href: string }[];
-  /* native anchors instead of <Link> — see the note in Header.tsx */
+type FooterLink = {
+  label: string;
+  href: string;
+  /* native anchor instead of <Link> — see the note in Header.tsx. Per link, not
+     per column: /industries is a real route and has to stay a <Link>, while the
+     #anchors under it must not be. */
   plain?: boolean;
 };
 
+type FooterColumn = {
+  heading: string;
+  links: FooterLink[];
+};
+
+/* Both hub pages lead their column. They are otherwise reachable only from the
+   header nav and /sitemap, and a sitewide link is what tells a crawler these are
+   the two section roots rather than incidental pages. */
 const columns: FooterColumn[] = [
   {
     heading: "Services",
     /* mapped, not hardcoded — a service added to lib/services.ts used to need a
        second edit here, and the two lists drifted */
-    links: services.map(({ slug, shortTitle }) => ({
-      label: shortTitle,
-      href: `/services/${slug}`,
-    })),
+    links: [
+      { label: "All services", href: "/services" },
+      ...services.map(({ slug, shortTitle }) => ({
+        label: shortTitle,
+        href: `/services/${slug}`,
+      })),
+    ],
   },
   {
     heading: "Industries",
-    plain: true,
-    links: industries.map(({ id, name }) => ({ label: name, href: `/industries#${id}` })),
+    links: [
+      { label: "All industries", href: "/industries" },
+      ...industries.map(({ id, name }) => ({
+        label: name,
+        href: `/industries#${id}`,
+        plain: true,
+      })),
+    ],
   },
   {
     heading: "Company",
@@ -127,12 +146,12 @@ export default function Footer() {
             )}
           </div>
 
-          {columns.map(({ heading, links, plain }) => (
+          {columns.map(({ heading, links }) => (
             <nav className="footer-col" key={heading} aria-labelledby={`footer-${heading}`}>
               {/* h2, not h4 — the page above ends on h2/h3, and a jump to h4
                   breaks heading-order for anyone navigating by headings */}
               <h2 id={`footer-${heading}`}>{heading}</h2>
-              {links.map(({ label, href }) =>
+              {links.map(({ label, href, plain }) =>
                 plain ? (
                   <a href={href} key={label}>
                     {label}

@@ -1,0 +1,193 @@
+- generic [active] [ref=f4e1]:
+  - link "Skip to main content" [ref=f4e2] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=f4e7]:
+    - generic [ref=f4e8]:
+      - link "Valentisys home" [ref=f4e9] [cursor=pointer]:
+        - /url: /
+        - img "Valentisys" [ref=f4e10]
+      - button "Open menu" [ref=f4e11] [cursor=pointer]
+  - main [ref=f4e15]:
+    - generic [ref=f4e17]:
+      - paragraph [ref=f4e18]: Outsourcing
+      - heading "Dedicated talent, on your terms." [level=1] [ref=f4e19]:
+        - generic [ref=f4e20]: Dedicated talent,
+        - generic [ref=f4e22]: on your terms.
+      - paragraph [ref=f4e24]: Flexible outsourcing for operations, delivery, and specialized roles, so you scale capacity without the overhead of full-time hiring.
+    - navigation "Breadcrumb" [ref=f4e25]:
+      - list [ref=f4e27]:
+        - listitem [ref=f4e28]:
+          - link "Home" [ref=f4e29] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f4e32]:
+          - link "Services" [ref=f4e33] [cursor=pointer]:
+            - /url: /#services
+        - listitem [ref=f4e36]:
+          - generic [ref=f4e37]: Outsourcing
+    - generic [ref=f4e40]:
+      - generic [ref=f4e41]:
+        - paragraph [ref=f4e42]: Overview
+        - heading "Outsourcing Services" [level=2] [ref=f4e43]
+        - paragraph [ref=f4e44]: Whether you need a dedicated pod, overflow capacity, or specialized roles you can't fill locally, we assemble and manage teams that plug into your workflows. Clear ownership, measurable output, and the flexibility to scale up or down as demand shifts.
+        - paragraph [ref=f4e45]: Tell us what you need covered. We'll come back with scope, timeline, and a clear price before any work starts.
+        - link "Talk to us" [ref=f4e47] [cursor=pointer]:
+          - /url: /contact
+      - generic [ref=f4e50]:
+        - text: +
+        - generic [ref=f4e51]: Plug in capacity
+        - paragraph [ref=f4e52]: People who join your tools and rituals, and leave when you no longer need them.
+    - generic [ref=f4e54]:
+      - generic [ref=f4e55]:
+        - generic [ref=f4e56]:
+          - paragraph [ref=f4e57]: What's included
+          - heading "How we deliver" [level=2] [ref=f4e58]
+        - paragraph [ref=f4e59]: Practical capabilities you can put to work, scoped to what you actually need.
+      - generic [ref=f4e60]:
+        - article [ref=f4e61]:
+          - heading "Dedicated remote teams" [level=3] [ref=f4e62]
+          - paragraph [ref=f4e63]: Cross-functional pods that work inside your systems as an extension of your company.
+        - article [ref=f4e64]:
+          - heading "Process & operations outsourcing" [level=3] [ref=f4e65]
+          - paragraph [ref=f4e66]: Back-office, admin, and recurring workflows run to agreed SLAs and quality standards.
+        - article [ref=f4e67]:
+          - heading "Specialist staffing" [level=3] [ref=f4e68]
+          - paragraph [ref=f4e69]: Designers, analysts, coordinators, and other roles matched to a brief, not a generic bench.
+        - article [ref=f4e70]:
+          - heading "Managed delivery" [level=3] [ref=f4e71]
+          - paragraph [ref=f4e72]: We own outcomes with clear milestones, reporting, and a single point of contact.
+    - generic [ref=f4e74]:
+      - generic [ref=f4e75]:
+        - generic [ref=f4e76]:
+          - paragraph [ref=f4e77]: Good fits
+          - heading "Who this is for" [level=2] [ref=f4e78]
+        - paragraph [ref=f4e79]: If your situation isn't listed, ask anyway. We'll tell you straight if we're the right partner.
+      - generic [ref=f4e80]:
+        - generic [ref=f4e81]:
+          - text: Practices & firms
+          - heading "Need capacity before headcount" [level=3] [ref=f4e82]
+          - paragraph [ref=f4e83]: The caseload is growing faster than you can hire. You need trained people now, not after a six-month recruitment cycle.
+        - generic [ref=f4e84]:
+          - text: Multi-site operators
+          - heading "Cover across sites and hours" [level=3] [ref=f4e85]
+          - paragraph [ref=f4e86]: Reception, admin, and back office need coverage across locations and time zones without duplicating staff at every one.
+        - generic [ref=f4e87]:
+          - text: Owner-led businesses
+          - heading "Senior time going to admin" [level=3] [ref=f4e88]
+          - paragraph [ref=f4e89]: Recurring operational work is eating the hours that should go to clients, strategy, and growth.
+    - generic [ref=f4e91]:
+      - generic [ref=f4e93]:
+        - paragraph [ref=f4e94]: More services
+        - heading "Explore what else we offer" [level=2] [ref=f4e95]
+      - generic [ref=f4e96]:
+        - link [ref=f4e97] [cursor=pointer]:
+          - /url: /services/real-customer-support
+          - heading "Real Customer Support" [level=3] [ref=f4e98]
+          - paragraph [ref=f4e99]: "Trained remote staff for real estate, legal, medical, accounting, and ecommerce teams: paralegal work, front desk, scheduling, books, and buyer care."
+        - link [ref=f4e103] [cursor=pointer]:
+          - /url: /services/digital-marketing
+          - heading "Digital Marketing" [level=3] [ref=f4e104]
+          - paragraph [ref=f4e105]: Social media, content, paid ads, and lead generation, run as one program with reporting tied to sales.
+        - link [ref=f4e109] [cursor=pointer]:
+          - /url: /services/app-development
+          - heading "App Development" [level=3] [ref=f4e110]
+          - paragraph [ref=f4e111]: iOS, Android, and cross-platform apps, built around one job, submitted to the stores, and supported after launch.
+        - link [ref=f4e115] [cursor=pointer]:
+          - /url: /services/web-development
+          - heading "Web Development" [level=3] [ref=f4e116]
+          - paragraph [ref=f4e117]: Custom websites, portals, and web platforms, designed around your business, not a template.
+        - link [ref=f4e121] [cursor=pointer]:
+          - /url: /services/ai-solutions
+          - heading "AI Solutions" [level=3] [ref=f4e122]
+          - paragraph [ref=f4e123]: Assistants, automations, and document workflows built around a real task, with a person in the loop and results you can measure.
+    - generic [ref=f4e127]:
+      - generic: +
+      - generic: ×
+      - generic: ÷
+      - generic [ref=f4e128]:
+        - heading "Looking for a services partner you can trust?" [level=2] [ref=f4e129]:
+          - generic [ref=f4e130]: Looking for a services
+          - generic [ref=f4e132]: partner you can trust?
+        - paragraph [ref=f4e134]: "Tell us what you need: outsourcing, customer support, social, apps, or web. We'll scope it, price it, and staff it in days, not months."
+        - link "Get my free estimate" [ref=f4e135] [cursor=pointer]:
+          - /url: /contact
+  - contentinfo [ref=f4e138]:
+    - generic [ref=f4e139]:
+      - generic [ref=f4e140]:
+        - generic [ref=f4e141]:
+          - link "Valentisys" [ref=f4e142] [cursor=pointer]:
+            - /url: /
+          - paragraph [ref=f4e143]: Outsourcing, customer support, and digital growth, staffed by trained teams that work like your own.
+        - navigation [ref=f4e144]:
+          - heading "Services" [level=2] [ref=f4e145]
+          - link "Outsourcing" [ref=f4e146] [cursor=pointer]:
+            - /url: /services/outsourcing
+          - link "Real Customer Support" [ref=f4e147] [cursor=pointer]:
+            - /url: /services/real-customer-support
+          - link "Digital Marketing" [ref=f4e148] [cursor=pointer]:
+            - /url: /services/digital-marketing
+          - link "App Development" [ref=f4e149] [cursor=pointer]:
+            - /url: /services/app-development
+          - link "Web Development" [ref=f4e150] [cursor=pointer]:
+            - /url: /services/web-development
+          - link "AI Solutions" [ref=f4e151] [cursor=pointer]:
+            - /url: /services/ai-solutions
+        - navigation [ref=f4e152]:
+          - heading "Industries" [level=2] [ref=f4e153]
+          - link "Health" [ref=f4e154] [cursor=pointer]:
+            - /url: /industries#health
+          - link "Legal" [ref=f4e155] [cursor=pointer]:
+            - /url: /industries#legal
+          - link "Engineering" [ref=f4e156] [cursor=pointer]:
+            - /url: /industries#engineering
+          - link "Finance" [ref=f4e157] [cursor=pointer]:
+            - /url: /industries#finance
+          - link "Hospitality" [ref=f4e158] [cursor=pointer]:
+            - /url: /industries#hospitality
+        - navigation [ref=f4e159]:
+          - heading "Company" [level=2] [ref=f4e160]
+          - link "About us" [ref=f4e161] [cursor=pointer]:
+            - /url: /about
+          - link "Careers" [ref=f4e162] [cursor=pointer]:
+            - /url: /careers
+          - link "Our approach" [ref=f4e163] [cursor=pointer]:
+            - /url: /#approach
+          - link "How we work" [ref=f4e164] [cursor=pointer]:
+            - /url: /#process
+          - link "Contact" [ref=f4e165] [cursor=pointer]:
+            - /url: /contact
+        - navigation [ref=f4e166]:
+          - heading "Legal" [level=2] [ref=f4e167]
+          - link "Privacy policy" [ref=f4e168] [cursor=pointer]:
+            - /url: /privacy
+          - link "Terms & conditions" [ref=f4e169] [cursor=pointer]:
+            - /url: /terms
+          - link "Cookie policy" [ref=f4e170] [cursor=pointer]:
+            - /url: /cookies
+          - link "Accessibility" [ref=f4e171] [cursor=pointer]:
+            - /url: /accessibility
+          - link "Sitemap" [ref=f4e172] [cursor=pointer]:
+            - /url: /sitemap
+      - generic [ref=f4e173]:
+        - generic [ref=f4e174]: © 2026 Valentisys. All rights reserved.
+        - generic [ref=f4e175]:
+          - link "Privacy" [ref=f4e176] [cursor=pointer]:
+            - /url: /privacy
+          - link "Terms" [ref=f4e177] [cursor=pointer]:
+            - /url: /terms
+          - link "Cookie preferences" [ref=f4e178] [cursor=pointer]:
+            - /url: /cookies#preferences
+  - dialog [ref=f4e179]:
+    - generic [ref=f4e180]:
+      - generic [ref=f4e181]:
+        - heading "Cookies on this site" [level=2] [ref=f4e182]
+        - paragraph [ref=f4e183]:
+          - text: We use cookies that are needed to make the site work. We'd also like to set optional analytics cookies to understand how the site is used. Nothing optional is stored until you choose.
+          - link "Read our cookie policy" [ref=f4e184] [cursor=pointer]:
+            - /url: /cookies
+          - text: .
+      - generic [ref=f4e185]:
+        - button "Accept all" [ref=f4e186] [cursor=pointer]
+        - button "Reject optional" [ref=f4e187] [cursor=pointer]
+        - link "Manage preferences" [ref=f4e188] [cursor=pointer]:
+          - /url: /cookies#preferences
+  - button "Open Next.js Dev Tools" [ref=f4e194] [cursor=pointer]

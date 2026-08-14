@@ -1,0 +1,293 @@
+- generic [active] [ref=f5e1]:
+  - link "Skip to main content" [ref=f5e2] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=f5e7]:
+    - generic [ref=f5e8]:
+      - link "Valentisys home" [ref=f5e9] [cursor=pointer]:
+        - /url: /
+        - img "Valentisys" [ref=f5e10]
+      - button "Open menu" [ref=f5e11] [cursor=pointer]
+  - main [ref=f5e15]:
+    - generic [ref=f5e17]:
+      - paragraph [ref=f5e18]: Real customer support
+      - heading "Support that feels like your team." [level=1] [ref=f5e19]:
+        - generic [ref=f5e20]: Support that
+        - generic [ref=f5e22]: feels like your team.
+      - paragraph [ref=f5e24]: Trained remote staff for real estate, law firms, medical practices, accounting, and ecommerce, handling the work your front desk and back office can't keep up with.
+    - navigation "Breadcrumb" [ref=f5e25]:
+      - list [ref=f5e27]:
+        - listitem [ref=f5e28]:
+          - link "Home" [ref=f5e29] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f5e32]:
+          - link "Services" [ref=f5e33] [cursor=pointer]:
+            - /url: /#services
+        - listitem [ref=f5e36]:
+          - generic [ref=f5e37]: Real Customer Support
+    - generic [ref=f5e40]:
+      - generic [ref=f5e41]:
+        - paragraph [ref=f5e42]: Overview
+        - heading "Real Customer Support" [level=2] [ref=f5e43]
+        - paragraph [ref=f5e44]: "This isn't a generic call center. We place people who already understand your industry's paperwork, deadlines, and tone: paralegals, front desk staff, schedulers, bookkeepers, and support agents who work inside your systems and follow your process. You keep control and oversight; we handle the volume."
+        - paragraph [ref=f5e45]: Tell us what you need covered. We'll come back with scope, timeline, and a clear price before any work starts.
+        - link "Talk to us" [ref=f5e47] [cursor=pointer]:
+          - /url: /contact
+      - generic [ref=f5e50]:
+        - text: +
+        - generic [ref=f5e51]: Always on
+        - paragraph [ref=f5e52]: Coverage that matches your clients' hours, with clear SLAs and weekly reporting.
+    - generic [ref=f5e54]:
+      - generic [ref=f5e55]:
+        - generic [ref=f5e56]:
+          - paragraph [ref=f5e57]: In detail
+          - heading "What we cover, by industry" [level=2] [ref=f5e58]
+        - paragraph [ref=f5e59]: Every task below is work we take on directly. Pick the ones you need. You're not buying a bundle.
+      - generic [ref=f5e60]:
+        - generic [ref=f5e61]:
+          - button [expanded] [ref=f5e62] [cursor=pointer]:
+            - generic [ref=f5e63]:
+              - heading "Law Firms" [level=3] [ref=f5e64]
+              - emphasis [ref=f5e65]: Remote legal & paralegal staff
+          - region "Law Firms":
+            - generic [ref=f5e68]:
+              - paragraph [ref=f5e69]: Experienced legal assistants working inside your practice management system, so attorney time goes to billable work, not document prep.
+              - generic [ref=f5e70]:
+                - article [ref=f5e71]:
+                  - heading "Real Estate Purchase Agreements" [level=4] [ref=f5e72]
+                  - paragraph [ref=f5e73]: Purchase agreements prepared with the correct parties, dates, contingencies, and disclosures attached before they reach the table.
+                - article [ref=f5e74]:
+                  - heading "Real Estate Lease Agreements" [level=4] [ref=f5e75]
+                  - paragraph [ref=f5e76]: Residential and commercial leases drafted, updated at renewal, and checked line by line against your standard terms.
+                - article [ref=f5e77]:
+                  - heading "Real Estate Review, Formatting & Completeness" [level=4] [ref=f5e78]
+                  - paragraph [ref=f5e79]: "A second set of eyes before signature: missing exhibits, blank fields, broken numbering, and inconsistent defined terms caught early."
+                - article [ref=f5e80]:
+                  - heading "Remote Legal & Paralegal Support" [level=4] [ref=f5e81]
+                  - paragraph [ref=f5e82]: Trained legal assistants and paralegals working your matters remotely, following your firm's process and confidentiality standards.
+                - article [ref=f5e83]:
+                  - heading "Draft Contracts" [level=4] [ref=f5e84]
+                  - paragraph [ref=f5e85]: First-draft contracts built from your templates and deal terms, ready for your attorney to review and sign off.
+                - article [ref=f5e86]:
+                  - heading "Case Studies" [level=4] [ref=f5e87]
+                  - paragraph [ref=f5e88]: Matter summaries and case write-ups prepared for internal review, client pitches, or publication, structured and consistent.
+                - article [ref=f5e89]:
+                  - heading "Paperwork" [level=4] [ref=f5e90]
+                  - paragraph [ref=f5e91]: Routine filings, forms, correspondence, and document preparation handled end to end and returned ready for review.
+                - article [ref=f5e92]:
+                  - heading "Files Maintenance" [level=4] [ref=f5e93]
+                  - paragraph [ref=f5e94]: "Matter files kept current: new documents indexed, closed files archived, and nothing lost between systems or handoffs."
+                - article [ref=f5e95]:
+                  - heading "Mortgage Files" [level=4] [ref=f5e96]
+                  - paragraph [ref=f5e97]: Mortgage and closing files assembled, checked for completeness against your checklist, and tracked through to funding.
+        - generic [ref=f5e98]:
+          - button [ref=f5e99] [cursor=pointer]:
+            - generic [ref=f5e100]:
+              - heading "Medical" [level=3] [ref=f5e101]
+              - emphasis [ref=f5e102]: Remote front desk & patient support
+          - region "Medical":
+            - generic [ref=f5e105]:
+              - paragraph [ref=f5e106]: A remote front desk that answers every call, books every appointment, and follows authorizations through to approval.
+              - generic [ref=f5e107]:
+                - article [ref=f5e108]:
+                  - heading "Remote Front Desk" [level=4] [ref=f5e109]
+                  - paragraph [ref=f5e110]: A trained remote receptionist answering your practice line, greeting patients, routing calls, and taking messages that actually get acted on.
+                - article [ref=f5e111]:
+                  - heading "Patient Scheduling" [level=4] [ref=f5e112]
+                  - paragraph [ref=f5e113]: Appointments booked, rescheduled, and confirmed in your practice software, with reminder calls that cut no-show rates.
+                - article [ref=f5e114]:
+                  - heading "Prior Authorization" [level=4] [ref=f5e115]
+                  - paragraph [ref=f5e116]: Authorizations submitted, followed up with payers, and tracked until you have an approval on file, not left pending.
+                - article [ref=f5e117]:
+                  - heading "Patient Questions / Support" [level=4] [ref=f5e118]
+                  - paragraph [ref=f5e119]: Patient questions about visits, billing, and follow-ups answered promptly, with anything clinical escalated straight to your staff.
+        - generic [ref=f5e120]:
+          - button [ref=f5e121] [cursor=pointer]:
+            - generic [ref=f5e122]:
+              - heading "Accounting" [level=3] [ref=f5e123]
+              - emphasis [ref=f5e124]: Books & accounts management
+          - region "Accounting":
+            - generic [ref=f5e127]:
+              - paragraph [ref=f5e128]: "Day-to-day bookkeeping and account management taken off your plate: current, reconciled, and ready at close."
+              - generic [ref=f5e129]:
+                - article [ref=f5e130]:
+                  - heading "Bookkeeping" [level=4] [ref=f5e131]
+                  - paragraph [ref=f5e132]: "Daily and monthly books kept current: transactions categorized, accounts reconciled, and records clean before every close."
+                - article [ref=f5e133]:
+                  - heading "Accounts Management" [level=4] [ref=f5e134]
+                  - paragraph [ref=f5e135]: Payables, receivables, invoicing, and follow-up on what's owed, reported back on a schedule you set.
+        - generic [ref=f5e136]:
+          - button [ref=f5e137] [cursor=pointer]:
+            - generic [ref=f5e138]:
+              - heading "Ecommerce" [level=3] [ref=f5e139]
+              - emphasis [ref=f5e140]: Store accounts & buyer care
+          - region "Ecommerce":
+            - generic [ref=f5e143]:
+              - paragraph [ref=f5e144]: "Storefront and marketplace accounts kept in order, and buyers looked after: orders tracked, questions answered, and returns closed out before they turn into bad reviews."
+              - generic [ref=f5e145]:
+                - article [ref=f5e146]:
+                  - heading "Account Handling" [level=4] [ref=f5e147]
+                  - paragraph [ref=f5e148]: "Day-to-day management of your store and marketplace accounts: listings, stock levels, orders, and pricing kept accurate and up to date."
+                - article [ref=f5e149]:
+                  - heading "Customer Support" [level=4] [ref=f5e150]
+                  - paragraph [ref=f5e151]: "Buyers looked after across email, chat, and marketplace messages: order status, delivery, and post-purchase issues handled in your brand's tone."
+                - article [ref=f5e152]:
+                  - heading "Complaints and Refund Handling" [level=4] [ref=f5e153]
+                  - paragraph [ref=f5e154]: Returns, disputes, and refund requests worked through against your policy, resolved quickly, logged properly, and escalated only when they need you.
+                - article [ref=f5e155]:
+                  - heading "Customer Questions and Answers" [level=4] [ref=f5e156]
+                  - paragraph [ref=f5e157]: Pre-sale questions, product details, and marketplace Q&A answered accurately and fast, so buyers get what they need before they leave the page.
+    - generic [ref=f5e159]:
+      - generic [ref=f5e160]:
+        - generic [ref=f5e161]:
+          - paragraph [ref=f5e162]: What's included
+          - heading "How we deliver" [level=2] [ref=f5e163]
+        - paragraph [ref=f5e164]: Practical capabilities you can put to work, scoped to what you actually need.
+      - generic [ref=f5e165]:
+        - article [ref=f5e166]:
+          - heading "Real estate support" [level=3] [ref=f5e167]
+          - paragraph [ref=f5e168]: "Remote paralegal work: contracts, lease and purchase agreements, research, and client files kept in order."
+        - article [ref=f5e169]:
+          - heading "Law firm support" [level=3] [ref=f5e170]
+          - paragraph [ref=f5e171]: Legal and paralegal assistants handling paperwork, case studies, file maintenance, and mortgage files.
+        - article [ref=f5e172]:
+          - heading "Medical practice support" [level=3] [ref=f5e173]
+          - paragraph [ref=f5e174]: Remote front desk, patient scheduling, prior authorization, and patient queries answered promptly.
+        - article [ref=f5e175]:
+          - heading "Accounting support" [level=3] [ref=f5e176]
+          - paragraph [ref=f5e177]: Bookkeeping and accounts management kept current, reconciled, and reported on your schedule.
+    - generic [ref=f5e179]:
+      - generic [ref=f5e180]:
+        - generic [ref=f5e181]:
+          - paragraph [ref=f5e182]: Good fits
+          - heading "Who this is for" [level=2] [ref=f5e183]
+        - paragraph [ref=f5e184]: If your situation isn't listed, ask anyway. We'll tell you straight if we're the right partner.
+      - generic [ref=f5e185]:
+        - generic [ref=f5e186]:
+          - text: Real estate
+          - heading "Deals stuck behind paperwork" [level=3] [ref=f5e187]
+          - paragraph [ref=f5e188]: Agreements, disclosures, and client files pile up while your agents should be closing, not formatting documents.
+        - generic [ref=f5e189]:
+          - text: Legal
+          - heading "Billable hours lost to admin" [level=3] [ref=f5e190]
+          - paragraph [ref=f5e191]: Attorneys are doing paralegal work because hiring locally is slow and expensive.
+        - generic [ref=f5e192]:
+          - text: Medical
+          - heading "A front desk that can't keep up" [level=3] [ref=f5e193]
+          - paragraph [ref=f5e194]: Calls go unanswered, authorizations sit pending, and patients wait, while your staff is already at capacity.
+    - generic [ref=f5e196]:
+      - generic [ref=f5e198]:
+        - paragraph [ref=f5e199]: More services
+        - heading "Explore what else we offer" [level=2] [ref=f5e200]
+      - generic [ref=f5e201]:
+        - link [ref=f5e202] [cursor=pointer]:
+          - /url: /services/outsourcing
+          - heading "Outsourcing" [level=3] [ref=f5e203]
+          - paragraph [ref=f5e204]: Dedicated teams and flexible capacity for operations, delivery, and specialized roles, without full-time hiring overhead.
+        - link [ref=f5e208] [cursor=pointer]:
+          - /url: /services/digital-marketing
+          - heading "Digital Marketing" [level=3] [ref=f5e209]
+          - paragraph [ref=f5e210]: Social media, content, paid ads, and lead generation, run as one program with reporting tied to sales.
+        - link [ref=f5e214] [cursor=pointer]:
+          - /url: /services/app-development
+          - heading "App Development" [level=3] [ref=f5e215]
+          - paragraph [ref=f5e216]: iOS, Android, and cross-platform apps, built around one job, submitted to the stores, and supported after launch.
+        - link [ref=f5e220] [cursor=pointer]:
+          - /url: /services/web-development
+          - heading "Web Development" [level=3] [ref=f5e221]
+          - paragraph [ref=f5e222]: Custom websites, portals, and web platforms, designed around your business, not a template.
+        - link [ref=f5e226] [cursor=pointer]:
+          - /url: /services/ai-solutions
+          - heading "AI Solutions" [level=3] [ref=f5e227]
+          - paragraph [ref=f5e228]: Assistants, automations, and document workflows built around a real task, with a person in the loop and results you can measure.
+    - generic [ref=f5e232]:
+      - generic: +
+      - generic: ×
+      - generic: ÷
+      - generic [ref=f5e233]:
+        - heading "Looking for a services partner you can trust?" [level=2] [ref=f5e234]:
+          - generic [ref=f5e235]: Looking for a services
+          - generic [ref=f5e237]: partner you can trust?
+        - paragraph [ref=f5e239]: "Tell us what you need: outsourcing, customer support, social, apps, or web. We'll scope it, price it, and staff it in days, not months."
+        - link "Get my free estimate" [ref=f5e240] [cursor=pointer]:
+          - /url: /contact
+  - contentinfo [ref=f5e243]:
+    - generic [ref=f5e244]:
+      - generic [ref=f5e245]:
+        - generic [ref=f5e246]:
+          - link "Valentisys" [ref=f5e247] [cursor=pointer]:
+            - /url: /
+          - paragraph [ref=f5e248]: Outsourcing, customer support, and digital growth, staffed by trained teams that work like your own.
+        - navigation [ref=f5e249]:
+          - heading "Services" [level=2] [ref=f5e250]
+          - link "Outsourcing" [ref=f5e251] [cursor=pointer]:
+            - /url: /services/outsourcing
+          - link "Real Customer Support" [ref=f5e252] [cursor=pointer]:
+            - /url: /services/real-customer-support
+          - link "Digital Marketing" [ref=f5e253] [cursor=pointer]:
+            - /url: /services/digital-marketing
+          - link "App Development" [ref=f5e254] [cursor=pointer]:
+            - /url: /services/app-development
+          - link "Web Development" [ref=f5e255] [cursor=pointer]:
+            - /url: /services/web-development
+          - link "AI Solutions" [ref=f5e256] [cursor=pointer]:
+            - /url: /services/ai-solutions
+        - navigation [ref=f5e257]:
+          - heading "Industries" [level=2] [ref=f5e258]
+          - link "Health" [ref=f5e259] [cursor=pointer]:
+            - /url: /industries#health
+          - link "Legal" [ref=f5e260] [cursor=pointer]:
+            - /url: /industries#legal
+          - link "Engineering" [ref=f5e261] [cursor=pointer]:
+            - /url: /industries#engineering
+          - link "Finance" [ref=f5e262] [cursor=pointer]:
+            - /url: /industries#finance
+          - link "Hospitality" [ref=f5e263] [cursor=pointer]:
+            - /url: /industries#hospitality
+        - navigation [ref=f5e264]:
+          - heading "Company" [level=2] [ref=f5e265]
+          - link "About us" [ref=f5e266] [cursor=pointer]:
+            - /url: /about
+          - link "Careers" [ref=f5e267] [cursor=pointer]:
+            - /url: /careers
+          - link "Our approach" [ref=f5e268] [cursor=pointer]:
+            - /url: /#approach
+          - link "How we work" [ref=f5e269] [cursor=pointer]:
+            - /url: /#process
+          - link "Contact" [ref=f5e270] [cursor=pointer]:
+            - /url: /contact
+        - navigation [ref=f5e271]:
+          - heading "Legal" [level=2] [ref=f5e272]
+          - link "Privacy policy" [ref=f5e273] [cursor=pointer]:
+            - /url: /privacy
+          - link "Terms & conditions" [ref=f5e274] [cursor=pointer]:
+            - /url: /terms
+          - link "Cookie policy" [ref=f5e275] [cursor=pointer]:
+            - /url: /cookies
+          - link "Accessibility" [ref=f5e276] [cursor=pointer]:
+            - /url: /accessibility
+          - link "Sitemap" [ref=f5e277] [cursor=pointer]:
+            - /url: /sitemap
+      - generic [ref=f5e278]:
+        - generic [ref=f5e279]: © 2026 Valentisys. All rights reserved.
+        - generic [ref=f5e280]:
+          - link "Privacy" [ref=f5e281] [cursor=pointer]:
+            - /url: /privacy
+          - link "Terms" [ref=f5e282] [cursor=pointer]:
+            - /url: /terms
+          - link "Cookie preferences" [ref=f5e283] [cursor=pointer]:
+            - /url: /cookies#preferences
+  - dialog [ref=f5e284]:
+    - generic [ref=f5e285]:
+      - generic [ref=f5e286]:
+        - heading "Cookies on this site" [level=2] [ref=f5e287]
+        - paragraph [ref=f5e288]:
+          - text: We use cookies that are needed to make the site work. We'd also like to set optional analytics cookies to understand how the site is used. Nothing optional is stored until you choose.
+          - link "Read our cookie policy" [ref=f5e289] [cursor=pointer]:
+            - /url: /cookies
+          - text: .
+      - generic [ref=f5e290]:
+        - button "Accept all" [ref=f5e291] [cursor=pointer]
+        - button "Reject optional" [ref=f5e292] [cursor=pointer]
+        - link "Manage preferences" [ref=f5e293] [cursor=pointer]:
+          - /url: /cookies#preferences
+  - button "Open Next.js Dev Tools" [ref=f5e299] [cursor=pointer]

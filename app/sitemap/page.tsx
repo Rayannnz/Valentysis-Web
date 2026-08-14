@@ -36,6 +36,7 @@ const groups: LinkGroup[] = [
     note: "The core of the site.",
     links: [
       { label: "Home", href: "/", desc: "What we do, how we work, and who we do it for." },
+      { label: "Services", href: "/services", desc: "The six service lines, and who each one is for." },
       { label: "Industries", href: "/industries", desc: "The five sectors we staff and support in depth." },
       { label: "About us", href: "/about", desc: "Our story, our values, and where we do our best work." },
       { label: "Careers", href: "/careers", desc: "Open teams and a single application form." },
@@ -44,7 +45,7 @@ const groups: LinkGroup[] = [
   },
   {
     heading: "Services",
-    note: "One page per service line.",
+    note: "One page per service line, all listed on /services.",
     links: services.map(({ slug, shortTitle, homeDesc }) => ({
       label: shortTitle,
       href: `/services/${slug}`,

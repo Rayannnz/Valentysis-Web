@@ -1,0 +1,147 @@
+- generic [active] [ref=f6e1]:
+  - link "Skip to main content" [ref=f6e2] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=f6e7]:
+    - generic [ref=f6e8]:
+      - link "Valentisys home" [ref=f6e9] [cursor=pointer]:
+        - /url: /
+        - img "Valentisys" [ref=f6e10]
+      - button "Open menu" [ref=f6e11] [cursor=pointer]
+  - main [ref=f6e15]:
+    - generic [ref=f6e17]:
+      - paragraph [ref=f6e18]: Careers
+      - heading "Do the best work of your career." [level=1] [ref=f6e19]:
+        - generic [ref=f6e20]: Do the best work
+        - generic [ref=f6e22]: of your career.
+      - paragraph [ref=f6e24]: We're building teams across real customer support, digital marketing, app and web development, SEO, paid ads, graphic design, and video editing. If you like clear ownership, short feedback loops, and small egos, you'll fit right in.
+    - navigation "Breadcrumb" [ref=f6e25]:
+      - list [ref=f6e27]:
+        - listitem [ref=f6e28]:
+          - link "Home" [ref=f6e29] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f6e32]:
+          - generic [ref=f6e33]: Careers
+    - generic [ref=f6e35]:
+      - generic [ref=f6e36]:
+        - generic [ref=f6e37]:
+          - paragraph [ref=f6e38]: Apply now
+          - heading "One form. Every role." [level=2] [ref=f6e39]
+        - paragraph [ref=f6e40]: Pick the team you want to join. No separate posts to hunt through.
+      - generic [ref=f6e41]:
+        - heading "APPLICATION FORM" [level=3] [ref=f6e42]
+        - generic [ref=f6e43]:
+          - generic [ref=f6e44]:
+            - generic [ref=f6e45]:
+              - generic [ref=f6e46]: Name*
+              - textbox "Name" [ref=f6e48]
+            - generic [ref=f6e49]:
+              - generic [ref=f6e50]: Email*
+              - textbox "Email" [ref=f6e52]
+            - generic [ref=f6e53]:
+              - generic [ref=f6e54]: Phone number*
+              - textbox "Phone number" [ref=f6e56]
+            - generic [ref=f6e57]:
+              - generic [ref=f6e58]: Team applying for*
+              - combobox "Team applying for" [ref=f6e61] [cursor=pointer]:
+                - option "Select a team" [disabled] [selected]
+                - option "Real Customer Support"
+                - option "Digital Marketing"
+                - option "App Development"
+                - option "Web Development"
+                - option "AI Expert"
+                - option "SEO Expert"
+                - option "Ads Expert (Meta Ads / Google Ads)"
+                - option "Graphic Designer & Video Editor"
+            - generic [ref=f6e62]:
+              - generic [ref=f6e63]:
+                - generic [ref=f6e64]: CV*
+                - generic [ref=f6e65]: PDF only, max 8 MB.
+              - generic [ref=f6e66]:
+                - button "CV PDF only, max 8 MB." [ref=f6e67] [cursor=pointer]
+                - button "Choose CV file" [ref=f6e68] [cursor=pointer]: Choose CV
+                - generic [ref=f6e69]: No CV selected
+          - generic [ref=f6e70]:
+            - text: Leave this field empty
+            - textbox [ref=f6e71]
+          - button "Submit Application" [ref=f6e72] [cursor=pointer]
+  - contentinfo [ref=f6e75]:
+    - generic [ref=f6e76]:
+      - generic [ref=f6e77]:
+        - generic [ref=f6e78]:
+          - link "Valentisys" [ref=f6e79] [cursor=pointer]:
+            - /url: /
+          - paragraph [ref=f6e80]: Outsourcing, customer support, and digital growth, staffed by trained teams that work like your own.
+        - navigation [ref=f6e81]:
+          - heading "Services" [level=2] [ref=f6e82]
+          - link "Outsourcing" [ref=f6e83] [cursor=pointer]:
+            - /url: /services/outsourcing
+          - link "Real Customer Support" [ref=f6e84] [cursor=pointer]:
+            - /url: /services/real-customer-support
+          - link "Digital Marketing" [ref=f6e85] [cursor=pointer]:
+            - /url: /services/digital-marketing
+          - link "App Development" [ref=f6e86] [cursor=pointer]:
+            - /url: /services/app-development
+          - link "Web Development" [ref=f6e87] [cursor=pointer]:
+            - /url: /services/web-development
+          - link "AI Solutions" [ref=f6e88] [cursor=pointer]:
+            - /url: /services/ai-solutions
+        - navigation [ref=f6e89]:
+          - heading "Industries" [level=2] [ref=f6e90]
+          - link "Health" [ref=f6e91] [cursor=pointer]:
+            - /url: /industries#health
+          - link "Legal" [ref=f6e92] [cursor=pointer]:
+            - /url: /industries#legal
+          - link "Engineering" [ref=f6e93] [cursor=pointer]:
+            - /url: /industries#engineering
+          - link "Finance" [ref=f6e94] [cursor=pointer]:
+            - /url: /industries#finance
+          - link "Hospitality" [ref=f6e95] [cursor=pointer]:
+            - /url: /industries#hospitality
+        - navigation [ref=f6e96]:
+          - heading "Company" [level=2] [ref=f6e97]
+          - link "About us" [ref=f6e98] [cursor=pointer]:
+            - /url: /about
+          - link "Careers" [ref=f6e99] [cursor=pointer]:
+            - /url: /careers
+          - link "Our approach" [ref=f6e100] [cursor=pointer]:
+            - /url: /#approach
+          - link "How we work" [ref=f6e101] [cursor=pointer]:
+            - /url: /#process
+          - link "Contact" [ref=f6e102] [cursor=pointer]:
+            - /url: /contact
+        - navigation [ref=f6e103]:
+          - heading "Legal" [level=2] [ref=f6e104]
+          - link "Privacy policy" [ref=f6e105] [cursor=pointer]:
+            - /url: /privacy
+          - link "Terms & conditions" [ref=f6e106] [cursor=pointer]:
+            - /url: /terms
+          - link "Cookie policy" [ref=f6e107] [cursor=pointer]:
+            - /url: /cookies
+          - link "Accessibility" [ref=f6e108] [cursor=pointer]:
+            - /url: /accessibility
+          - link "Sitemap" [ref=f6e109] [cursor=pointer]:
+            - /url: /sitemap
+      - generic [ref=f6e110]:
+        - generic [ref=f6e111]: © 2026 Valentisys. All rights reserved.
+        - generic [ref=f6e112]:
+          - link "Privacy" [ref=f6e113] [cursor=pointer]:
+            - /url: /privacy
+          - link "Terms" [ref=f6e114] [cursor=pointer]:
+            - /url: /terms
+          - link "Cookie preferences" [ref=f6e115] [cursor=pointer]:
+            - /url: /cookies#preferences
+  - dialog [ref=f6e116]:
+    - generic [ref=f6e117]:
+      - generic [ref=f6e118]:
+        - heading "Cookies on this site" [level=2] [ref=f6e119]
+        - paragraph [ref=f6e120]:
+          - text: We use cookies that are needed to make the site work. We'd also like to set optional analytics cookies to understand how the site is used. Nothing optional is stored until you choose.
+          - link "Read our cookie policy" [ref=f6e121] [cursor=pointer]:
+            - /url: /cookies
+          - text: .
+      - generic [ref=f6e122]:
+        - button "Accept all" [ref=f6e123] [cursor=pointer]
+        - button "Reject optional" [ref=f6e124] [cursor=pointer]
+        - link "Manage preferences" [ref=f6e125] [cursor=pointer]:
+          - /url: /cookies#preferences
+  - button "Open Next.js Dev Tools" [ref=f6e131] [cursor=pointer]

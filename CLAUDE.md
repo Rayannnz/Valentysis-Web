@@ -136,7 +136,7 @@ React 19, TypeScript strict, `@/*` maps to the repo root. Every route is statica
 `lib/services.ts` is the single source of truth for the six service lines. One entry drives, at minimum:
 
 - the `/services/[slug]` route (via `generateStaticParams`) and its metadata
-- the home page service list (`components/Services.tsx`) and the "more services" list on every service page
+- the `/services` index listing (`components/Services.tsx`) and the "more services" list on every service page
 - the header mega-menu and the mobile menu (`components/Header.tsx`)
 - the team dropdown on `/careers` (`components/ApplicationForm.tsx`, which excludes `outsourcing` and
   `ai-solutions` by slug and appends roles the site doesn't sell as services)
@@ -149,6 +149,23 @@ those are written for the page and these are written for the SERP.
 
 Adding a service means editing `lib/services.ts` and nothing else — the footer now maps over `services`
 rather than hardcoding its column. Changing a slug means adding a redirect in `next.config.ts`.
+
+## The two hub pages: `/services` and `/industries`
+
+Both are index routes with the same shape, and they are the pattern to copy for any future hub:
+
+```
+PageHero → Breadcrumbs → an `.about-story` overview section (`paddingTop: 0`) → the listing
+component (<Services /> / <Industries />) → <Cta />
+```
+
+`components/Services.tsx` and `components/Industries.tsx` are *listing sections*, not pages — each renders
+its own `.sec-head` and keeps its `id` (`#services`, `#industries`) because `app/globals.css` styles the
+section by that id (the light-purple block and the dark accordion). Render either one on a page and it
+brings its own heading and background with it.
+
+Neither listing is on the home page. Home is `Hero → Stats → Approach → Process → Cta`; the service list
+used to live there at `/#services` and moved out, which is why nothing links to that anchor any more.
 
 ## Page composition
 
@@ -216,9 +233,11 @@ Some non-obvious choices in them are deliberate and commented in place:
 - `ServiceDetail` reads `location.hash` and `Process` reads IntersectionObserver support through
   `useSyncExternalStore`, with server snapshots of `""` and `true` respectively.
 - Both accordions animate `max-height` from a measured `scrollHeight` and re-measure on resize.
-- **Industry links are plain `<a>`, not `<Link>`** (in `Header.tsx` and via `plain: true` in `Footer.tsx`).
-  `next/link` pushStates a same-page hash without firing `hashchange`, which would leave the accordion shut
-  when you click an industry from `/industries` itself. Don't "fix" these to `<Link>`.
+- **Industry links are plain `<a>`, not `<Link>`** (in `Header.tsx` and via `plain: true` on the individual
+  link in `Footer.tsx`). `next/link` pushStates a same-page hash without firing `hashchange`, which would
+  leave the accordion shut when you click an industry from `/industries` itself. Don't "fix" these to
+  `<Link>`. `plain` is per link, not per column: the "All industries" entry above them points at a real
+  route and has to stay a `<Link>`.
 
 ## Both forms post to Netlify Forms
 
@@ -240,7 +259,7 @@ are logged with a `[contact]` / `[careers]` prefix so a broken deploy config is 
 
 - **Keep everything inside the single `nextConfig` object in `next.config.ts`.** A previous revision assigned
   `module.exports = { allowedDevOrigins }` below the declaration, which clobbered `export default nextConfig`
-  and silently dropped every redirect. Fixed, and verifiable: `routes-manifest.json` should list eight
+  and silently dropped every redirect. Fixed, and verifiable: `routes-manifest.json` should list six
   redirects, not one.
 - **Never set an `icons` key in the root layout's `metadata`.** Doing so replaces Next's file-convention
   icon detection wholesale, and `app/apple-icon.png` stops emitting a `rel="apple-touch-icon"` link.
@@ -250,6 +269,12 @@ are logged with a `[contact]` / `[careers]` prefix so a broken deploy config is 
   convention to cascade — without it, `og:image` appears on `/` and nowhere else.
 - **Page titles go through `buildMetadata`, which sets `title.absolute`.** A bare `title` string picks up
   the layout's `"%s | Valentisys"` template and renders the brand twice.
+- **`/services` is a real route, not an anchor.** It was `/#services` (a home-page section plus a temporary
+  `/services → /#services` redirect) until the listing got its own page. Both are gone. Link to `/services`;
+  don't reintroduce the redirect, and don't point a nav item, CTA, or breadcrumb at `/#services`. The
+  section keeps `id="services"` purely because `globals.css` styles `#services`. Anything that renders a
+  route link needs `<Link>` — `no-html-link-for-pages` fails the lint on a bare `<a href="/services">`,
+  which is exactly how the old Hero anchor was caught.
 - Commit messages in this repo are terse and untyped ("fixed", "content audited"). No convention to follow.
 
 ## SEO, structured data, and legal pages
@@ -268,7 +293,21 @@ Four `lib/` modules carry everything a page asserts about the business:
   `@id` instead of restating the company.
 - **`lib/consent.ts`** — cookie consent, stored in localStorage and read through `useSyncExternalStore`.
 
+The **service catalogue** — `serviceSchema` for all six services — is emitted by `app/services/page.tsx`
+alongside its `CollectionPage` node, because that is the page that links them all. It sat on the home page
+until the listing moved, and moved with it; home now carries only its `WebPage` node. Each
+`/services/[slug]` page still emits its own copy under the same stable `@id`, so the six read as one entity
+described consistently rather than six competing ones.
+
 `robots.txt`, `sitemap.xml`, and the web manifest are generated by `app/robots.ts`, `app/sitemap.ts`, and
-`app/manifest.ts`. Adding a route means adding it to `app/sitemap.ts` **and** to the grouped list in
-`app/sitemap/page.tsx` (the human-readable sitemap). The four policy pages share `components/LegalPage.tsx`
-and all read their "last updated" date from `site.legalUpdated`.
+`app/manifest.ts`. Adding a route means adding it in **three** places: `app/sitemap.ts`, the grouped list in
+`app/sitemap/page.tsx` (the human-readable sitemap), and — for anything meant to rank — a real internal link
+from the footer or nav, since a URL that only appears in `sitemap.xml` gets crawled but reads as
+unimportant. In `app/sitemap.ts` the order is deliberate: home, `/services`, the six service pages, then
+everything else. The four policy pages share `components/LegalPage.tsx` and all read their "last updated"
+date from `site.legalUpdated`.
+
+Verifying the SEO surface is a loop worth rerunning after any metadata change — fetch each route off the
+dev server and check `<title>` (50–60), `meta description` (140–160), the canonical, and that there is
+exactly one `<h1>`. Decode HTML entities first: `&amp;` is four characters in the markup and one in the
+title, which is enough to make a compliant title look over-length.
