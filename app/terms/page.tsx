@@ -70,7 +70,7 @@ const sections: LegalSection[] = [
     body: (
       <p>
         The Valentisys name, logo, page copy, layout, and design are owned by us or licensed to
-        us, and are protected by copyright and trade mark law. Nothing on this site transfers any
+        us, and are protected by copyright and trademark law. Nothing on this site transfers any
         of those rights to you. You may quote short extracts with clear attribution and a link
         back to the page.
       </p>

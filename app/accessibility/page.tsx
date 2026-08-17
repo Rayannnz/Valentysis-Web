@@ -143,7 +143,7 @@ const sections: LegalSection[] = [
         </p>
         <p>
           Email <a href={`mailto:${contactEmail}`}>{contactEmail}</a> with the page address, what
-          you were trying to do, and what happened. We aim to reply within five working days, and
+          you were trying to do, and what happened. We aim to reply within five business days, and
           we will tell you what we intend to do and by when. If you need information from this
           site in a different format, ask and we will send it.
         </p>
