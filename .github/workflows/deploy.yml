@@ -1,4 +1,4 @@
-name: Deploy Next.js to EC2
+name: Deploy to EC2
 
 on:
   push:
@@ -14,12 +14,12 @@ jobs:
         uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
+          username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
 
           script: |
-            cd ~/YOUR_PROJECT_FOLDER
+            cd Valentysis-Web
             git pull origin main
             npm ci
             npm run build
-            pm2 restart YOUR_PM2_APP_NAME
+            pm2 restart npm
