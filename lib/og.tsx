@@ -84,7 +84,7 @@ export function renderOgImage() {
               display: "flex",
             }}
           >
-            AWS, support &amp; grow
+            Staff, support &amp; grow
           </span>
           <span
             style={{
