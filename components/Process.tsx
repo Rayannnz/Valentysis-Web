@@ -52,11 +52,13 @@ export default function Process() {
   const [active, setActive] = useState<Set<number>>(() => new Set([0]));
   const [current, setCurrent] = useState(0);
   const stepRefs = useRef<(HTMLElement | null)[]>([]);
+  const countRef = useRef<HTMLDivElement>(null);
 
   /* without IntersectionObserver there's no way to track scroll position, so every
      step is shown active rather than left permanently dimmed */
   const revealAll = !useSupportsIntersectionObserver();
 
+  /* the reveal: a step undims for good once it climbs into the lower third */
   useEffect(() => {
     if (!("IntersectionObserver" in window)) return;
     const io = new IntersectionObserver(
@@ -66,13 +68,51 @@ export default function Process() {
           const index = stepRefs.current.indexOf(e.target as HTMLElement);
           if (index === -1) return;
           setActive((prev) => (prev.has(index) ? prev : new Set(prev).add(index)));
-          setCurrent(index);
         });
       },
-      { threshold: 0, rootMargin: "-38% 0px -38% 0px" }
+      { threshold: 0, rootMargin: "-20% 0px -30% 0px" }
     );
     stepRefs.current.forEach((el) => el && io.observe(el));
     return () => io.disconnect();
+  }, []);
+
+  /* The counter is parked and the steps slide past it, so the number belongs to
+     whichever step is level with it: the nearest center, measured live. A
+     threshold band instead flips the number as the next step crosses a line,
+     while the step it names is still the one beside the panel, which is what
+     reads as the two columns being out of step. */
+  useEffect(() => {
+    let frame = 0;
+    const pick = () => {
+      frame = 0;
+      const count = countRef.current;
+      if (!count) return;
+      const box = count.getBoundingClientRect();
+      const mid = box.top + box.height / 2;
+      let nearest = 0;
+      let smallest = Infinity;
+      stepRefs.current.forEach((el, i) => {
+        if (!el) return;
+        const step = el.getBoundingClientRect();
+        const gap = Math.abs(step.top + step.height / 2 - mid);
+        if (gap < smallest) {
+          smallest = gap;
+          nearest = i;
+        }
+      });
+      setCurrent(nearest);
+    };
+    const queue = () => {
+      if (!frame) frame = requestAnimationFrame(pick);
+    };
+    pick();
+    window.addEventListener("scroll", queue, { passive: true });
+    window.addEventListener("resize", queue);
+    return () => {
+      window.removeEventListener("scroll", queue);
+      window.removeEventListener("resize", queue);
+      cancelAnimationFrame(frame);
+    };
   }, []);
 
   return (
@@ -82,7 +122,7 @@ export default function Process() {
           <div className="process-sticky">
             <p className="sec-eyebrow" data-reveal>The playbook</p>
             <h2 className="sec-title" data-reveal>How we work</h2>
-            <div className="process-count" aria-hidden="true">
+            <div className="process-count" aria-hidden="true" ref={countRef}>
               <span>{String(current + 1).padStart(2, "0")}</span>
             </div>
           </div>

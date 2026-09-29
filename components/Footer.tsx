@@ -107,6 +107,13 @@ const year = new Date().getFullYear();
 export default function Footer() {
   return (
     <footer>
+      {/* Decorative only: the grid and the glow are pseudo-elements on
+          .footer-backdrop, the wordmark needs a box of its own. Hidden from
+          assistive tech, since the brand name is already the logo link below. */}
+      <div className="footer-backdrop" aria-hidden="true">
+        <span className="footer-wordmark">{site.name}</span>
+      </div>
+
       <div className="container">
         <div className="footer-top">
           <div className="footer-brand">

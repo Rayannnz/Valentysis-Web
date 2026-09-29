@@ -12,7 +12,6 @@
      --ink. Use it for any text or icon that sits on a dark ground. */
   --primary-lift: #A78BFA;
   --magenta:     #FF3DD9;
-  --violet:      #4B3ED6;
   --ink:         #171429;
   --ink-soft:    #3E3A52;
   --paper:       #FFFFFF;
@@ -199,7 +198,7 @@ body.nav-blur #nav-veil{
 .mega-col a:hover::after,.mega-col a:focus-visible::after{transform:scaleX(1)}
 .mega-promo{
   position:relative;overflow:hidden;padding:56px clamp(24px,3.5vw,56px);
-  background:linear-gradient(135deg,#39308f 0%,var(--violet) 45%,#7a5cff 100%);
+  background:#271a48;
   color:#fff;display:flex;flex-direction:column;justify-content:center;gap:14px;
 }
 .mega-promo::before,.mega-promo::after{
@@ -342,6 +341,12 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
 .btn-primary::before{background:var(--ink)}
 .btn-magenta{background:var(--magenta);color:var(--ink)}
 .btn-magenta::before{background:#fff}
+/* The promo card's own CTA. Magenta read as a second accent against the card,
+   so this one takes the brand purple. White text (7.1:1 on it, against 3.3:1
+   for --ink), and the sweep inverts to white with ink text on hover: the
+   magenta button's white sweep would otherwise erase the white label. */
+.mega-promo .btn-magenta{background:var(--primary);color:#fff}
+.mega-promo .btn-magenta::before{background:#fff}
 .btn-ghost{border-color:var(--ink);color:var(--ink)}
 .btn-ghost::before{background:var(--ink)}
 /* pointer-gated to match .btn:hover .arr above. On touch the sweep latches after
@@ -350,6 +355,7 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
   .btn-primary:hover::before{transform:none}
   .btn-magenta:hover::before{transform:none}
   .btn-ghost:hover{color:#fff}
+  .mega-promo .btn-magenta:hover{color:var(--ink)}
   .btn-ghost:hover::before{transform:none}
 }
 
@@ -658,7 +664,10 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
    ============================================================ */
 #process{background:var(--bg-2)}
 .process-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:clamp(32px,6vw,100px);align-items:start}
-.process-sticky{position:sticky;top:120px}
+/* Pinned while the steps scroll past: the counter holds one vertical spot, parked
+   low enough that the big number sits level with the step beside it rather than
+   up in the corner. Process.tsx reads the number off whichever step is nearest. */
+.process-sticky{position:sticky;top:max(96px,47vh - 180px)}
 .process-sticky .sec-eyebrow{color:var(--primary-deep)}
 .process-count{
   margin-top:34px;font-family:var(--font-head);font-weight:700;
@@ -674,8 +683,8 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
      measured 1.74:1 against a 4.5 requirement. .78 keeps every element in this
      block above threshold (body copy 4.9:1, tags 6.7:1); the reveal leans on
      the longer travel below to make up the difference. */
-  opacity:.78;transform:translateX(36px);
-  transition:opacity .5s var(--ease-out),transform .5s var(--ease-out);
+  opacity:.78;transform:translate(44px,30px);
+  transition:opacity .7s var(--ease-out),transform .7s var(--ease-out);
 }
 .step:last-child{border-bottom:1px solid var(--line-strong)}
 .step.active{opacity:1;transform:none}
@@ -713,7 +722,7 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
 .cta-shapes span:nth-child(1){font-size:clamp(130px,26vw,260px);top:-80px;right:4%}
 .cta-shapes span:nth-child(2){font-size:clamp(100px,20vw,200px);bottom:-70px;left:3%;animation-delay:-4s}
 .cta-shapes span:nth-child(3){font-size:clamp(76px,15vw,150px);top:10%;left:22%;animation-delay:-2s}
-.cta-inner{position:relative;z-index:2;text-align:center;max-width:840px;margin:0 auto}
+.cta-inner{position:relative;z-index:2;text-align:center;max-width:900px;margin:0 auto}
 .cta-inner h2{font-size:clamp(31px,7.5vw,72px);letter-spacing:-.03em}
 .cta-inner p{margin-top:20px;font-size:clamp(15.5px,1.5vw,18px);opacity:.9}
 .cta-inner .btn{margin-top:clamp(28px,5vw,44px)}
@@ -751,6 +760,47 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
    Footer
    ============================================================ */
 footer{background:var(--footer);color:#fff;padding:clamp(56px,8vw,110px) 0 0;overflow:hidden}
+footer{position:relative}
+/* the link columns and the bottom bar ride above the backdrop */
+footer > .container{position:relative;z-index:1}
+
+/* Backdrop: a faint grid, a slow aurora, and the brand set huge behind both.
+   All three are decoration on a dark ground, so they stay far under the text
+   contrast they sit behind. */
+.footer-backdrop{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+/* grid, faded out top and bottom so it never meets an edge */
+.footer-backdrop::before{
+  content:"";position:absolute;inset:0;background-size:60px 60px;
+  background-image:
+    linear-gradient(to right,rgba(255,255,255,.035) 1px,transparent 1px),
+    linear-gradient(to bottom,rgba(255,255,255,.035) 1px,transparent 1px);
+  -webkit-mask-image:linear-gradient(to bottom,transparent,#000 28%,#000 72%,transparent);
+  mask-image:linear-gradient(to bottom,transparent,#000 28%,#000 72%,transparent);
+}
+/* aurora: the brand purple into the magenta, breathing */
+.footer-backdrop::after{
+  content:"";position:absolute;left:50%;top:46%;width:86vw;height:62%;
+  transform:translate(-50%,-50%);border-radius:50%;filter:blur(80px);
+  /* Alpha is capped where it is because the glow lightens the ground under the
+     bottom bar, which is the smallest text on it. At .32 that row still measures
+     4.8:1 against rgba(255,255,255,.5); it drops under 4.5 by .5. */
+  background:radial-gradient(circle at 50% 50%,
+    rgba(109,40,217,.32) 0%,rgba(255,61,217,.14) 42%,transparent 70%);
+  animation:footerBreathe 9s var(--ease-io) infinite alternate;
+}
+@keyframes footerBreathe{
+  from{transform:translate(-50%,-50%) scale(1);opacity:.55}
+  to{transform:translate(-50%,-50%) scale(1.12);opacity:.85}
+}
+/* the wordmark bleeds off the bottom edge, outlined with a fill that fades out */
+.footer-wordmark{
+  position:absolute;left:50%;bottom:-.12em;transform:translateX(-50%);
+  font-family:var(--font-head);font-weight:700;font-size:24vw;line-height:.75;
+  letter-spacing:-.05em;white-space:nowrap;user-select:none;
+  color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.07);
+  background:linear-gradient(180deg,rgba(255,255,255,.07) 0%,transparent 62%);
+  -webkit-background-clip:text;background-clip:text;
+}
 /* four link columns since Legal was added. At 1.4fr the brand crowded them */
 .footer-top{
   display:grid;grid-template-columns:1.5fr repeat(4,minmax(0,1fr));
@@ -1273,4 +1323,5 @@ body:has(.cookie-bar) #toTop{bottom:calc(clamp(14px,4vw,26px) + var(--cookie-h,1
   .js .section-after-hero [data-reveal]{animation:none}
   .step{opacity:1;transform:none}
   .cookie-bar{animation:none}
+  .footer-backdrop::after{animation:none}
 }
