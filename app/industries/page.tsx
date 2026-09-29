@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Cta from "@/components/Cta";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import Industries from "@/components/Industries";
+import dynamic from "next/dynamic";
 import JsonLd from "@/components/JsonLd";
 import PageEffects from "@/components/PageEffects";
 import PageHero from "@/components/PageHero";
@@ -10,6 +10,9 @@ import { industries } from "@/lib/industries";
 import { breadcrumbSchema, type Crumb, graph, webPageSchema } from "@/lib/schema";
 import { buildMetadata } from "@/lib/seo";
 import { absoluteUrl } from "@/lib/site";
+
+/* below the fold and only on this route, so it loads in its own chunk */
+const Industries = dynamic(() => import("@/components/Industries"));
 
 const TITLE = "Industries: Health, Legal, Finance & More | Valentisys";
 const DESCRIPTION =
@@ -45,7 +48,7 @@ export default function IndustriesPage() {
     <>
       <PageEffects />
       <Header />
-      <main id="main">
+      <main id="main" tabIndex={-1}>
         <PageHero
           eyebrow="Industries"
           lines={[

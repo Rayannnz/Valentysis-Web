@@ -15,6 +15,9 @@ export const metadata: Metadata = {
     "That page could not be found. Jump back to the Valentisys home page, browse our services and industries, or tell us what you were looking for.",
   /* follow so the crawler still walks the recovery links out of here */
   robots: { index: false, follow: true },
+  /* no canonical. Inheriting the layout's made every unknown URL claim to be
+     a duplicate of the home page while also asking not to be indexed */
+  alternates: { canonical: null },
 };
 
 const elsewhere = [
@@ -29,7 +32,7 @@ export default function NotFound() {
     <>
       <PageEffects />
       <Header />
-      <main id="main">
+      <main id="main" tabIndex={-1}>
         <section className="error-hero">
           <div className="hero-bg" aria-hidden="true">
             <div className="hero-blob b1" />

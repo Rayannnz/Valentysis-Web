@@ -7,11 +7,22 @@
  * placeholder, so an unverified detail never ships as structured data.
  */
 
-/* Netlify injects URL at build time; local and preview builds fall back to prod
-   so canonicals are never relative or pointed at localhost. */
+/* The canonical host. NEXT_PUBLIC_SITE_URL overrides it everywhere. Without it,
+   a Netlify deploy preview or branch deploy uses its own DEPLOY_PRIME_URL, so a
+   preview never publishes canonicals, sitemap entries, or JSON-LD ids that
+   point at production (Netlify marks those deploys noindex itself). Local
+   builds fall back to production so nothing ever points at localhost. */
 const CANONICAL_ORIGIN = "https://www.valentisys.com";
 
-export const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || CANONICAL_ORIGIN).replace(/\/+$/, "");
+const netlifyPreviewUrl =
+  process.env.CONTEXT && process.env.CONTEXT !== "production"
+    ? process.env.DEPLOY_PRIME_URL
+    : undefined;
+
+const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || netlifyPreviewUrl || CANONICAL_ORIGIN).replace(
+  /\/+$/,
+  ""
+);
 
 export const site = {
   name: "Valentisys",
@@ -22,7 +33,7 @@ export const site = {
 
   /** Reused as the OG/Twitter fallback and the Organization description. */
   description:
-    "Valentisys places trained remote teams inside health, legal, engineering, finance, and hospitality businesses, and runs the marketing, app, and web work that grows them.",
+    "Valentisys places trained remote teams in health, legal, engineering, finance, and hospitality businesses, and runs the marketing and web work that grows them.",
 
   email: {
     sales: "sales@valentisys.com",

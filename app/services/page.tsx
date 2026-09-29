@@ -45,7 +45,7 @@ export default function ServicesPage() {
     <>
       <PageEffects />
       <Header />
-      <main id="main">
+      <main id="main" tabIndex={-1}>
         <PageHero
           eyebrow="Services"
           lines={[

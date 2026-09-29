@@ -6,15 +6,11 @@ export const dynamic = "force-static";
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
-      {
-        userAgent: "*",
-        allow: "/",
-        /* Post-submission confirmation only. It carries no content worth
-           ranking and would otherwise compete with /contact. The page also
-           sends its own noindex, which is what actually removes it if a
-           crawler reaches it from a link. */
-        disallow: ["/thank-you"],
-      },
+      /* No Disallow for /thank-you. Both confirmation pages send their own
+         noindex (buildMetadata noIndex), and a Disallow would stop the crawler
+         from ever fetching the page and reading that tag, so a linked-to
+         /thank-you could still surface as a URL-only result. */
+      { userAgent: "*", allow: "/" },
     ],
     sitemap: absoluteUrl("/sitemap.xml"),
     host: site.url,

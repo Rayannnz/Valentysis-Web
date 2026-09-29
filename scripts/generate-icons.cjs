@@ -9,7 +9,6 @@ const ROOT = process.cwd();
 /* the script lives outside the repo, so resolve sharp from the project instead */
 const sharp = require(require.resolve("sharp", { paths: [ROOT] }));
 const SRC = path.join(ROOT, "public/logo/logo-mark.png");
-const BRAND = "#6D28D9";
 
 /** Trim the source's transparent margin once so every output frames identically. */
 const trimmed = () => sharp(SRC).trim({ threshold: 10 });
@@ -91,7 +90,7 @@ const write = (rel, buf) => {
   write("public/icons/icon-192.png", await badge(192, "#ffffff", 0.1));
   write("public/icons/icon-512.png", await badge(512, "#ffffff", 0.1));
   // Maskable needs the mark inside a 60% safe zone. Android crops to a circle.
-  // White, not BRAND: the mark is itself dark purple and disappears against it.
+  // White, not the brand purple: the mark is itself dark purple and disappears against it.
   write("public/icons/icon-maskable-512.png", await badge(512, "#ffffff", 0.22));
 
   // Legacy /favicon.ico probe. Three frames, flattened for dark tab strips.

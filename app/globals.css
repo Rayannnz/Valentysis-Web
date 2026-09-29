@@ -76,6 +76,11 @@ h1,h2,h3,h4{font-family:var(--font-head);font-weight:600;line-height:1.04;letter
 /* ============================================================
    Reveal system (only when JS available)
    ============================================================ */
+/* `.js` is added by the inline script in app/layout.tsx and removed again if
+   the bundle never hydrates (see there), so a failed chunk cannot leave the
+   page blank. Nothing above the fold uses this: the hero and the page hero
+   animate with the keyframes further down, at first paint, so LCP never waits
+   for hydration. */
 .js [data-reveal]{opacity:0;transform:translateY(42px);transition:opacity .9s var(--ease-out),transform .9s var(--ease-out)}
 .js [data-reveal].in-view{opacity:1;transform:none}
 .js [data-reveal="left"]{transform:translateX(-48px)}
@@ -85,9 +90,27 @@ h1,h2,h3,h4{font-family:var(--font-head);font-weight:600;line-height:1.04;letter
 
 /* line mask for big headings */
 .line-mask{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
-.js .line-mask .line{display:inline-block;transform:translateY(115%);transition:transform 1.1s var(--ease-out)}
-.js .in-view .line-mask .line,
-.js .line-mask.in-view .line{transform:none}
+.line-mask .line{display:inline-block}
+/* inside a scroll reveal (the CTA band): the lines rise when the block comes into view */
+.js [data-reveal] .line-mask .line{transform:translateY(115%);transition:transform 1.1s var(--ease-out)}
+.js [data-reveal].in-view .line-mask .line{transform:none}
+
+/* First screen: a pure CSS entrance with no JS on the critical path. The h1
+   lines rise out of their masks and the lead copy and CTAs follow. `both`
+   holds the from-state through the delay; without JS the animation still runs
+   and ends visible. Reduced motion switches it off at the end of the file. */
+[data-hero-lines] .line-mask .line{animation:lineIn 1s var(--ease-out) both}
+[data-hero-lines] .line-mask:nth-child(2) .line{animation-delay:.08s}
+[data-hero-lines] .line-mask:nth-child(3) .line{animation-delay:.16s}
+.hero-sub,.hero-ctas,.page-hero .lead{animation:riseIn .8s var(--ease-out) .22s both}
+.hero-ctas{animation-delay:.32s}
+/* the first section under a page hero is inside the first screen on phones, so
+   it enters with the hero instead of waiting for hydration (it was the LCP
+   element on /contact at 3.2s). The animation overrides the reveal transition
+   above and ends visible whatever PageEffects does later */
+.js .section-after-hero [data-reveal]{animation:riseIn .8s var(--ease-out) .45s both}
+@keyframes lineIn{from{transform:translateY(115%)}to{transform:none}}
+@keyframes riseIn{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
 
 /* ============================================================
    Nav glass veil. Frosted blur over the page while a
@@ -113,14 +136,15 @@ body.nav-blur #nav-veil{
 #header{
   position:fixed;top:0;left:0;right:0;z-index:100;
   background:rgba(241,239,247,.85);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-  border-bottom:1px solid transparent;
+  /* the border sits inside the height, so --header-h is the real rendered height */
+  height:var(--header-h);border-bottom:1px solid transparent;
   transition:transform .45s var(--ease-out),border-color .3s,background .3s;
 }
 #header.scrolled{border-bottom-color:var(--line);background:rgba(241,239,247,.95)}
 #header.hidden{transform:translateY(-110%)}
 .header-inner{
   display:flex;align-items:center;gap:8px;
-  height:var(--header-h);max-width:1440px;margin:0 auto;padding:0 clamp(14px,3vw,40px);
+  height:100%;max-width:1440px;margin:0 auto;padding:0 clamp(14px,3vw,40px);
 }
 .logo{
   font-family:var(--font-head);font-weight:700;font-size:26px;letter-spacing:-.03em;
@@ -146,7 +170,8 @@ body.nav-blur #nav-veil{
   transition:transform .3s var(--ease-out);
 }
 .nav-item:hover > .nav-link::after,
-.nav-item:focus-within > .nav-link::after{transform:scaleX(1)}
+.nav-item:focus-within > .nav-link::after,
+.nav-link[aria-current="page"]::after{transform:scaleX(1)}
 .nav-link .chev{transition:transform .3s}
 .nav-item:hover .chev,.nav-item:focus-within .chev{transform:rotate(180deg)}
 
@@ -195,7 +220,7 @@ body.nav-blur #nav-veil{
 /* header CTA + burger */
 .btn-contact{
   background:var(--primary);color:#fff;font-weight:600;font-size:15px;
-  padding:0 26px;height:var(--header-h);display:flex;align-items:center;margin-left:10px;
+  padding:0 26px;height:100%;display:flex;align-items:center;margin-left:10px;
   position:relative;overflow:hidden;
 }
 .btn-contact span{position:relative;z-index:2}
@@ -245,6 +270,7 @@ body.menu-open #mobile-menu{
   font-size:clamp(17px,4.2vw,26px);font-weight:500;padding:4px 0 4px 12px;opacity:.9;
 }
 #mobile-menu a small{font-family:var(--font-body);font-size:14px;color:var(--primary);font-weight:600;flex:none}
+#mobile-menu a[aria-current="page"]{color:var(--primary)}
 @media (hover:hover){#mobile-menu a:hover{color:var(--primary)}}
 
 /* close button. Fixed, so it stays put when a long list scrolls underneath it */
@@ -295,6 +321,10 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
   font-family:var(--font-head);font-weight:600;font-size:clamp(15.5px,1.2vw,17px);
   padding:16px clamp(22px,4vw,34px);position:relative;overflow:hidden;cursor:pointer;
   min-height:48px;max-width:100%;text-align:center;
+  /* every variant carries the same 2px border (transparent unless ghost) so a
+     primary and a ghost side by side are the same height. background-clip
+     keeps the fill inside it, where the hover sweep can cover it fully */
+  border:2px solid transparent;background-clip:padding-box;
   transition:color .35s var(--ease-out);
   /* own stacking context so ::before can sit below the label. See note below */
   isolation:isolate;
@@ -312,10 +342,8 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
 .btn-primary::before{background:var(--ink)}
 .btn-magenta{background:var(--magenta);color:var(--ink)}
 .btn-magenta::before{background:#fff}
-.btn-ghost{border:2px solid var(--ink);color:var(--ink)}
+.btn-ghost{border-color:var(--ink);color:var(--ink)}
 .btn-ghost::before{background:var(--ink)}
-.btn-white{background:#fff;color:var(--ink)}
-.btn-white::before{background:var(--magenta)}
 /* pointer-gated to match .btn:hover .arr above. On touch the sweep latches after
    a tap and the button sits in its hover colors until the next repaint */
 @media (hover:hover){
@@ -323,7 +351,6 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
   .btn-magenta:hover::before{transform:none}
   .btn-ghost:hover{color:#fff}
   .btn-ghost:hover::before{transform:none}
-  .btn-white:hover::before{transform:none}
 }
 
 /* ============================================================
@@ -358,7 +385,7 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
 .hero-inner{position:relative;z-index:2;width:100%}
 .hero-eyebrow{
   display:inline-flex;align-items:center;gap:10px;max-width:100%;
-  font-size:clamp(11.5px,3vw,13px);font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+  font-size:clamp(12px,3vw,13px);font-weight:600;letter-spacing:.18em;text-transform:uppercase;
   color:var(--primary-deep);margin-bottom:clamp(18px,4vw,28px);
 }
 .hero-eyebrow::before{content:"";width:clamp(22px,6vw,36px);height:2px;background:var(--primary);flex:none}
@@ -394,21 +421,13 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
 @media (max-width:960px){.hero-chip{display:none}}
 
 /* ============================================================
-   Marquee: Trusted by
-   ============================================================ */
-#clients{padding:64px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--paper)}
-.clients-label{
-  text-align:center;font-size:13px;letter-spacing:.24em;text-transform:uppercase;
-  color:var(--ink-soft);margin-bottom:38px;font-weight:600;
-}
-/* ============================================================
    Section headers (shared)
    ============================================================ */
 .section{padding:clamp(64px,10vw,150px) 0}
 .sec-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:clamp(32px,5vw,72px)}
 .sec-head > *{min-width:0}
 .sec-eyebrow{
-  font-size:clamp(11.5px,3vw,13px);font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+  font-size:clamp(12px,3vw,13px);font-weight:600;letter-spacing:.18em;text-transform:uppercase;
   display:flex;align-items:center;gap:10px;margin-bottom:clamp(12px,2.5vw,18px);color:var(--primary-deep);
 }
 .sec-eyebrow::before{content:"";width:clamp(22px,6vw,36px);height:2px;background:currentColor;flex:none}
@@ -587,7 +606,6 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
   font-family:var(--font-head);font-weight:700;font-size:clamp(40px,4.6vw,68px);
   letter-spacing:-.03em;display:flex;align-items:baseline;color:var(--ink);line-height:1;
 }
-.stat b i{font-style:normal;color:var(--primary)}
 .stat > span{display:block;margin-top:12px;color:var(--ink-soft);font-size:15px}
 /* text variant: short phrases instead of counters, so the display size drops */
 .stats-text .stat b{font-size:clamp(22px,2.4vw,32px);letter-spacing:-.02em;line-height:1.15}
@@ -747,7 +765,7 @@ footer{background:var(--footer);color:#fff;padding:clamp(56px,8vw,110px) 0 0;ove
   color:rgba(255,255,255,.62);margin-bottom:16px;font-family:var(--font-body);font-weight:600;
 }
 .footer-col a{
-  display:block;padding:9px 0;color:rgba(255,255,255,.78);font-size:15px;
+  display:block;padding:11px 0;color:rgba(255,255,255,.78);font-size:15px;
   transition:color .25s,padding-left .3s var(--ease-out);
 }
 @media (hover:hover){.footer-col a:hover{color:var(--primary-lift);padding-left:8px}}
@@ -764,7 +782,7 @@ footer{background:var(--footer);color:#fff;padding:clamp(56px,8vw,110px) 0 0;ove
   font-size:13.5px;color:rgba(255,255,255,.5);
 }
 .footer-legal{display:flex;flex-wrap:wrap;gap:8px 22px}
-.footer-bottom a{display:inline-block;padding:4px 0}
+.footer-bottom a{display:inline-block;padding:8px 0}
 @media (hover:hover){.footer-bottom a:hover{color:#fff}}
 @media (max-width:1080px){
   /* brand goes full width so the four columns keep equal room below it */
@@ -790,9 +808,12 @@ footer{background:var(--footer);color:#fff;padding:clamp(56px,8vw,110px) 0 0;ove
 @media (hover:hover){#toTop:hover{background:var(--primary)}}
 
 /* focus visibility */
-a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,
+.legal-table-wrap:focus-visible{
   outline:3px solid var(--primary);outline-offset:3px;
 }
+/* the skip link's target. Focusable so the jump moves DOM focus, not only scroll */
+#main:focus{outline:none}
 
 /* ============================================================
    Sub-page hero (Careers / About)
@@ -831,7 +852,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 }
 .application-title{
   font-size:clamp(24px,5.5vw,40px);font-weight:700;letter-spacing:-.03em;margin-bottom:clamp(22px,3vw,40px);
-  text-align:center;
+  text-align:center;text-transform:uppercase;
 }
 .application-form{display:flex;flex-direction:column;gap:clamp(22px,3vw,28px)}
 .app-grid{
@@ -855,7 +876,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .app-label-main .req{color:#e11d48;margin-left:3px;font-weight:700}
 /* #615E75, not the old #8a869c. That was 3.5:1 on the white card and failed AA */
 .app-label-main .app-opt{color:#615E75;margin-left:6px;font-weight:500;font-size:13px}
-.app-label-soft{font-weight:500;color:var(--ink-soft);font-size:13.5px}
 .app-hint{font-size:12.5px;line-height:1.45;color:#615E75;font-weight:400}
 
 .app-field input,
@@ -864,7 +884,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
   width:100%;appearance:none;-webkit-appearance:none;
   background:#fff;border:1.5px solid #d5d2e0;border-radius:8px;
   padding:13px 14px;font:inherit;font-size:15.5px;color:var(--ink);
-  outline:none;transition:border-color .25s,box-shadow .25s;
+  transition:border-color .25s,box-shadow .25s;
 }
 .app-field textarea{resize:vertical;min-height:120px;line-height:1.6}
 .app-field input:focus,
@@ -922,6 +942,13 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 }
 @media (max-width:480px){
   .app-submit,.application-card .app-submit{align-self:stretch}
+}
+/* the filename gets the full width once the row can't hold both. At 320px it
+   had 108px, and a 60-character resume name was mostly ellipsis */
+@media (max-width:420px){
+  .app-file-zone{flex-direction:column;align-items:stretch}
+  .app-file-btn{border-radius:6px 6px 0 0;text-align:center}
+  .app-file-name{padding:10px 14px;white-space:normal;overflow-wrap:anywhere}
 }
 
 /* ============================================================
@@ -1074,6 +1101,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
   left:clamp(12px,3vw,24px);right:clamp(12px,3vw,24px);bottom:clamp(12px,3vw,24px);
   background:var(--ink);color:#fff;border-radius:16px;
   box-shadow:0 26px 70px rgba(11,8,26,.42);
+  /* never taller than the space under the header; scrolls inside if it must */
+  max-height:calc(100dvh - var(--header-h) - 32px);overflow-y:auto;
   /* The .75s delay is the point of this. Without it the bar animates during
      first paint, while the hero is still resolving, so nobody sees it move.
      It just looks like it was always there. Holding it off-screen (the `both`
@@ -1113,11 +1142,23 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 }
 @media (hover:hover){.cookie-link:hover{color:#fff;border-bottom-color:#fff}}
 /* keep the back-to-top button clear of the banner while it is on screen */
-body:has(.cookie-bar) #toTop{bottom:calc(clamp(14px,4vw,26px) + 132px)}
+/* --cookie-h is the bar's height plus its offset, written by CookieConsent from
+   a ResizeObserver. The footer reserves that much room so its last links can
+   scroll out from under the bar, and the back-to-top button clears it at every
+   width instead of the desktop figure it used to assume */
+body:has(.cookie-bar) footer{padding-bottom:var(--cookie-h,0px)}
+body:has(.cookie-bar) #toTop{bottom:calc(clamp(14px,4vw,26px) + var(--cookie-h,132px))}
 @media (max-width:640px){
   .cookie-bar-actions{width:100%}
   .cookie-bar .cookie-btn{flex:1 1 auto;justify-content:center}
   .cookie-link{width:100%;text-align:center;border-bottom:0;text-decoration:underline;text-underline-offset:3px}
+}
+/* small phones: the bar was two thirds of a 320px viewport */
+@media (max-width:400px){
+  .cookie-bar-inner{padding:16px 18px;gap:14px}
+  .cookie-bar-copy h2{font-size:16px}
+  .cookie-bar-copy p{font-size:13.5px}
+  .cookie-bar .cookie-btn{padding:11px 16px;font-size:14px}
 }
 
 .prefs{
@@ -1175,7 +1216,7 @@ body:has(.cookie-bar) #toTop{bottom:calc(clamp(14px,4vw,26px) + 132px)}
   -webkit-text-stroke:2px var(--line-strong);margin-bottom:clamp(8px,2vw,18px);
   user-select:none;
 }
-.error-hero h1,.thanks-hero h1{font-size:clamp(34px,8vw,76px);letter-spacing:-.035em;max-width:16ch}
+.error-hero h1,.thanks-hero h1{font-size:clamp(34px,8vw,76px);letter-spacing:-.035em;max-width:16ch;text-wrap:balance}
 .error-hero h1 .accent,.thanks-hero h1 .accent{color:var(--primary)}
 .error-hero .lead,.thanks-hero .lead{
   max-width:56ch;margin-top:clamp(16px,3vw,24px);
@@ -1199,7 +1240,7 @@ body:has(.cookie-bar) #toTop{bottom:calc(clamp(14px,4vw,26px) + 132px)}
 .error-links-col h3{font-size:clamp(18px,1.8vw,22px);margin-bottom:18px}
 .error-links-col ul{display:flex;flex-direction:column;gap:14px}
 .error-links-col li{display:flex;flex-direction:column;gap:2px;min-width:0}
-.error-links-col a{font-weight:600;font-size:16px;color:var(--primary-deep);width:fit-content;border-bottom:1px solid transparent;transition:border-color .25s}
+.error-links-col a{font-weight:600;font-size:16px;color:var(--primary-deep);width:fit-content;padding:5px 0;border-bottom:1px solid transparent;transition:border-color .25s}
 @media (hover:hover){.error-links-col a:hover{border-bottom-color:currentColor}}
 .error-links-col span{font-size:14px;color:var(--ink-soft);line-height:1.55}
 .error-help{margin-top:clamp(32px,4vw,50px);font-size:15px;color:var(--ink-soft)}
@@ -1216,7 +1257,7 @@ body:has(.cookie-bar) #toTop{bottom:calc(clamp(14px,4vw,26px) + 132px)}
 .sitemap-group li{display:flex;flex-direction:column;gap:3px;min-width:0}
 .sitemap-group a{
   font-family:var(--font-head);font-weight:600;font-size:clamp(16px,1.4vw,18px);
-  color:var(--ink);width:fit-content;border-bottom:1.5px solid transparent;transition:color .25s,border-color .25s;
+  color:var(--ink);width:fit-content;padding:5px 0;border-bottom:1.5px solid transparent;transition:color .25s,border-color .25s;
 }
 @media (hover:hover){.sitemap-group a:hover{color:var(--primary-deep);border-bottom-color:currentColor}}
 .sitemap-group span{font-size:14px;color:var(--ink-soft);line-height:1.6;max-width:52ch}
@@ -1227,7 +1268,9 @@ body:has(.cookie-bar) #toTop{bottom:calc(clamp(14px,4vw,26px) + 132px)}
   *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
   html{scroll-behavior:auto}
   .js [data-reveal]{opacity:1;transform:none}
-  .js .line-mask .line{transform:none}
+  .js [data-reveal] .line-mask .line{transform:none}
+  [data-hero-lines] .line-mask .line,.hero-sub,.hero-ctas,.page-hero .lead,
+  .js .section-after-hero [data-reveal]{animation:none}
   .step{opacity:1;transform:none}
   .cookie-bar{animation:none}
 }

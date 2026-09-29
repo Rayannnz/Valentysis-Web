@@ -128,8 +128,8 @@ Never delete `.next` while the server is still running. That reintroduces the sa
 ## What this is
 
 Marketing site for Valentisys (outsourcing / customer support / digital agency). Next.js 16 App Router,
-React 19, TypeScript strict, `@/*` maps to the repo root. Every route is statically prerendered except
-`app/api/contact/route.ts`.
+React 19, TypeScript strict, `@/*` maps to the repo root. Every route is statically prerendered. The only
+server-side code is `proxy.ts`, which answers the six legacy-slug redirects (see Gotchas).
 
 ## Copy is US English, everywhere
 
@@ -199,7 +199,8 @@ Each service also carries `seoTitle` / `seoDescription`, kept separate from `tit
 those are written for the page and these are written for the SERP.
 
 Adding a service means editing `lib/services.ts` and nothing else. The footer now maps over `services`
-rather than hardcoding its column. Changing a slug means adding a redirect in `next.config.ts`.
+rather than hardcoding its column. Changing a slug means adding a redirect in `proxy.ts` (both the map
+and the `matcher`, which Next reads statically).
 
 **Never state how many services there are.** No "six capabilities", no "six service lines", no "one
 relationship rather than six". None of it belongs in page copy, headings, meta descriptions, or the stat panel. It reads
@@ -267,7 +268,7 @@ document on mount and wires everything:
 | Attribute | Effect |
 | --- | --- |
 | `data-reveal` (`""`, `"left"`, `"right"`, `"scale"`) | IntersectionObserver adds `.in-view`, staggered per parent |
-| `data-hero-lines` on an `h1` with `.line-mask > .line` children | masked line-by-line heading reveal |
+| `data-hero-lines` on an `h1` with `.line-mask > .line` children | masked line-by-line heading reveal, pure CSS keyframes at first paint (nothing on the LCP path waits for JS) |
 | `data-parallax="<px>"` | element follows the pointer inside `#hero` |
 | `data-magnetic` | button pulls toward the cursor |
 
@@ -285,27 +286,35 @@ Two constraints to preserve:
 
 - **Progressive enhancement.** `app/layout.tsx` injects an inline script that adds `.js` to `<html>`, and all
   reveal CSS is scoped under `.js`. Never write a rule that hides content without that prefix, or it stays
-  hidden when JS is off.
+  hidden when JS is off. The same script removes `.js` again 2.5 s after `load` unless `PageEffects` has
+  added `.hydrated`, so a bundle that never arrives cannot leave the page blank. Nothing above the fold
+  carries `data-reveal`: the hero, `PageHero`, and their lead copy animate with CSS keyframes instead.
 - **Motion/pointer gating.** Parallax and magnetic buttons are behind `(hover:hover) and (pointer:fine)`,
   and the whole stylesheet has a `prefers-reduced-motion` block at the bottom. Keep new effects gated.
 
 ## Client components and their patterns
 
-Only these are `"use client"`: `Header`, `PageEffects`, `ContactForm`, `ApplicationForm`, `ServiceDetail`,
-`Industries`, `Process`. Everything else is a server component.
+Only these are `"use client"`: `HeaderClient`, `PageEffects`, `ContactForm`, `ApplicationForm`,
+`ServiceDetail`, `Industries`, `Process`, `CookieConsent`, `CookiePreferences`, and `app/error.tsx`.
+Everything else is a server component. `Header` is a server wrapper that derives the nav lists from `lib/`
+and passes plain label/href pairs to `HeaderClient`; that is what keeps `lib/services.ts` out of the
+client bundle, so don't import it from a client component. The below-the-fold client components are
+loaded through `next/dynamic` in their pages so each route ships only its own chunk.
 
 Some non-obvious choices in them are deliberate and commented in place:
 
-- `ServiceDetail` and `Header` **adjust state during render** (comparing a `prev*` state value) instead of
+- `ServiceDetail` and `HeaderClient` **adjust state during render** (comparing a `prev*` state value) instead of
   syncing in an effect, so the panel/menu is correct on the same commit.
 - `ServiceDetail` reads `location.hash` and `Process` reads IntersectionObserver support through
   `useSyncExternalStore`, with server snapshots of `""` and `true` respectively.
 - Both accordions animate `max-height` from a measured `scrollHeight` and re-measure on resize.
-- **Industry links are plain `<a>`, not `<Link>`** (in `Header.tsx` and via `plain: true` on the individual
-  link in `Footer.tsx`). `next/link` pushStates a same-page hash without firing `hashchange`, which would
-  leave the accordion shut when you click an industry from `/industries` itself. Don't "fix" these to
-  `<Link>`. `plain` is per link, not per column: the "All industries" entry above them points at a real
-  route and has to stay a `<Link>`.
+- **Industry links are plain `<a>` on `/industries` itself.** `HeaderClient` switches on `pathname`; the
+  footer, sitemap, and 404 use `plain: true` everywhere because they are server components and cannot know
+  the route. `next/link` pushStates a same-page hash without firing `hashchange`, which would leave the
+  accordion shut when you click an industry from `/industries`. From any other page they are `<Link>`s.
+  `plain` is per link, not per column: the "All industries" entry above them points at a real route and
+  has to stay a `<Link>`. Both accordions re-align the hash target after their panel transition ends,
+  because the scroll fires while the previously open panel still has its full height.
 
 ## Both forms post to Netlify Forms
 
@@ -323,15 +332,18 @@ Netlify rejects a request over 8 MiB with a 400 read straight off `Content-Lengt
 it, so renaming it to `resume` silently drops the upload. Only the visible copy says "Resume"; the `cv*`
 identifiers in the component are deliberately aligned with the wire name, not the label.
 
-Both redirect to `/thank-you?ref=contact|careers` on success, which is the conversion destination. Failures
+Both push a real route on success, `/thank-you` (contact) and `/thank-you/application` (careers), which are
+the conversion destinations; there is no `?ref=` parameter (it forced client-side rendering). Failures
 are logged with a `[contact]` / `[careers]` prefix so a broken deploy config is diagnosable from devtools.
 
 ## Gotchas
 
 - **Keep everything inside the single `nextConfig` object in `next.config.ts`.** A previous revision assigned
   `module.exports = { allowedDevOrigins }` below the declaration, which clobbered `export default nextConfig`
-  and silently dropped every redirect. Fixed, and verifiable: `routes-manifest.json` should list six
-  redirects, not one.
+  and silently dropped every redirect. The redirects have since moved to `proxy.ts`, so the 308 carries the
+  security headers (Next answers a config redirect before `headers()` runs). Verifiable:
+  `curl -sI http://localhost:3000/privacy-policy` is a 308 with `X-Frame-Options`. The header list lives in
+  `lib/security-headers.ts`, shared by both files; the CSP is production-only.
 - **Never set an `icons` key in the root layout's `metadata`.** Doing so replaces Next's file-convention
   icon detection wholesale, and `app/apple-icon.png` stops emitting a `rel="apple-touch-icon"` link.
   `app/favicon.ico`, `app/icon.png`, and `app/apple-icon.png` are picked up automatically.
@@ -344,8 +356,9 @@ are logged with a `[contact]` / `[careers]` prefix so a broken deploy config is 
   `/services → /#services` redirect) until the listing got its own page. Both are gone. Link to `/services`;
   don't reintroduce the redirect, and don't point a nav item, CTA, or breadcrumb at `/#services`. The
   section keeps `id="services"` purely because `globals.css` styles `#services`. Anything that renders a
-  route link needs `<Link>`. `no-html-link-for-pages` fails the lint on a bare `<a href="/services">`,
-  which is exactly how the old Hero anchor was caught.
+  route link needs `<Link>`. Don't rely on `no-html-link-for-pages` to catch a bare anchor: the rule only
+  fires for `/`, `/services`, and `/services/*` (a trailing-slash bug in its URL normalizer), which is how
+  three `<a href="/contact">` CTAs shipped. CI greps for `<a ... href="/...">` instead; `#anchors` are exempt.
 - Commit messages in this repo are terse and untyped ("fixed", "content audited"). No convention to follow.
 
 ## SEO, structured data, and legal pages
@@ -382,3 +395,13 @@ Verifying the SEO surface is a loop worth rerunning after any metadata change. F
 dev server and check `<title>` (50–60), `meta description` (140–160), the canonical, and that there is
 exactly one `<h1>`. Decode HTML entities first: `&amp;` is four characters in the markup and one in the
 title, which is enough to make a compliant title look over-length.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

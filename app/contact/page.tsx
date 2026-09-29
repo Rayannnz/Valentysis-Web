@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import ContactForm from "@/components/ContactForm";
+import dynamic from "next/dynamic";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import JsonLd from "@/components/JsonLd";
@@ -7,10 +7,14 @@ import PageEffects from "@/components/PageEffects";
 import PageHero from "@/components/PageHero";
 import { breadcrumbSchema, type Crumb, faqSchema, graph, webPageSchema } from "@/lib/schema";
 import { buildMetadata } from "@/lib/seo";
+import { contactEmail } from "@/lib/site";
+
+/* below the fold and only on this route, so it loads in its own chunk */
+const ContactForm = dynamic(() => import("@/components/ContactForm"));
 
 const TITLE = "Contact Us: Scope, Timeline & Price Upfront | Valentisys";
 const DESCRIPTION =
-  "Tell us what you need covered. Share your industry, the service you want and your budget, and someone who runs the work replies within one business day.";
+  "Tell us what you need: outsourcing, support, marketing, apps, web, or AI. Someone who runs the work replies within one business day with scope and price.";
 
 export const metadata: Metadata = buildMetadata({
   title: TITLE,
@@ -57,7 +61,7 @@ export default function ContactPage() {
     <>
       <PageEffects />
       <Header />
-      <main id="main">
+      <main id="main" tabIndex={-1}>
         <PageHero
           eyebrow="Contact us"
           lines={[
@@ -82,10 +86,15 @@ export default function ContactPage() {
                   what&apos;s slowing you down and we&apos;ll come back with scope, timeline, and a
                   clear price before any work starts.
                 </p>
-                {/* no email or postal address here by design. Both are published
-                    in the Organization schema only, never on the page */}
+                {/* the sales address is on the page as well as in the schema: the
+                    form's failure copy tells people to email us, so it has to be
+                    here. The postal address stays schema-only */}
                 <p className="contact-hours" data-reveal>
-                  Teams are scheduled around your time zone, not ours.
+                  Teams are scheduled around your time zone, not ours. Prefer email? Write to{" "}
+                  <a className="thanks-inline-link" href={`mailto:${contactEmail}`}>
+                    {contactEmail}
+                  </a>
+                  .
                 </p>
               </div>
 
@@ -94,7 +103,7 @@ export default function ContactPage() {
           </div>
         </section>
 
-        <section className="section faq-section" style={{ paddingTop: 0 }}>
+        <section className="section" style={{ paddingTop: 0 }}>
           <div className="container">
             <div className="sec-head">
               <div>

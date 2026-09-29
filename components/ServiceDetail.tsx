@@ -21,6 +21,7 @@ function useHash() {
 export default function ServiceDetail({ detail }: { detail: Detail }) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const panelRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const accRef = useRef<HTMLDivElement>(null);
   const hash = useHash();
 
   /* animate panel height to its measured content size */
@@ -45,6 +46,26 @@ export default function ServiceDetail({ detail }: { detail: Detail }) {
     if (i >= 0) setOpenIndex(i);
   }
 
+  /* Re-align the hash target once the panels finish animating. The scroll that
+     brought the visitor here (PageEffects on a click, or the browser's own
+     anchor jump on load) was measured while the previously open panel still
+     had its full height; when it collapses, the target moves up by that much
+     and its heading ends under the sticky header. */
+  useEffect(() => {
+    if (openIndex === null) return;
+    const acc = accRef.current;
+    const id = detail.groups[openIndex]?.id;
+    if (!acc || !id) return;
+    const onEnd = (e: TransitionEvent) => {
+      if (e.propertyName !== "max-height") return;
+      if (window.location.hash.slice(1) !== id) return;
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      document.getElementById(id)?.scrollIntoView({ block: "start", behavior: reduce ? "auto" : "smooth" });
+    };
+    acc.addEventListener("transitionend", onEnd);
+    return () => acc.removeEventListener("transitionend", onEnd);
+  }, [openIndex, detail]);
+
   return (
     <section id="service-detail" className="section">
       <div className="container">
@@ -62,7 +83,7 @@ export default function ServiceDetail({ detail }: { detail: Detail }) {
           </p>
         </div>
 
-        <div className="acc acc-compact">
+        <div className="acc acc-compact" ref={accRef}>
           {detail.groups.map(({ id, name, tagline, blurb, items }, i) => (
             <div className={`acc-item${openIndex === i ? " open" : ""}`} id={id} key={id}>
               <button

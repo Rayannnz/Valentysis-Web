@@ -1,10 +1,15 @@
 import type { NextConfig } from "next";
+import { contentSecurityPolicy, securityHeaders } from "./lib/security-headers";
 
 /**
  * Everything must live inside this one object. A previous revision assigned
  * `module.exports = { allowedDevOrigins }` below the declaration, which
  * clobbered `export default nextConfig` and silently dropped the redirects.
  * Both legacy service URLs were returning 404 in production.
+ *
+ * The legacy-slug redirects are not here any more. They live in proxy.ts,
+ * because Next answers a config redirect before headers() runs, so those 308s
+ * went out with no security headers at all.
  */
 const nextConfig: NextConfig = {
   allowedDevOrigins: ["10.50.91.50"],
@@ -12,46 +17,18 @@ const nextConfig: NextConfig = {
   /* no value in advertising the framework version to scanners */
   poweredByHeader: false,
 
-  async redirects() {
-    return [
-      /* legacy service slugs. Kept permanent so link equity transfers */
-      {
-        source: "/services/customer-support",
-        destination: "/services/real-customer-support",
-        permanent: true,
-      },
-      {
-        source: "/services/social-media-marketing",
-        destination: "/services/digital-marketing",
-        permanent: true,
-      },
-      /* paths people and crawlers guess at; all three legal pages get hit
-         under several conventional names */
-      { source: "/privacy-policy", destination: "/privacy", permanent: true },
-      { source: "/terms-and-conditions", destination: "/terms", permanent: true },
-      { source: "/terms-of-service", destination: "/terms", permanent: true },
-      { source: "/cookie-policy", destination: "/cookies", permanent: true },
-    ];
-  },
-
   async headers() {
+    /* CSP only on the production build. The dev server needs eval and its
+       websocket, and violations there would be noise rather than signal. */
+    const isProduction = process.env.NODE_ENV === "production";
     return [
       {
         source: "/:path*",
         headers: [
-          { key: "X-Content-Type-Options", value: "nosniff" },
-          { key: "X-Frame-Options", value: "SAMEORIGIN" },
-          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-          /* the site uses no camera, mic, or geolocation. Deny them outright */
-          {
-            key: "Permissions-Policy",
-            value: "camera=(), microphone=(), geolocation=(), interest-cohort=()",
-          },
-          { key: "X-DNS-Prefetch-Control", value: "on" },
-          {
-            key: "Strict-Transport-Security",
-            value: "max-age=63072000; includeSubDomains; preload",
-          },
+          ...securityHeaders,
+          ...(isProduction
+            ? [{ key: "Content-Security-Policy", value: contentSecurityPolicy }]
+            : []),
         ],
       },
       /* No rule for /_next/static. Those files are content-hashed and Next

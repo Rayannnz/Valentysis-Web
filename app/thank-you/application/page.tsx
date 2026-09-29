@@ -20,7 +20,7 @@ export default function ApplicationThankYouPage() {
     <>
       <PageEffects />
       <Header />
-      <main id="main">
+      <main id="main" tabIndex={-1}>
         <ThankYouMessage variant="careers" />
       </main>
       <Footer />

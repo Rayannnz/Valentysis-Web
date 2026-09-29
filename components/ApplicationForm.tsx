@@ -148,7 +148,7 @@ export default function ApplicationForm() {
   if (status === "sent") {
     return (
       <div className="application-card" data-reveal>
-        <h3 className="application-title">APPLICATION FORM</h3>
+        <h3 className="application-title">Application form</h3>
         <p className="form-success" style={{ display: "block" }} role="status">
           Thanks, your application is in. We review every resume that comes through and will be in
           touch if there&apos;s a fit.
@@ -166,7 +166,7 @@ export default function ApplicationForm() {
 
   return (
     <div className="application-card" data-reveal>
-      <h3 className="application-title">APPLICATION FORM</h3>
+      <h3 className="application-title">Application form</h3>
 
       <form
         className="application-form"
@@ -280,7 +280,7 @@ export default function ApplicationForm() {
               >
                 Choose resume
               </button>
-              <span className="app-file-name" id="app-cv-name" aria-live="polite">
+              <span className="app-file-name" id="app-cv-name" aria-live="polite" title={cvName || undefined}>
                 {cvName || "No resume selected"}
               </span>
             </div>

@@ -34,7 +34,7 @@ const CATEGORIES = [
 ];
 
 const formatDate = (iso: string) =>
-  new Date(iso).toLocaleString("en-GB", { dateStyle: "long", timeStyle: "short" });
+  new Date(iso).toLocaleString("en-US", { dateStyle: "long", timeStyle: "short" });
 
 export default function CookiePreferences() {
   /* the raw string is the stable snapshot; parsing it here keeps the object

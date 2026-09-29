@@ -94,7 +94,7 @@ export default function AboutPage() {
     <>
       <PageEffects />
       <Header />
-      <main id="main">
+      <main id="main" tabIndex={-1}>
         <PageHero
           eyebrow="About us"
           lines={[

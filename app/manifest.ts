@@ -10,7 +10,9 @@ export default function manifest(): MetadataRoute.Manifest {
     description: site.description,
     start_url: "/",
     scope: "/",
-    display: "standalone",
+    /* "browser", not "standalone": there is no service worker, so an
+       installed app would open to a browser error page offline */
+    display: "browser",
     orientation: "portrait-primary",
     /* matches --bg and --primary in globals.css */
     background_color: "#F1EFF7",

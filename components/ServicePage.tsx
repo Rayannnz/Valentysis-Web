@@ -5,14 +5,21 @@ import Header from "@/components/Header";
 import JsonLd from "@/components/JsonLd";
 import PageEffects from "@/components/PageEffects";
 import PageHero from "@/components/PageHero";
-import ServiceDetail from "@/components/ServiceDetail";
+import dynamic from "next/dynamic";
 import { breadcrumbSchema, type Crumb, graph, serviceSchema, webPageSchema } from "@/lib/schema";
 import type { Service } from "@/lib/services";
 import { services } from "@/lib/services";
 
+/* the dark accordion is below the fold and only two services carry one, so it
+   loads in its own chunk instead of on every page */
+const ServiceDetail = dynamic(() => import("@/components/ServiceDetail"));
+
 function accentize(line: string, accentWord: string) {
-  if (!line.includes(accentWord)) return line;
-  const [before, after] = line.split(accentWord);
+  const at = line.indexOf(accentWord);
+  if (at < 0) return line;
+  /* indexOf, not split: split dropped everything after a second occurrence */
+  const before = line.slice(0, at);
+  const after = line.slice(at + accentWord.length);
   return (
     <>
       {before}
@@ -36,7 +43,7 @@ export default function ServicePage({ service }: { service: Service }) {
     <>
       <PageEffects />
       <Header />
-      <main id="main">
+      <main id="main" tabIndex={-1}>
         <PageHero
           eyebrow={service.eyebrow}
           lines={service.headline.map((line) => accentize(line, service.accentWord))}
@@ -59,7 +66,7 @@ export default function ServicePage({ service }: { service: Service }) {
                   clear price before any work starts.
                 </p>
                 <div data-reveal style={{ marginTop: 28 }}>
-                  <a className="btn btn-primary" href="/contact" data-magnetic>
+                  <Link className="btn btn-primary" href="/contact" data-magnetic>
                     Request a Consultation
                     <svg
                       className="arr"
@@ -72,7 +79,7 @@ export default function ServicePage({ service }: { service: Service }) {
                     >
                       <path d="M7 17L17 7M9 7h8v8" />
                     </svg>
-                  </a>
+                  </Link>
                 </div>
               </div>
               <div className="story-panel" data-reveal="scale">

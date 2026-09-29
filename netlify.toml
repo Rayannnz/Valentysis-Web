@@ -3,7 +3,8 @@
   publish = ".next"
 
 [build.environment]
-  NODE_VERSION = "20"
+  # 22 is the current maintenance LTS. 20 reached end of life on April 30, 2026.
+  NODE_VERSION = "22"
 
 # The Next.js Runtime is installed automatically by Netlify for Next.js projects;
 # it does not need to be listed here.

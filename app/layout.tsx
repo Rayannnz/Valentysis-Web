@@ -71,7 +71,9 @@ export const metadata: Metadata = {
      rel="apple-touch-icon". app/favicon.ico, app/icon.png, and app/apple-icon.png
      are all picked up automatically. */
   manifest: "/manifest.webmanifest",
-  appleWebApp: { capable: true, title: site.name, statusBarStyle: "default" },
+  /* title only. `capable` made a home-screen icon open full-screen with no
+     offline support behind it (there is no service worker) */
+  appleWebApp: { title: site.name },
   formatDetection: { telephone: false, address: false, email: false },
 };
 
@@ -109,15 +111,26 @@ export default function RootLayout({
       <head>
         {/* Gates the scroll-reveal CSS so content stays visible without JS.
             Has to run during parse, before the first paint. See InlineScript. */}
-        <InlineScript html="document.documentElement.classList.add('js')" />
+        <InlineScript
+          html={
+            "document.documentElement.classList.add('js');" +
+            /* safety net: if the bundle never hydrates (a failed or blocked
+               chunk), un-gate the reveal CSS so the page is never left blank.
+               PageEffects adds .hydrated the moment it mounts */
+            "addEventListener('load',function(){setTimeout(function(){var h=document.documentElement;if(!h.classList.contains('hydrated'))h.classList.remove('js')},2500)})"
+          }
+        />
       </head>
       <body>
         {/* first focusable element on every page. The nav is 20+ tab stops */}
         <a className="skip-link" href="#main">
           Skip to main content
         </a>
-        {children}
+        {/* before the page, not after it: a consent dialog at the end of the
+            DOM was 35+ tab stops away. It is position:fixed, so the visual
+            order is unchanged */}
         <CookieConsent />
+        {children}
         <JsonLd data={siteGraph} />
       </body>
     </html>

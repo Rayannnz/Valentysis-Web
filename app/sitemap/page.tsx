@@ -69,6 +69,7 @@ const groups: LinkGroup[] = [
       { label: "Terms & conditions", href: "/terms", desc: "The terms that govern use of this site." },
       { label: "Cookie policy", href: "/cookies", desc: "What we store on your device, and the controls to change it." },
       { label: "Accessibility statement", href: "/accessibility", desc: "Our WCAG 2.2 AA commitment and known gaps." },
+      { label: "Sitemap", href: "/sitemap", desc: "This page: every route on the site, in one list." },
     ],
   },
 ];
@@ -83,7 +84,7 @@ export default function SitemapPage() {
     <>
       <PageEffects />
       <Header />
-      <main id="main">
+      <main id="main" tabIndex={-1}>
         <PageHero
           eyebrow="Sitemap"
           lines={[

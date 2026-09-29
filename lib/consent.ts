@@ -64,7 +64,9 @@ export function parseConsent(raw: string): Consent | null {
   if (!raw) return null;
   try {
     const parsed = JSON.parse(raw) as Partial<Consent>;
-    if (typeof parsed?.decidedAt !== "string") return null;
+    /* a string that is not a date would render as "Invalid Date" in the
+       preference center, so it is rejected with the rest */
+    if (typeof parsed?.decidedAt !== "string" || Number.isNaN(Date.parse(parsed.decidedAt))) return null;
     return {
       necessary: true,
       analytics: parsed.analytics === true,
@@ -75,11 +77,6 @@ export function parseConsent(raw: string): Consent | null {
     /* hand-edited or truncated value. Treat as undecided */
     return null;
   }
-}
-
-export function readConsent(): Consent | null {
-  if (typeof window === "undefined") return null;
-  return parseConsent(consentSnapshot());
 }
 
 export function writeConsent(choice: Omit<Consent, "decidedAt">): Consent {

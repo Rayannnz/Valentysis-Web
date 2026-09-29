@@ -46,8 +46,8 @@ const sections: LegalSection[] = [
         <h3>Inquiries</h3>
         <p>
           When you submit the form on our <Link href="/contact">contact page</Link> we collect
-          your name, work email address, contact number, the industry and service you selected,
-          your company name if you supply one, and whatever you write in the message field.
+          your name, work email address, contact number, your company name if you supply one, and
+          whatever you write in the message field.
         </p>
         <h3>Job applications</h3>
         <p>

@@ -13,31 +13,12 @@ export default function PageEffects() {
     reduceMotionRef.current = reduceMotion;
     const cleanups: (() => void)[] = [];
 
-    /* ---------- Hero heading lines ----------
-       This delay sits directly on the critical path: the h1 is the LCP element
-       on every page and stays masked until revealHeroLines runs, so the total
-       is window.load + this. Kept short deliberately: the earlier 350/500ms
-       pair pushed LCP roughly half a second past load for no visual gain. */
-    const revealHeroLines = () => {
-      setTimeout(() => {
-        document.querySelectorAll("[data-hero-lines] .line-mask").forEach((m, i) => {
-          const line = m.querySelector<HTMLElement>(".line");
-          if (line) line.style.transitionDelay = `${0.06 + i * 0.08}s`;
-          m.classList.add("in-view");
-        });
-      }, reduceMotion ? 0 : 200);
-    };
-    if (document.readyState === "complete") {
-      revealHeroLines();
-    } else {
-      window.addEventListener("load", revealHeroLines);
-      cleanups.push(() => window.removeEventListener("load", revealHeroLines));
-    }
-    /* fallback if load never settles quickly */
-    const tLines = setTimeout(() => {
-      document.querySelectorAll("[data-hero-lines] .line-mask").forEach((m) => m.classList.add("in-view"));
-    }, 2600);
-    cleanups.push(() => clearTimeout(tLines));
+    /* The hero heading and lead copy animate in CSS at first paint (see
+       "First screen" in globals.css), so nothing here sits on the LCP path.
+       This class is what the inline script in app/layout.tsx checks before it
+       un-gates the reveal CSS: once present, the bundle has arrived and the
+       scroll reveals below are going to run. */
+    document.documentElement.classList.add("hydrated");
 
     /* ---------- Scroll progress + back-to-top ---------- */
     let ticking = false;

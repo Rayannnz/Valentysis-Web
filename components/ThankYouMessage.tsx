@@ -139,7 +139,7 @@ export default function ThankYouMessage({ variant }: { variant: ThankYouVariant 
               </svg>
             </Link>
             <Link className="btn btn-ghost" href="/services" data-magnetic>
-              Explore Our Services
+              Explore Services
             </Link>
           </div>
         </div>

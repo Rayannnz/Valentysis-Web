@@ -33,17 +33,17 @@ export default function Hero() {
           <span className="line-mask"><span className="line">& grow your</span></span>
           <span className="line-mask"><span className="line">business.</span></span>
         </h1>
-        <p className="hero-sub" data-reveal>
+        <p className="hero-sub">
           Dedicated remote staff and customer support for health, legal, engineering, finance,
           and hospitality, plus the social, app, and web work that grows what you&apos;ve built.
         </p>
-        <div className="hero-ctas" data-reveal>
-          <a className="btn btn-primary" href="/contact" data-magnetic>
+        <div className="hero-ctas">
+          <Link className="btn btn-primary" href="/contact" data-magnetic>
             Discuss Your Project
             <svg className="arr" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
               <path d="M7 17L17 7M9 7h8v8" />
             </svg>
-          </a>
+          </Link>
           {/* a real route now, not the old #services anchor, so <Link>, which
               is also what no-html-link-for-pages requires */}
           <Link className="btn btn-ghost" href="/services" data-magnetic>

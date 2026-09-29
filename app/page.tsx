@@ -6,10 +6,13 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import JsonLd from "@/components/JsonLd";
 import PageEffects from "@/components/PageEffects";
-import Process from "@/components/Process";
+import dynamic from "next/dynamic";
 import Stats from "@/components/Stats";
 import { graph, webPageSchema } from "@/lib/schema";
 import { buildMetadata } from "@/lib/seo";
+
+/* below the fold, so it loads in its own chunk rather than with the hero */
+const Process = dynamic(() => import("@/components/Process"));
 
 const TITLE = "Outsourcing & Customer Support Services | Valentisys";
 const DESCRIPTION =
@@ -30,7 +33,7 @@ export default function Home() {
     <>
       <PageEffects />
       <Header />
-      <main id="main">
+      <main id="main" tabIndex={-1}>
         <Hero />
         <Stats />
         <Approach />

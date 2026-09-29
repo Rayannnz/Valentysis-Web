@@ -26,7 +26,7 @@ export default function PageHero({
           ))}
         </h1>
         {lead && (
-          <p className="lead" data-reveal>
+          <p className="lead">
             {lead}
           </p>
         )}

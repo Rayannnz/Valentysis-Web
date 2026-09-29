@@ -39,7 +39,14 @@ const sections: LegalSection[] = [
     heading: "2. What we store today",
     body: (
       <>
-        <div className="legal-table-wrap">
+        {/* focusable: the table scrolls sideways on phones, and a scroll region
+            a keyboard cannot reach was the one real axe violation on the site */}
+        <div
+          className="legal-table-wrap"
+          tabIndex={0}
+          role="region"
+          aria-label="Everything this site stores on your device"
+        >
           <table className="legal-table">
             <caption className="legal-table-caption">
               Everything this site stores on your device

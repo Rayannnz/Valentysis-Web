@@ -53,7 +53,7 @@ export default function LegalPage({
     <>
       <PageEffects />
       <Header />
-      <main id="main">
+      <main id="main" tabIndex={-1}>
         <PageHero
           eyebrow={eyebrow}
           lines={[

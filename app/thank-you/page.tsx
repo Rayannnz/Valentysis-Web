@@ -20,7 +20,7 @@ export default function ThankYouPage() {
     <>
       <PageEffects />
       <Header />
-      <main id="main">
+      <main id="main" tabIndex={-1}>
         <ThankYouMessage variant="contact" />
       </main>
       <Footer />
