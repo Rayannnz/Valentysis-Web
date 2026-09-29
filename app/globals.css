@@ -341,12 +341,15 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
 .btn-primary::before{background:var(--ink)}
 .btn-magenta{background:var(--magenta);color:var(--ink)}
 .btn-magenta::before{background:#fff}
-/* The promo card's own CTA. Magenta read as a second accent against the card,
-   so this one takes the brand purple. White text (7.1:1 on it, against 3.3:1
-   for --ink), and the sweep inverts to white with ink text on hover: the
-   magenta button's white sweep would otherwise erase the white label. */
-.mega-promo .btn-magenta{background:var(--primary);color:#fff}
-.mega-promo .btn-magenta::before{background:#fff}
+/* The two dark promo surfaces, the mega-menu card and the closing band, share a
+   button. Magenta read as a second accent against them, so it takes the brand
+   purple: white text (7.1:1 on it, against 3.3:1 for --ink), and the sweep
+   inverts to white with ink text on hover, since the magenta button's white
+   sweep would otherwise erase the white label. */
+.mega-promo .btn-magenta,
+.cta-inner .btn-magenta{background:var(--primary);color:#fff}
+.mega-promo .btn-magenta::before,
+.cta-inner .btn-magenta::before{background:#fff}
 .btn-ghost{border-color:var(--ink);color:var(--ink)}
 .btn-ghost::before{background:var(--ink)}
 /* pointer-gated to match .btn:hover .arr above. On touch the sweep latches after
@@ -355,7 +358,8 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
   .btn-primary:hover::before{transform:none}
   .btn-magenta:hover::before{transform:none}
   .btn-ghost:hover{color:#fff}
-  .mega-promo .btn-magenta:hover{color:var(--ink)}
+  .mega-promo .btn-magenta:hover,
+  .cta-inner .btn-magenta:hover{color:var(--ink)}
   .btn-ghost:hover::before{transform:none}
 }
 
@@ -713,7 +717,7 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
 /* ============================================================
    Big CTA band
    ============================================================ */
-#cta{background:var(--primary);color:#fff;position:relative;overflow:hidden}
+#cta{background:#271a48;color:#fff;position:relative;overflow:hidden}
 .cta-shapes span{
   position:absolute;font-family:var(--font-head);font-weight:700;color:rgba(255,255,255,.14);
   line-height:1;pointer-events:none;user-select:none;
