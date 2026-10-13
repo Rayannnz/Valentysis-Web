@@ -38,11 +38,14 @@ export type Service = {
   offerings: { title: string; desc: string }[];
   fits: { label: string; title: string; desc: string }[];
   detail?: ServiceDetail;
+  /** hero drawing, a transparent PNG under public/illustrations */
+  art: string;
 };
 
 export const services: Service[] = [
   {
     slug: "outsourcing",
+    art: "/illustrations/service-outsourcing.png",
     title: "Outsourcing Services",
     shortTitle: "Outsourcing",
     navLabel: "Outsourcing",
@@ -97,6 +100,7 @@ export const services: Service[] = [
   },
   {
     slug: "real-customer-support",
+    art: "/illustrations/service-customer-support.png",
     title: "Real Customer Support",
     shortTitle: "Real Customer Support",
     navLabel: "Real Customer Support",
@@ -270,6 +274,7 @@ export const services: Service[] = [
   },
   {
     slug: "digital-marketing",
+    art: "/illustrations/service-digital-marketing.png",
     title: "Digital Marketing",
     shortTitle: "Digital Marketing",
     navLabel: "Digital Marketing",
@@ -531,6 +536,7 @@ export const services: Service[] = [
   },
   {
     slug: "app-development",
+    art: "/illustrations/service-app-development.png",
     title: "App Development",
     shortTitle: "App Development",
     navLabel: "App Development",
@@ -585,6 +591,7 @@ export const services: Service[] = [
   },
   {
     slug: "web-development",
+    art: "/illustrations/service-web-development.png",
     title: "Web Development",
     shortTitle: "Web Development",
     navLabel: "Web Development",
@@ -639,6 +646,7 @@ export const services: Service[] = [
   },
   {
     slug: "ai-solutions",
+    art: "/illustrations/service-ai-solutions.png",
     title: "AI Solutions",
     shortTitle: "AI Solutions",
     navLabel: "AI Solutions",

@@ -48,6 +48,7 @@ export default function ServicePage({ service }: { service: Service }) {
           eyebrow={service.eyebrow}
           lines={service.headline.map((line) => accentize(line, service.accentWord))}
           lead={service.lead}
+          art={service.art}
         />
 
         <section className="section section-after-hero">
