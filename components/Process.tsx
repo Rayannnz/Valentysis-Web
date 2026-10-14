@@ -1,14 +1,6 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
-import ideas from "@/public/illustrations/process-ideas.png";
-import scopingCall from "@/public/illustrations/step-scoping-call.png";
-import teamMatch from "@/public/illustrations/step-team-match.png";
-import onboarding from "@/public/illustrations/step-onboarding.png";
-import supervisedStart from "@/public/illustrations/step-supervised-start.png";
-import reporting from "@/public/illustrations/step-reporting.png";
-import scaleOrAdjust from "@/public/illustrations/step-scale-or-adjust.png";
 
 /* Feature support never changes for the life of the page, so there's nothing to
    subscribe to. The server assumes support, matching the progressive-enhancement
@@ -28,37 +20,31 @@ const steps = [
     title: "Scoping call",
     desc: "We map the work, the volume, and the hours you need covered, then come back with a scope and a price you can hold us to.",
     tags: ["Discovery", "Volume review", "Fixed quote"],
-    art: scopingCall,
   },
   {
     title: "Team match",
     desc: "We shortlist people against your brief: sector experience, language, and the tools you already run on. You meet them before anything starts.",
     tags: ["Vetting", "Shortlist", "Your sign-off"],
-    art: teamMatch,
   },
   {
     title: "Onboarding",
     desc: "Access, tools, and your process written into a runbook, so the team works your way from day one instead of guessing at it.",
     tags: ["Runbook", "Systems access", "Training"],
-    art: onboarding,
   },
   {
     title: "Supervised start",
     desc: "Live work begins under close supervision, with early output reviewed daily until the quality is where you want it.",
     tags: ["Daily review", "QA sampling", "Feedback loop"],
-    art: supervisedStart,
   },
   {
     title: "Reporting",
     desc: "Agreed SLAs, weekly numbers, and a named account lead who picks up when something needs escalating.",
     tags: ["SLAs", "Weekly reports", "Escalation path"],
-    art: reporting,
   },
   {
     title: "Scale or adjust",
     desc: "Add hours, add people, or wind down as demand shifts. Reviewed every quarter so you never pay for capacity you stopped needing.",
     tags: ["Flex capacity", "Quarterly review", "No lock-in"],
-    art: scaleOrAdjust,
   },
 ];
 
@@ -134,13 +120,6 @@ export default function Process() {
       <div className="container">
         <div className="process-layout">
           <div className="process-sticky">
-            <Image
-              className="process-art"
-              src={ideas}
-              alt=""
-              sizes="(max-width: 900px) 240px, 22vw"
-              data-reveal
-            />
             <p className="sec-eyebrow" data-reveal>The playbook</p>
             <h2 className="sec-title" data-reveal>How we work</h2>
             <div className="process-count" aria-hidden="true" ref={countRef}>
@@ -149,7 +128,7 @@ export default function Process() {
           </div>
 
           <div className="steps">
-            {steps.map(({ title, desc, tags, art }, i) => (
+            {steps.map(({ title, desc, tags }, i) => (
               <article
                 className={`step${revealAll || active.has(i) ? " active" : ""}`}
                 key={title}
@@ -167,7 +146,6 @@ export default function Process() {
                     ))}
                   </div>
                 </div>
-                <Image className="step-art" src={art} alt="" sizes="140px" />
               </article>
             ))}
           </div>

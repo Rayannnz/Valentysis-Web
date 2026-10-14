@@ -416,7 +416,7 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
 
 /* floating chips */
 .hero-chip{
-  position:absolute;z-index:3;background:var(--paper);box-shadow:0 18px 50px rgba(23,20,41,.13);
+  position:absolute;z-index:2;background:var(--paper);box-shadow:0 18px 50px rgba(23,20,41,.13);
   padding:16px 22px;font-family:var(--font-head);
   display:flex;flex-direction:column;line-height:1.2;
   animation:chipFloat 6s ease-in-out infinite;
@@ -429,25 +429,6 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
 .hero-chip.c3{top:68%;right:20%;animation-delay:-4s}
 @keyframes chipFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
 @media (max-width:960px){.hero-chip{display:none}}
-
-/* hero illustration. Behind the copy on desktop: z-index -1 inside .hero-inner,
-   which is its own stacking context, so it still paints above .hero-bg and
-   under the chips. Bottom-right of the copy block, hung out into the container's
-   outer margin (all of it, minus a gutter) so the headline keeps clear air and
-   the Growth chip clips the drawing's left edge instead of covering its middle.
-   The float animates transform while the pointer parallax writes translate, so
-   the two compose instead of fighting. */
-.hero-art{
-  position:absolute;z-index:-1;bottom:0;
-  right:calc(var(--gutter) - clamp(0px,(100vw - var(--container)) / 2,400px));
-  width:clamp(280px,28vw,460px);pointer-events:none;
-  animation:chipFloat 9s ease-in-out infinite;will-change:transform;
-}
-.hero-art img{width:100%;height:auto;display:block}
-/* phones: in flow under the CTAs */
-@media (max-width:960px){
-  .hero-art{position:static;width:min(100%,360px);margin:clamp(28px,6vw,44px) 0 0;animation:none}
-}
 
 /* ============================================================
    Section headers (shared)
@@ -666,18 +647,16 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
   content:"";position:absolute;top:0;left:0;right:0;height:4px;background:var(--primary);
   transform:scaleX(0);transform-origin:0 50%;transition:transform .45s var(--ease-out);
 }
-/* no tinted box: the icons are traced SVGs that carry their own white canvas,
-   which would show as a white square inside a lavender one */
 .ap-icon{
-  width:clamp(56px,8vw,68px);height:clamp(56px,8vw,68px);flex:none;
-  margin-bottom:clamp(18px,3vw,26px);
-  transition:transform .45s var(--ease-out);
+  width:clamp(48px,7vw,56px);height:clamp(48px,7vw,56px);flex:none;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(109,40,217,.1);color:var(--primary-deep);margin-bottom:clamp(18px,3vw,26px);border-radius:14px;
+  transition:transform .45s var(--ease-out),background .3s,color .3s;
 }
-.ap-icon img{width:100%;height:100%;display:block}
 @media (hover:hover){
   .ap-card:hover{transform:translateY(-10px);box-shadow:0 30px 60px rgba(23,20,41,.12);border-color:transparent}
   .ap-card:hover::before{transform:none}
-  .ap-card:hover .ap-icon{transform:rotate(-8deg) scale(1.06)}
+  .ap-card:hover .ap-icon{background:var(--primary);color:#fff;transform:rotate(-8deg) scale(1.06)}
 }
 .ap-card h3{font-size:clamp(19px,1.7vw,21px);margin-bottom:10px}
 .ap-card p{font-size:clamp(14.5px,1.2vw,15px);color:var(--ink-soft)}
@@ -691,12 +670,9 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
 .process-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:clamp(32px,6vw,100px);align-items:start}
 /* Pinned while the steps scroll past: the counter holds one vertical spot, parked
    low enough that the big number sits level with the step beside it rather than
-   up in the corner. Process.tsx reads the number off whichever step is nearest.
-   The offset grew when the illustration went in above the heading, so the number
-   stays near mid-viewport instead of dropping a drawing's height lower. */
-.process-sticky{position:sticky;top:max(80px,47vh - 350px)}
+   up in the corner. Process.tsx reads the number off whichever step is nearest. */
+.process-sticky{position:sticky;top:max(96px,47vh - 180px)}
 .process-sticky .sec-eyebrow{color:var(--primary-deep)}
-.process-art{width:clamp(220px,22vw,340px);height:auto;display:block;margin-bottom:clamp(18px,3vw,28px)}
 .process-count{
   margin-top:34px;font-family:var(--font-head);font-weight:700;
   font-size:clamp(90px,11vw,170px);line-height:1;color:transparent;
@@ -704,7 +680,7 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
 }
 .steps{display:flex;flex-direction:column}
 .step{
-  display:grid;grid-template-columns:76px minmax(0,1fr) clamp(96px,10vw,136px);gap:clamp(16px,2.5vw,32px);
+  display:grid;grid-template-columns:76px minmax(0,1fr);gap:clamp(16px,2.5vw,32px);
   padding:clamp(26px,3.5vw,38px) 0;border-top:1px solid var(--line-strong);
   /* Inactive steps are dimmed, but they are still on screen and still readable,
      so the dim has to clear AA on its own. At the previous .32 the body copy
@@ -720,7 +696,6 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
   font-family:var(--font-head);font-weight:700;font-size:19px;color:var(--primary-deep);
   padding-top:5px;
 }
-.step-art{width:100%;height:auto;align-self:center}
 .step h3{font-size:clamp(21px,5vw,32px);margin-bottom:10px}
 .step p{color:var(--ink-soft);font-size:clamp(15px,1.3vw,16px);max-width:56ch}
 .step-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
@@ -735,8 +710,8 @@ body.menu-open #mobile-menu a:nth-of-type(n+11){transition-delay:.7s}
 }
 /* a 76px gutter for a two-digit number is a lot of dead width on a phone */
 @media (max-width:560px){
-  .step{grid-template-columns:minmax(0,1fr) 84px;gap:6px 14px}
-  .step-num{grid-column:1/-1;padding-top:0;font-size:16px}
+  .step{grid-template-columns:minmax(0,1fr);gap:6px}
+  .step-num{padding-top:0;font-size:16px}
 }
 
 /* ============================================================
@@ -910,22 +885,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .page-hero h1{font-size:clamp(36px,9vw,92px);letter-spacing:-.035em;max-width:14ch}
 .page-hero h1 .accent{color:var(--primary)}
 .page-hero .lead{max-width:580px;margin-top:clamp(18px,3.5vw,26px);font-size:clamp(15.5px,1.4vw,19px);color:var(--ink-soft)}
-/* service drawing: the right half of the hero is empty on desktop, so it sits
-   there behind the copy (z-index -1 inside .container, a stacking context),
-   hung halfway into the container's outer margin so it centers on the empty
-   area rather than crowding the headline. A square box with object-fit:
-   contain, because the drawings were trimmed to different aspect ratios. On
-   phones it flows under the lead. */
-.page-hero-art{
-  position:absolute;z-index:-1;top:50%;translate:0 -50%;
-  right:calc(var(--gutter) - clamp(0px,(100vw - var(--container)) / 4,200px));
-  width:clamp(240px,26vw,400px);aspect-ratio:1;pointer-events:none;
-}
-.page-hero-art img{object-fit:contain;object-position:right center}
-@media (max-width:960px){
-  .page-hero-art{position:relative;right:auto;top:auto;translate:none;width:min(100%,320px);aspect-ratio:3/2;margin-top:clamp(24px,5vw,40px)}
-  .page-hero-art img{object-position:center}
-}
 
 /* ============================================================
    Careers: Perks + open roles

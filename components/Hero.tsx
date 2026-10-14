@@ -1,6 +1,4 @@
-import Image from "next/image";
 import Link from "next/link";
-import heroTeam from "@/public/illustrations/hero-team.png";
 
 export default function Hero() {
   return (
@@ -51,23 +49,6 @@ export default function Hero() {
           <Link className="btn btn-ghost" href="/services" data-magnetic>
             Explore Services
           </Link>
-        </div>
-
-        {/* Decorative, so alt="" and aria-hidden. Behind the copy on desktop
-            (.hero-art is z-index -1 inside .hero-inner) and in flow under the
-            CTAs on phones. Eager with high fetch priority because it can be the
-            LCP element at desktop widths; not `preload`, which only adds a
-            <link> while the img stays lazy, so on phones (where the art is
-            below the fold) the preloaded file sat unused and the browser warned.
-            No data-reveal: nothing above the fold waits for JS. */}
-        <div className="hero-art" data-parallax="10" aria-hidden="true">
-          <Image
-            src={heroTeam}
-            alt=""
-            sizes="(max-width: 960px) 360px, 36vw"
-            loading="eager"
-            fetchPriority="high"
-          />
         </div>
       </div>
     </section>
