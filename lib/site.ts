@@ -57,9 +57,8 @@ export const site = {
   telephone: "",
 
   /**
-   * The footer shows `locality` and `countryName` only. The street is
-   * structured data: it feeds the Organization / ProfessionalService JSON-LD so
-   * local search has it, and is not rendered on any page.
+   * Structured data only: it feeds the Organization / ProfessionalService
+   * JSON-LD so local search has it, and no part of it is rendered on any page.
    */
   address: {
     street: "271K Johar Town",

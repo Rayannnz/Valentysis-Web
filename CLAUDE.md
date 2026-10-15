@@ -45,7 +45,7 @@ if ($c) { "up, pid=$($c[0].OwningProcess)" } else { "port 3000 free" }
 Then:
 
 - **Responds (`200`, or any HTTP status)** → that's the server. Use `http://localhost:3000` directly for
-  curl, Playwright, and browser tools. Run nothing.
+  curl and Claude in Chrome. Run nothing.
 - **Nothing listening** → start one, and only then:
   `npm run dev` with `run_in_background: true`.
 - **Port held but no HTTP response** → say so and ask; don't assume it's dead and kill it.
@@ -54,6 +54,14 @@ The probe is the whole mechanism. A background shell from an earlier session isn
 without checking you'd start a duplicate. And because `npm run dev` silently falls back to the next free
 port (3001, 3002, …) when 3000 is taken, the duplicate *appears* to work while you and the user are looking
 at two different servers.
+
+### Browser checks go through Claude in Chrome
+
+Anything that needs a real browser (screenshots, visual checks, console and network logs, clicking through
+menus and forms) uses the Claude in Chrome tools (`mcp__claude-in-chrome__*`): call `tabs_context_mcp`
+first, open the dev server in a new tab rather than reusing one of the user's, and close that tab when
+done. The Playwright MCP is the fallback only when Chrome is not connected. Its profile keeps localStorage
+between sessions, so the cookie card never shows there without clearing storage first.
 
 **Editing files does not require a restart.** Fast Refresh covers everything in `app/`, `components/`,
 `lib/`, and `app/globals.css`. Only these need one, and they are the *only* reasons to propose it:
