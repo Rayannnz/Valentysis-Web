@@ -9,7 +9,7 @@ import {
   organizationSchema,
   websiteSchema,
 } from "@/lib/schema";
-import { site } from "@/lib/site";
+import { isPreviewDeploy, site } from "@/lib/site";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -55,17 +55,21 @@ export const metadata: Metadata = {
     title: "Valentisys | Outsourcing & Customer Support Services",
     description: site.description,
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-      "max-video-preview": -1,
-    },
-  },
+  /* a preview deploy (Netlify or Vercel, see lib/site.ts) is noindex whatever
+     its canonical says; robots.ts disallows it at the same time */
+  robots: isPreviewDeploy
+    ? { index: false, follow: false }
+    : {
+        index: true,
+        follow: true,
+        googleBot: {
+          index: true,
+          follow: true,
+          "max-image-preview": "large",
+          "max-snippet": -1,
+          "max-video-preview": -1,
+        },
+      },
   /* No `icons` key on purpose. Setting one replaces file-convention detection
      wholesale, which is what previously stopped app/apple-icon.png emitting a
      rel="apple-touch-icon". app/favicon.ico, app/icon.png, and app/apple-icon.png

@@ -19,7 +19,20 @@ const netlifyPreviewUrl =
     ? process.env.DEPLOY_PRIME_URL
     : undefined;
 
-const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || netlifyPreviewUrl || CANONICAL_ORIGIN).replace(
+/* Vercel: VERCEL_ENV is "production", "preview", or "development", and
+   VERCEL_URL is the deployment's own host. Same rule as Netlify above. */
+const vercelPreviewUrl =
+  process.env.VERCEL_ENV && process.env.VERCEL_ENV !== "production" && process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : undefined;
+
+const previewUrl = netlifyPreviewUrl || vercelPreviewUrl;
+
+/** True on any non-production deploy. robots.ts and the root layout read it to
+ *  keep a preview host out of the index whatever its canonical says. */
+export const isPreviewDeploy = Boolean(previewUrl);
+
+const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || previewUrl || CANONICAL_ORIGIN).replace(
   /\/+$/,
   ""
 );
@@ -44,9 +57,9 @@ export const site = {
   telephone: "",
 
   /**
-   * Structured data only. The postal address is deliberately not rendered on
-   * any page. It feeds the Organization / ProfessionalService JSON-LD so local
-   * search still has it, and nothing else reads these fields.
+   * The footer shows `locality` and `countryName` only. The street is
+   * structured data: it feeds the Organization / ProfessionalService JSON-LD so
+   * local search has it, and is not rendered on any page.
    */
   address: {
     street: "271K Johar Town",

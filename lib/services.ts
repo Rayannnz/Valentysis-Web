@@ -110,7 +110,7 @@ export const services: Service[] = [
     summary:
       "This isn't a generic call center. We place people who already understand your industry's paperwork, deadlines, and tone: paralegals, front desk staff, schedulers, bookkeepers, and support agents who work inside your systems and follow your process. You keep control and oversight; we handle the volume.",
     homeDesc:
-      "Trained remote staff for real estate, legal, medical, accounting, and ecommerce teams: paralegal work, front desk, scheduling, books, and buyer care.",
+      "Trained remote staff for real estate, legal, medical, accounting, and ecommerce teams, from the front desk to the books.",
     panelLabel: "Always on",
     panelCopy: "Coverage that matches your clients' hours, with clear SLAs and weekly reporting.",
     offerings: [

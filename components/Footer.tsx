@@ -133,8 +133,15 @@ export default function Footer() {
               work like your own.
             </p>
 
-            {/* No contact details rendered here. The emails and the postal
-                address stay in the Organization schema only. */}
+            {/* Email and location only. The phone appears once site.telephone is
+                confirmed, and the street stays in the Organization schema. */}
+            <address className="footer-contact">
+              <a href={`mailto:${site.email.sales}`}>{site.email.sales}</a>
+              {site.telephone && <a href={`tel:${site.telephone}`}>{site.telephone}</a>}
+              <span>
+                {site.address.locality}, {site.address.countryName}
+              </span>
+            </address>
 
             {site.social.length > 0 && (
               <div className="socials">

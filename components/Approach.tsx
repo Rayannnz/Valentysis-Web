@@ -1,69 +1,65 @@
-const cards = [
+import SectionHeader from "@/components/SectionHeader";
+
+/* proposed copy, pending design review */
+const STATEMENT = "Outsourcing should feel like adding to your team, not managing a vendor.";
+
+/* icon: an animated GIF from design under public/icons/why, with a first-frame
+   PNG beside it that reduced-motion users get instead (the <picture> below) */
+const principles = [
   {
     title: "Trained for your sector",
+    icon: "sector",
     desc: "People who already know the paperwork, deadlines, and tone your industry runs on, not a generic pool learning it on your account.",
-    icon: (
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M12 2l2.9 6.26L21 9.27l-4.5 4.38L17.8 20 12 16.77 6.2 20l1.3-6.35L3 9.27l6.1-1.01L12 2z" />
-      </svg>
-    ),
   },
   {
     title: "Cover on your hours",
+    icon: "hours",
     desc: "Teams scheduled around your time zone and your customers' hours, so calls get answered and work lands when you need it, not ours.",
-    icon: (
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <circle cx="12" cy="12" r="9" />
-        <path d="M12 7v5l3.5 2" />
-      </svg>
-    ),
   },
   {
     title: "Confidential by default",
+    icon: "confidential",
     desc: "Signed NDAs, least-privilege access to your systems, and handling built for the records health, legal, and finance work depends on.",
-    icon: (
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <rect x="3" y="11" width="18" height="10" rx="2" />
-        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-      </svg>
-    ),
   },
   {
     title: "Measured, not assumed",
+    icon: "measured",
     desc: "Agreed SLAs, weekly numbers, and a named contact who answers. You see the output instead of taking our word for it.",
-    icon: (
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-        <circle cx="9" cy="7" r="4" />
-        <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
-      </svg>
-    ),
   },
 ];
 
+/* "Why Valentisys": one statement on the left, the four principles on the right.
+   Replaces the old trust band plus principles grid. The id stays: the footer
+   links to /#approach. */
 export default function Approach() {
   return (
     <section id="approach" className="section">
-      <div className="container">
-        <div className="sec-head">
-          <div>
-            <p className="sec-eyebrow" data-reveal>Why Valentisys</p>
-            <h2 className="sec-title" data-reveal>Our approach</h2>
-          </div>
-          <p className="sec-note" data-reveal>
-            Four principles behind every engagement. No exceptions, no fine print.
-          </p>
+      <div className="container why-layout">
+        <div className="why-statement">
+          <SectionHeader
+            eyebrow="Why Valentisys"
+            heading={STATEMENT}
+            subline="The principles behind every engagement. No exceptions, no fine print."
+          />
         </div>
 
-        <div className="approach-grid">
-          {cards.map(({ title, desc, icon }) => (
-            <article className="ap-card" data-reveal key={title}>
-              <div className="ap-icon">{icon}</div>
+        <ul className="why-grid">
+          {principles.map(({ title, desc, icon }) => (
+            <li className="ap-card" data-reveal key={title}>
+              <div className="ap-icon ap-icon-img">
+                {/* decorative: the heading beside it carries the meaning, so alt is
+                    empty. A plain <img> inside <picture> is what the Next lint
+                    rule allows; next/image has no reduced-motion source. */}
+                <picture>
+                  <source srcSet={"/icons/why/" + icon + ".png"} media="(prefers-reduced-motion: reduce)" />
+                  <img src={"/icons/why/" + icon + ".gif"} width={256} height={256} alt="" loading="lazy" decoding="async" />
+                </picture>
+              </div>
               <h3>{title}</h3>
               <p>{desc}</p>
-            </article>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );

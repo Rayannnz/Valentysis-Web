@@ -223,8 +223,12 @@ its own `.sec-head` and keeps its `id` (`#services`, `#industries`) because `app
 section by that id (the light-purple block and the dark accordion). Render either one on a page and it
 brings its own heading and background with it.
 
-Neither listing is on the home page. Home is `Hero → Stats → Approach → Process → Cta`; the service list
-used to live there at `/#services` and moved out, which is why nothing links to that anchor any more.
+Neither listing is on the home page. Home renders its own card versions instead (`ServicesGrid` and
+`IndustriesGrid`, both server components that map over the same `lib/` data) and is composed as
+`Hero → ServicesGrid → IndustriesGrid → Approach → Process → Cta`. The services, industries,
+and Why Valentisys sections open with `components/SectionHeader.tsx` (eyebrow, heading, optional
+subline and action). The service
+list used to live at `/#services` and moved out, which is why nothing links to that anchor any more.
 
 ## Page composition
 
@@ -249,16 +253,28 @@ an existing page rather than inventing structure.
 
 ## Styling: one hand-written stylesheet
 
-All ~1050 lines of CSS live in `app/globals.css`, split by banner comments that mirror the page sections
-(Header, Hero, Services, Industries, Stats, Process, Contact, Footer, Careers, About…). Add rules under the
+All of the CSS lives in `app/globals.css`, split by banner comments that mirror the page sections
+(Header, Hero, Services, Industries, Process, Contact, Footer, Careers, About…). Add rules under the
 matching banner.
 
-Tailwind v4 is imported at the top of that file but **no utility classes are used anywhere** in the
-components. Every `className` is a semantic name defined in globals.css. Don't start mixing utilities in.
+**There is no Tailwind and no PostCSS config.** The stylesheet is plain CSS that Next processes with its
+defaults, and it carries its own reset at the top: box model, `img` height, form fields inheriting the
+page's type and color, placeholders. (Tailwind's preflight used to supply those; it was removed on
+October 15, 2026 after a computed-style comparison of every page showed no other dependence on it.) Every
+`className` is a semantic name defined in globals.css. Don't add a utility framework.
 
-Design tokens are CSS custom properties on `:root` (`--primary`, `--magenta`, `--ink`, `--bg`, `--line`,
-`--ease-out`, `--container`, `--header-h`, …). Fonts are wired in `app/layout.tsx` via `next/font/google`
-and exposed as `--font-space-grotesk` (headings) / `--font-inter` (body).
+Design tokens are CSS custom properties on `:root`. The names are the UI handoff's (`--brand-900` /
+`--brand-600` / `--brand-100`, `--ink-900` / `--ink-600`, `--surface` / `--surface-alt`, `--line`, the
+`--text-*` type scale, `--radius-card`, `--space-section`); the values are the site's original palette
+(`#6D28D9` brand, `#F1EFF7` background). `--primary`, `--ink`, `--ink-soft`, `--paper`, and `--bg` alias
+those tokens, so change the brand tokens, not the aliases; `--primary-deep` / `--primary-dark` /
+`--primary-lift`, `--bg-2`, `--line-strong`, and `--footer` are set by hand. Tints come from
+`color-mix(in srgb, var(--brand-600) N%, transparent)`. Every bordered box (buttons, cards, tiles, the hero
+chips, form fields, legal panels, the cookie card) uses `--radius-card` (8px) and the opaque `--line` edge;
+`--line-strong` is one step darker for list dividers, inputs, and ghost buttons. Neither is translucent.
+Two families, both loaded in `app/layout.tsx` via `next/font/google`: Space Grotesk (500/600/700) as
+`--font-space-grotesk` for headings and Inter (400/500/600) as `--font-inter` for body, exposed as
+`--font-head` / `--font-body`. Heading weights stay at 600/700; there is no variable axis.
 
 ## Animation is attribute-driven, centralized in `PageEffects.tsx`
 

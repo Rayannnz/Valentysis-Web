@@ -99,10 +99,8 @@ export default function CookieConsent() {
               The record of this choice is one localStorage item, and the
               optional categories are asked about ahead of any analytics. */}
           <p id="cookie-bar-desc">
-            This site sets no tracking cookies. We keep one item on your device to remember the
-            choice you make here, and we ask now for permission to use optional analytics, which we
-            don&apos;t currently run. Nothing optional is stored until you choose.{" "}
-            <Link href="/cookies">Read our cookie policy</Link>.
+            No tracking cookies. One item on your device remembers this choice; optional analytics
+            stay off until you allow them. <Link href="/cookies">Read our cookie policy</Link>.
           </p>
         </div>
         <div className="cookie-bar-actions">

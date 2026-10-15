@@ -4,10 +4,11 @@ import Cta from "@/components/Cta";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
+import IndustriesGrid from "@/components/IndustriesGrid";
 import JsonLd from "@/components/JsonLd";
 import PageEffects from "@/components/PageEffects";
 import dynamic from "next/dynamic";
-import Stats from "@/components/Stats";
+import ServicesGrid from "@/components/ServicesGrid";
 import { graph, webPageSchema } from "@/lib/schema";
 import { buildMetadata } from "@/lib/seo";
 
@@ -24,8 +25,8 @@ export const metadata: Metadata = buildMetadata({
   path: "/",
 });
 
-/* the service catalog moved to /services with the listing. The Service nodes
-   belong on the page that actually links them, not here */
+/* the service catalog lives on /services with the full listing. The Service
+   nodes belong on the page that actually links them, not here */
 const homeGraph = graph(webPageSchema({ name: TITLE, description: DESCRIPTION, path: "/" }));
 
 export default function Home() {
@@ -35,7 +36,8 @@ export default function Home() {
       <Header />
       <main id="main" tabIndex={-1}>
         <Hero />
-        <Stats />
+        <ServicesGrid />
+        <IndustriesGrid />
         <Approach />
         <Process />
         <Cta />
